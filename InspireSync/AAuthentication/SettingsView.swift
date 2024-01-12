@@ -7,12 +7,40 @@
 
 import SwiftUI
 
-struct SettingsView: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+@MainActor
+final class SettingsViewModel: ObservableObject{
+    
+    
+    func logOut() throws{
+        try AuthenticationManager.shared.signOut()
     }
 }
 
-#Preview {
-    SettingsView()
+struct SettingsView: View {
+    
+    @StateObject private var viewModel = SettingsViewModel()
+    @Binding var showSingInView: Bool
+    
+    var body: some View {
+        List {
+            Button("Log out"){
+                do{
+                    try viewModel.logOut()
+                    showSingInView = true
+                }catch{
+                    print(error)
+                }
+                
+            }
+        }
+        .navigationBarTitle("Settings")
+    }
+}
+
+struct SettingsView_Previews: PreviewProvider {
+    static var previews: some View {
+        NavigationStack {
+            SettingsView(showSingInView: .constant(false))
+        }
+    }
 }
