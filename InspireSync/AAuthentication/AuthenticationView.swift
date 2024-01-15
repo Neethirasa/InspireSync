@@ -6,9 +6,42 @@
 //
 
 import SwiftUI
+import UIKit
+import AuthenticationServices
+import CryptoKit
+import GoogleSignIn
+import GoogleSignInSwift
+
+
+@MainActor
+final class AuthenticationViewModel: ObservableObject {
+    
+    let signInAppleHelper = SignInAppleHelper()
+    
+    func signInApple() async throws {
+        
+        let helper = SignInAppleHelper()
+        let tokens = try await helper.startSignInWithAppleFlow()
+        try await AuthenticationManager.shared.signInWithApple(tokens: tokens)
+            
+    }
+    
+    
+    func signInGoogle() async throws {
+        
+        let helper = SignInGoogleHelper()
+        let tokens = try await helper.signIn()
+        try await AuthenticationManager.shared.signInWithGoogle(tokens: tokens)
+            
+    }
+    
+    
+}
+  
 
 struct AuthenticationView: View {
     
+    @StateObject private var viewModel = AuthenticationViewModel()
     @Binding var showSignInView: Bool
     
     
@@ -26,6 +59,32 @@ struct AuthenticationView: View {
                     .cornerRadius(10)
                 
             }
+            
+            GoogleSignInButton(viewModel: GoogleSignInButtonViewModel(scheme: .dark, style: .wide, state: .normal)) {
+                Task{
+                    do {
+                        try await viewModel.signInGoogle()
+                        showSignInView = false
+                    } catch {
+                        print(error)
+                    }
+                }
+            }
+            
+            Button(action: {
+                Task{
+                    do {
+                        try await viewModel.signInApple()
+                        showSignInView = false
+                    } catch {
+                        print(error)
+                    }
+                }
+            }, label: {
+                SignInWithAppleButtonViewRepresentable(type: .default, style: .black)
+                    .allowsHitTesting(/*@START_MENU_TOKEN@*/false/*@END_MENU_TOKEN@*/)
+            })
+                .frame(height: 55)
             
             Spacer()
         }

@@ -20,6 +20,12 @@ struct AuthDataResultModel {
     }
 }
 
+enum AuthProviderOption: String {
+    case email = "password"
+    case apple = "apple.com"
+    case google = "google.com"
+}
+
 final class AuthenticationManager{
     
     static let shared = AuthenticationManager()
@@ -32,6 +38,26 @@ final class AuthenticationManager{
         
         return AuthDataResultModel(user: user)
     }
+    
+    func getProviders() throws -> [AuthProviderOption] {
+        guard let providerData = Auth.auth().currentUser?.providerData else {
+            throw URLError(.badServerResponse)
+        }
+        
+        var providers: [AuthProviderOption] = []
+        for provider in providerData {
+            if let option = AuthProviderOption(rawValue: provider.providerID){
+                providers.append(option)
+            } else {
+                assertionFailure("Provider option not found: \(provider.providerID)")
+            }
+        }
+        print(providers)
+        return providers
+    }
+    
+    
+    
     @discardableResult
     func createUser(email: String, password: String) async throws -> AuthDataResultModel{
       let authDataResult = try await Auth.auth().createUser(withEmail: email, password: password)
@@ -69,5 +95,30 @@ final class AuthenticationManager{
     func signOut() throws{
        try  Auth.auth().signOut()
     }
+    
+}
+
+extension AuthenticationManager{
+    @discardableResult
+    func signInWithGoogle(tokens: GoogleSignInResultModel) async throws -> AuthDataResultModel {
+        let credential = GoogleAuthProvider.credential(withIDToken: tokens.idToken, accessToken: tokens.accessToken)
+        return try await signIn(credential: credential)
+    }
+    
+    @discardableResult
+    func signInWithApple(tokens: signInWithAppleResult) async throws -> AuthDataResultModel {
+        let credential = OAuthProvider.credential(withProviderID: AuthProviderOption.apple.rawValue, idToken: tokens.token, rawNonce: tokens.nonce)
+        return try await signIn(credential: credential)
+    }
+    
+    func signIn(credential: AuthCredential) async throws -> AuthDataResultModel {
+        let authDataResult = try await Auth.auth().signIn(with: credential)
+        return AuthDataResultModel(user: authDataResult.user)
+    }
+    
+
+    
+ 
+    
     
 }
