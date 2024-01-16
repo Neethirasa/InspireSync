@@ -12,6 +12,7 @@ final class SettingsViewModel: ObservableObject{
     
     @Published var authProviders: [AuthProviderOption] = []
     
+    
     func  loadAuthProviders() {
         if let providers = try? AuthenticationManager.shared.getProviders(){
             authProviders = providers
@@ -49,15 +50,32 @@ final class SettingsViewModel: ObservableObject{
 struct SettingsView: View {
     
     @StateObject private var viewModel = SettingsViewModel()
-    @Binding var showSingInView: Bool
+    @Binding var showSignInView: Bool
     
     var body: some View {
         List {
+            
+            Button("Add Friends"){
+                
+            }
+            
+            Button("Accept Requests"){
+                
+            }
+            
+            Button("Block"){
+                
+            }
+            
+            Button("Change Username"){
+                
+            }
             Button("Log out"){
                 Task{
                     do{
                         try viewModel.signOut()
-                        showSingInView = true
+                        showSignInView = true
+                        
                     }catch{
                         print(error)
                     }
@@ -79,7 +97,7 @@ struct SettingsView: View {
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            SettingsView(showSingInView: .constant(false))
+            SettingsView(showSignInView: .constant(false))
         }
     }
 }

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 import FirebaseAuth
 
 struct AuthDataResultModel {
@@ -29,6 +30,7 @@ enum AuthProviderOption: String {
 final class AuthenticationManager{
     
     static let shared = AuthenticationManager()
+    
     private init() { }
     
     func getAuthenticatedUser() throws -> AuthDataResultModel {
@@ -93,7 +95,12 @@ final class AuthenticationManager{
     }
     
     func signOut() throws{
-       try  Auth.auth().signOut()
+        let firebaseAuth = Auth.auth()
+        do {
+          try firebaseAuth.signOut()
+        } catch let signOutError as NSError {
+          print("Error signing out: %@", signOutError)
+        }
     }
     
 }

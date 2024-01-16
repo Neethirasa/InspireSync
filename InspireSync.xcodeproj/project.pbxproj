@@ -25,6 +25,8 @@
 		1E91DFD12B53B4DB00C72D29 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1E91DFD02B53B4DB00C72D29 /* GoogleService-Info.plist */; };
 		1E91DFD42B544DCE00C72D29 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E91DFD32B544DCE00C72D29 /* Utilities.swift */; };
 		1E91DFD62B544FDF00C72D29 /* SignInGoogleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E91DFD52B544FDF00C72D29 /* SignInGoogleHelper.swift */; };
+		1E91DFDA2B55A2F600C72D29 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E91DFD92B55A2F600C72D29 /* HomeView.swift */; };
+		1E91DFDE2B55C7CD00C72D29 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E91DFDD2B55C7CD00C72D29 /* ProfileView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +46,8 @@
 		1E91DFD02B53B4DB00C72D29 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Users/nivethikanneethirasa/Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1E91DFD32B544DCE00C72D29 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		1E91DFD52B544FDF00C72D29 /* SignInGoogleHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInGoogleHelper.swift; sourceTree = "<group>"; };
+		1E91DFD92B55A2F600C72D29 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		1E91DFDD2B55C7CD00C72D29 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +90,7 @@
 				1E91DFC52B53993300C72D29 /* InspireSync.entitlements */,
 				1E91DF702B50E6C300C72D29 /* InspireSyncApp.swift */,
 				1E91DF722B50E6C300C72D29 /* ContentView.swift */,
+				1E91DFD82B55A2DB00C72D29 /* Homepage */,
 				1E91DFD22B544DB600C72D29 /* Utilities */,
 				1E91DFBA2B50F02200C72D29 /* AAuthentication */,
 				1E91DFD02B53B4DB00C72D29 /* GoogleService-Info.plist */,
@@ -130,6 +135,15 @@
 				1E91DFD32B544DCE00C72D29 /* Utilities.swift */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		1E91DFD82B55A2DB00C72D29 /* Homepage */ = {
+			isa = PBXGroup;
+			children = (
+				1E91DFD92B55A2F600C72D29 /* HomeView.swift */,
+				1E91DFDD2B55C7CD00C72D29 /* ProfileView.swift */,
+			);
+			path = Homepage;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -218,7 +232,9 @@
 				1E91DFC42B50FE1000C72D29 /* SettingsView.swift in Sources */,
 				1E91DF732B50E6C300C72D29 /* ContentView.swift in Sources */,
 				1E91DF712B50E6C300C72D29 /* InspireSyncApp.swift in Sources */,
+				1E91DFDE2B55C7CD00C72D29 /* ProfileView.swift in Sources */,
 				1E91DFC22B50FB5800C72D29 /* RootView.swift in Sources */,
+				1E91DFDA2B55A2F600C72D29 /* HomeView.swift in Sources */,
 				1E91DFC72B53A8D100C72D29 /* SignInAppleHelper.swift in Sources */,
 				1E91DFBC2B50F22600C72D29 /* AuthenticationView.swift in Sources */,
 				1E91DFD42B544DCE00C72D29 /* Utilities.swift in Sources */,
