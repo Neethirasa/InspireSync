@@ -60,10 +60,12 @@ struct AuthenticationView: View {
                     .frame(width: 150, height: 150)
                 
                 Text("InspireSync")
-                    .font(.system(size: 52))
-                    .bold()
                     .padding()
                     .foregroundColor(.newPrimaryColor)
+                    .font(.custom(
+                            "Futura-Medium",
+                            fixedSize: 47))
+
                 
                 
                 
@@ -145,4 +147,7 @@ extension Color {
     static let newBlueColor = Color("DarkBlue")
     
     static let newTealColor = Color("customTeal")
+    
+    static let newSettingsColor = Color("SettingsColor")
+    
 }

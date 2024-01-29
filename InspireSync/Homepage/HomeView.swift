@@ -29,6 +29,7 @@ struct HomeView: View {
     
     @StateObject private var viewModel = HomeViewModel()
     @State private var settingsView = false
+    @State private var menuView = false
     @Binding var showSignInView: Bool
     
     
@@ -44,17 +45,21 @@ struct HomeView: View {
                 
 
                 VStack(alignment: .leading){
-                    
-                    Button(action: {
-
-                    }, label: {
-                        Image("menuIcon")
-                            .font(.system(size: 40))
-                            .foregroundColor(.customTeal)
+                    NavigationLink(destination: SettingsView(showSignInView: $showSignInView)) {
+                        Button(action: {
+                            menuView.toggle()
+                        }, label: {
+                            Image("menuIcon")
+                                .font(.system(size: 40))
+                                .foregroundColor(.customTeal)
                             
                             
-
-                    })
+                            
+                        })
+                        .sheet(isPresented: $menuView) {
+                            MenuView()
+                        }
+                    }
                     Spacer()
 
                 }
@@ -78,7 +83,7 @@ struct HomeView: View {
                         
                         Spacer()
                         
-                        NavigationLink(destination: ProfileView()) {
+                        NavigationLink(destination: SettingsView(showSignInView: $showSignInView)) {
                             
                         Button(action: {
                             settingsView.toggle()

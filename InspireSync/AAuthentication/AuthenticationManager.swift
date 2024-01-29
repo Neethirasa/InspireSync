@@ -58,12 +58,10 @@ final class AuthenticationManager{
         return providers
     }
     
-    
-    
     @discardableResult
     func createUser(email: String, password: String) async throws -> AuthDataResultModel{
-      let authDataResult = try await Auth.auth().createUser(withEmail: email, password: password)
-      return AuthDataResultModel(user: authDataResult.user)
+        let authDataResult = try await Auth.auth().createUser(withEmail: email, password: password)
+        return AuthDataResultModel(user: authDataResult.user)
     }
     
     @discardableResult
@@ -97,10 +95,19 @@ final class AuthenticationManager{
     func signOut() throws{
         let firebaseAuth = Auth.auth()
         do {
-          try firebaseAuth.signOut()
+            try firebaseAuth.signOut()
         } catch let signOutError as NSError {
-          print("Error signing out: %@", signOutError)
+            print("Error signing out: %@", signOutError)
         }
+    }
+    
+    func delete() async throws{
+        
+        guard let user = Auth.auth().currentUser else {
+            throw URLError(.badURL)
+        }
+        
+        try await user.delete()
     }
     
 }
