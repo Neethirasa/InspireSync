@@ -37,13 +37,13 @@ struct HomeView: View {
             
         
         ZStack{
-            
+                        
             Color.washedBlack.ignoresSafeArea()
             
             HStack{
                 
+                Spacer().frame(width: 25)
                 
-
                 VStack(alignment: .leading){
                     NavigationLink(destination: SettingsView(showSignInView: $showSignInView)) {
                         Button(action: {
@@ -53,14 +53,13 @@ struct HomeView: View {
                                 .font(.system(size: 40))
                                 .foregroundColor(.customTeal)
                             
-                            
-                            
+
                         })
                         .sheet(isPresented: $menuView) {
                             MenuView()
                         }
                     }
-                    Spacer()
+                    Spacer().frame(height: 675)
 
                 }
                 
@@ -74,8 +73,10 @@ struct HomeView: View {
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 60, height: 60)
                             
-                        Spacer()
+                        Spacer().frame(height: 675)
                     }
+                    
+                    
                 }
                 
                 VStack{
@@ -87,33 +88,62 @@ struct HomeView: View {
                             
                         Button(action: {
                             settingsView.toggle()
-                            
-                                
-                            
                         }, label: {
                             Image(systemName: "person.crop.circle.dashed")
                                 .font(.system(size: 40))
                                 .foregroundColor(.customTeal)
-                                
-
                         })
                         .sheet(isPresented: $settingsView) {
                             SettingsView(showSignInView: $showSignInView)
                         }
-                                   
                                    }
-                        
                     }
                     
-                    Spacer()
-
+                    Spacer().frame(height: 675)
                 }
-                
-                Spacer()
-                
+                Spacer().frame(width: 25)
                 
                 
             }
+            
+            VStack{
+                
+                Spacer().frame(height: 75)
+                Button(action: { }, label: {
+                  Text("+")
+                    .frame(width: 300 , height: 150)
+                    .font(.system(size: 60))
+                    .foregroundColor(.white)
+                    .cornerRadius(.infinity)
+                    .padding()
+                    .background(RoundedRectangle(cornerRadius: 10).stroke(.customTeal, lineWidth: 5))
+                })
+                
+                Spacer().frame(height: 40)
+                
+                Button(action: { }, label: {
+                  Text("In the end, we will remember not the words of our enemies, but the silence of our friends. - Martin Luther King Jr.")
+                    .frame(width: 300 , height: 150)
+                    .font(.system(size: 16))
+                    .foregroundColor(.white)
+                    .cornerRadius(.infinity)
+                    .padding()
+                    .background(RoundedRectangle(cornerRadius: 10).stroke(.customTeal, lineWidth: 5))
+                })
+                
+                Spacer().frame(height: 40)
+                
+                Button(action: { }, label: {
+                  Text("The only way to do great work is to love what you do. - Steve Jobs")
+                    .frame(width: 300 , height: 150)
+                    .font(.system(size: 16))
+                    .foregroundColor(.white)
+                    .cornerRadius(.infinity)
+                    .padding()
+                    .background(RoundedRectangle(cornerRadius: 10).stroke(.customTeal, lineWidth: 5))
+                })
+            }
+            
             
         }
         
@@ -141,6 +171,7 @@ struct HomeView: View {
                             
             }
         */
+        
     }
 }
 

@@ -14,8 +14,8 @@ struct MenuView: View {
             Color.washedBlack.ignoresSafeArea()
             
             HStack{
-                
                 VStack{
+                    Spacer().frame(height: 25)
                     Text("Menu")
                         .font(.system(size: 30, weight: .heavy))
                         .font(.custom(
@@ -27,7 +27,7 @@ struct MenuView: View {
             }
             
             VStack{
-                Spacer()
+                Spacer().frame(height: 50)
                 List {
                     
                     Button("Help"){

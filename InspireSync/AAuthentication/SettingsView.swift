@@ -66,7 +66,7 @@ struct SettingsView: View {
             HStack{
                 
                 VStack{
-                    
+                    Spacer().frame(height: 25)
                     Text("Settings")
                         .font(.system(size: 30, weight: .heavy))
                         .font(.custom(
@@ -78,7 +78,7 @@ struct SettingsView: View {
             }
             
             VStack{
-                Spacer()
+                Spacer().frame(height: 50)
                 List {
                     
                     Button("Add Friend"){
@@ -111,26 +111,33 @@ struct SettingsView: View {
                                 "Futura-Medium",
                                 fixedSize: 20))
                     
-                    Button("Delete Account"){
-                        Task{
-                            do{
-                                try viewModel.signOut()
-                                showSignInView = true
-                                
-                            }catch{
-                                print(error)
-                            }
-                        }
-                    }.listRowBackground(Color.washedBlack)
-                        .font(.custom(
-                                "Futura-Medium",
-                                fixedSize: 20))
                     
                     if viewModel.authProviders.contains(.email){
                         emailSection
                     }
                   
                 }
+                
+                Button(role: .destructive){
+                    Task{
+                        do{
+                            try viewModel.signOut()
+                            showSignInView = true
+                            
+                        }catch{
+                            print(error)
+                        }
+                    }
+                }label: {
+                Text("Delete Account")
+              }
+                
+                .listRowBackground(Color.washedBlack)
+                    .font(.custom(
+                            "Futura-Medium",
+                            fixedSize: 20))
+                
+                Spacer().frame(height: 15)
                 
                 Button(role: .destructive){
                     Task{
@@ -155,6 +162,7 @@ struct SettingsView: View {
                     viewModel.loadAuthProviders()
                 }
                 .navigationBarTitle("")
+                Spacer().frame(height: 15)
             }
             
         }

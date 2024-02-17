@@ -92,14 +92,15 @@ final class AuthenticationManager{
         try await user.updatePassword(to: email)
     }
     
-    func signOut() throws{
-        let firebaseAuth = Auth.auth()
+    func signOut(){
         do {
-            try firebaseAuth.signOut()
-        } catch let signOutError as NSError {
-            print("Error signing out: %@", signOutError)
+            try Auth.auth().signOut()
+        } catch{
+            print("Error signing out: %@")
         }
     }
+    
+    
     
     func delete() async throws{
         
@@ -108,7 +109,10 @@ final class AuthenticationManager{
         }
         
         try await user.delete()
+         
     }
+    
+    
     
 }
 
@@ -129,6 +133,7 @@ extension AuthenticationManager{
         let authDataResult = try await Auth.auth().signIn(with: credential)
         return AuthDataResultModel(user: authDataResult.user)
     }
+    
     
 
     

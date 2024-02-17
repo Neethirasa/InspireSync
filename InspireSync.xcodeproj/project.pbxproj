@@ -27,6 +27,8 @@
 		1E91DFD62B544FDF00C72D29 /* SignInGoogleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E91DFD52B544FDF00C72D29 /* SignInGoogleHelper.swift */; };
 		1E91DFDA2B55A2F600C72D29 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E91DFD92B55A2F600C72D29 /* HomeView.swift */; };
 		1E91DFDE2B55C7CD00C72D29 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E91DFDD2B55C7CD00C72D29 /* ProfileView.swift */; };
+		1EAFEF802B718958000BDCDD /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 1EAFEF7F2B718958000BDCDD /* FirebaseFirestore */; };
+		1EAFEF822B718958000BDCDD /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 1EAFEF812B718958000BDCDD /* FirebaseFirestoreSwift */; };
 		1EE5A1C22B572B8B00A9171A /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1EE5A1C12B572B8B00A9171A /* Launch Screen.storyboard */; };
 		1EE5A1C42B572D1F00A9171A /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE5A1C32B572D1F00A9171A /* MenuView.swift */; };
 /* End PBXBuildFile section */
@@ -62,8 +64,10 @@
 				1E91DFCC2B53B37700C72D29 /* GoogleSignInSwift in Frameworks */,
 				1E91DF862B50E94200C72D29 /* FirebaseAnalyticsSwift in Frameworks */,
 				1E91DFCA2B53B37700C72D29 /* GoogleSignIn in Frameworks */,
+				1EAFEF822B718958000BDCDD /* FirebaseFirestoreSwift in Frameworks */,
 				1E91DFB92B50EFB000C72D29 /* FirebaseAuth in Frameworks */,
 				1E91DF822B50E94200C72D29 /* FirebaseAnalytics in Frameworks */,
+				1EAFEF802B718958000BDCDD /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -174,6 +178,8 @@
 				1E91DFB82B50EFB000C72D29 /* FirebaseAuth */,
 				1E91DFC92B53B37700C72D29 /* GoogleSignIn */,
 				1E91DFCB2B53B37700C72D29 /* GoogleSignInSwift */,
+				1EAFEF7F2B718958000BDCDD /* FirebaseFirestore */,
+				1EAFEF812B718958000BDCDD /* FirebaseFirestoreSwift */,
 			);
 			productName = InspireSync;
 			productReference = 1E91DF6D2B50E6C300C72D29 /* InspireSync.app */;
@@ -504,6 +510,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 1E91DFC82B53B37700C72D29 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
 			productName = GoogleSignInSwift;
+		};
+		1EAFEF7F2B718958000BDCDD /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1E91DF802B50E94200C72D29 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		1EAFEF812B718958000BDCDD /* FirebaseFirestoreSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1E91DF802B50E94200C72D29 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestoreSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
