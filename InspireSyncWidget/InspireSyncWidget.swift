@@ -10,11 +10,11 @@ import SwiftUI
 
 struct Provider: TimelineProvider {
     func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(date: Date(), emoji: "😀")
+        SimpleEntry(date: Date(), emoji: "😀", myString: getMyString())
     }
 
     func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
-        let entry = SimpleEntry(date: Date(), emoji: "😀")
+        let entry = SimpleEntry(date: Date(), emoji: "😀", myString: getMyString())
         completion(entry)
     }
 
@@ -25,7 +25,7 @@ struct Provider: TimelineProvider {
         let currentDate = Date()
         for hourOffset in 0 ..< 5 {
             let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
-            let entry = SimpleEntry(date: entryDate, emoji: "😀")
+            let entry = SimpleEntry(date: entryDate, emoji: "😀", myString: getMyString())
             entries.append(entry)
         }
 
@@ -34,9 +34,15 @@ struct Provider: TimelineProvider {
     }
 }
 
+private func getMyString() -> String {
+    let defaults = UserDefaults(suiteName:"group.Nivethikan-Neethirasa.InspireSync")
+    return defaults?.string(forKey: "myDefaultString") ?? "No String"
+}
+
 struct SimpleEntry: TimelineEntry {
     let date: Date
     let emoji: String
+    let myString: String
 }
 
 struct InspireSyncWidgetEntryView : View {
@@ -44,11 +50,7 @@ struct InspireSyncWidgetEntryView : View {
 
     var body: some View {
         VStack {
-            Text("Time:")
-            Text(entry.date, style: .time)
-
-            Text("Emoji:")
-            Text(entry.emoji)
+            Text(entry.myString)
         }
     }
 }
@@ -64,7 +66,7 @@ struct InspireSyncWidget: Widget {
             } else {
                 InspireSyncWidgetEntryView(entry: entry)
                     .padding()
-                    .background()
+                    .background(Color("WidgetBackground"))
             }
         }
         .configurationDisplayName("My Widget")
@@ -75,6 +77,6 @@ struct InspireSyncWidget: Widget {
 #Preview(as: .systemSmall) {
     InspireSyncWidget()
 } timeline: {
-    SimpleEntry(date: .now, emoji: "😀")
-    SimpleEntry(date: .now, emoji: "🤩")
+    SimpleEntry(date: .now, emoji: "😀", myString: "Hello")
+    SimpleEntry(date: .now, emoji: "🤩", myString: "Hi")
 }
