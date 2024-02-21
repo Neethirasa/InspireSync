@@ -153,7 +153,7 @@ struct HomeView: View {
                 Spacer().frame(height: 40)
                 
                 Button(action: { 
-                    myString = firstQuote
+                    myString = secondQuote
                     WidgetCenter.shared.reloadAllTimelines()
                 }, label: {
                     Text(secondQuote)
