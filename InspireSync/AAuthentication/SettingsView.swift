@@ -10,9 +10,21 @@ import SwiftUI
 @MainActor
 final class SettingsViewModel: ObservableObject{
     
+    @Published var authProviders: [AuthProviderOption] = []
+    
+    
+    func  loadAuthProviders() {
+        if let providers = try? AuthenticationManager.shared.getProviders(){
+            authProviders = providers
+        }
+    }
     
     func signOut() throws{
         try AuthenticationManager.shared.signOut()
+    }
+    
+    func deleteAccount() async throws{
+        try await AuthenticationManager.shared.delete()
     }
     
     func resetPassword() async throws{
@@ -42,33 +54,127 @@ final class SettingsViewModel: ObservableObject{
 struct SettingsView: View {
     
     @StateObject private var viewModel = SettingsViewModel()
-    @Binding var showSingInView: Bool
+    @Binding var showSignInView: Bool
+    
+
     
     var body: some View {
-        List {
-            Button("Log out"){
-                Task{
-                    do{
-                        try viewModel.signOut()
-                        showSingInView = true
-                    }catch{
-                        print(error)
+        
+        ZStack{
+            Color.washedBlack.ignoresSafeArea()
+            
+            HStack{
+                
+                VStack{
+                    Spacer().frame(height: 25)
+                    Text("Settings")
+                        .font(.system(size: 30, weight: .heavy))
+                        .font(.custom(
+                                "Futura-Medium",
+                                fixedSize: 30))
+                        .foregroundStyle(.white)
+                    Spacer()
+                }
+            }
+            
+            VStack{
+                Spacer().frame(height: 50)
+                List {
+                    
+                    Button("Add Friend"){
+                        
+                    }.listRowBackground(Color.washedBlack)
+                        .font(.custom(
+                                "Futura-Medium",
+                                fixedSize: 20))
+                    
+                    Button("Accept Requests"){
+                        
+                    }.listRowBackground(Color.washedBlack)
+                        .font(.custom(
+                                "Futura-Medium",
+                                fixedSize: 20))
+
+                    
+                    Button("Block"){
+                        
+                    }.listRowBackground(Color.washedBlack)
+                        .font(.custom(
+                                "Futura-Medium",
+                                fixedSize: 20))
+
+                    
+                    Button("Change Username"){
+                        
+                    }.listRowBackground(Color.washedBlack)
+                        .font(.custom(
+                                "Futura-Medium",
+                                fixedSize: 20))
+                    
+                    
+                    if viewModel.authProviders.contains(.email){
+                        emailSection
                     }
+                  
                 }
                 
+                Button(role: .destructive){
+                    Task{
+                        do{
+                            try viewModel.signOut()
+                            showSignInView = true
+                            
+                        }catch{
+                            print(error)
+                        }
+                    }
+                }label: {
+                Text("Delete Account")
+              }
+                
+                .listRowBackground(Color.washedBlack)
+                    .font(.custom(
+                            "Futura-Medium",
+                            fixedSize: 20))
+                
+                Spacer().frame(height: 15)
+                
+                Button(role: .destructive){
+                    Task{
+                        do{
+                            try viewModel.signOut()
+                            showSignInView = true
+                            
+                        }catch{
+                            print(error)
+                        }
+                    }
+                    
+                }label: {
+                    Text("Log Out")
+                  }
+                .listRowBackground(Color.washedBlack)
+                .font(.custom(
+                        "Futura-Medium",
+                        fixedSize: 20))
+                
+                .onAppear{
+                    viewModel.loadAuthProviders()
+                }
+                .navigationBarTitle("")
+                Spacer().frame(height: 15)
             }
-        
-            emailSection
             
         }
-        .navigationBarTitle("Settings")
-    }
+        .background(.washedBlack)
+        .scrollContentBackground(.hidden)
+        }
 }
 
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            SettingsView(showSingInView: .constant(false))
+            SettingsView(showSignInView: .constant(false))
         }
     }
 }
