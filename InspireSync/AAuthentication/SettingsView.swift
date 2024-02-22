@@ -21,6 +21,7 @@ final class SettingsViewModel: ObservableObject{
     
     func signOut() throws{
         try AuthenticationManager.shared.signOut()
+        
     }
     
     func deleteAccount() async throws{
@@ -142,8 +143,8 @@ struct SettingsView: View {
                 Button(role: .destructive){
                     Task{
                         do{
-                            try viewModel.signOut()
                             showSignInView = true
+                            try viewModel.signOut()
                             
                         }catch{
                             print(error)

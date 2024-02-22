@@ -10,30 +10,45 @@ import SwiftUI
 struct RootView: View {
     
     @State private var showSignInView: Bool = false
+    @State private var nullUsername: Bool = false
     
     var body: some View {
+        
         ZStack{
-            
-            
-            if !showSignInView{
-                NavigationStack{
-                    //SettingsView(showSignInView: $showSignInView)
-                    HomeView(showSignInView: $showSignInView)
+            ZStack{
+                if !showSignInView{
+                    NavigationStack{
+                        //SettingsView(showSignInView: $showSignInView)
+                        HomeView(showSignInView: $showSignInView)
+                    }
                 }
             }
-            
+            .onAppear{
+                let authUser = try? AuthenticationManager.shared.getAuthenticatedUser()
+                self.showSignInView = authUser == nil
+            }
+            .fullScreenCover(isPresented: $showSignInView, content: {
+                NavigationStack{
+                    AuthenticationView(showSignInView: $showSignInView)
+                }
+            })
         }
         .onAppear{
-            let authUser = try? AuthenticationManager.shared.getAuthenticatedUser()
-            self.showSignInView = authUser == nil
+            let authUsername = try? AuthenticationManager.shared.getAuthenticatedUser().username
+            if authUsername == ""{
+                self.nullUsername = false
+            }
+            self.nullUsername = authUsername == nil
         }
-        .fullScreenCover(isPresented: $showSignInView, content: {
+        .fullScreenCover(isPresented: $nullUsername, content: {
             NavigationStack{
-                AuthenticationView(showSignInView: $showSignInView)
+                ProfileView(nullUsername: $nullUsername)
             }
         })
     }
 }
+
+
 
 #Preview {
     RootView()

@@ -92,7 +92,7 @@ struct sendQuoteView: View {
                         firstQuote = QuoteManager.shared.getFirstQuote()
                         secondQuote = QuoteManager.shared.getSecondQuote()
                         
-                        
+                        dismiss()
                         
                     }label: {
                     Text("Send")
@@ -133,4 +133,5 @@ struct sendQuoteView: View {
 #Preview {
     sendQuoteView()
 }
-*/
+ */
+

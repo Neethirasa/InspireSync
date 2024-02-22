@@ -65,7 +65,7 @@ struct HomeView: View {
                             MenuView()
                         }
                     }
-                    Spacer().frame(height: 675)
+                    Spacer().frame(height: 700)
 
                 }
                 
@@ -79,7 +79,7 @@ struct HomeView: View {
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 60, height: 60)
                             
-                        Spacer().frame(height: 675)
+                        Spacer().frame(height: 700)
                     }
                     
                     
@@ -105,7 +105,7 @@ struct HomeView: View {
                                    }
                     }
                     
-                    Spacer().frame(height: 675)
+                    Spacer().frame(height: 700)
                 }
                 Spacer().frame(width: 25)
                 
