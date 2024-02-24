@@ -13,14 +13,24 @@ struct RootView: View {
     @State private var nullUsername: Bool = false
     
     var body: some View {
-        
-        ZStack{
             ZStack{
                 if !showSignInView{
-                    NavigationStack{
-                        //SettingsView(showSignInView: $showSignInView)
-                        HomeView(showSignInView: $showSignInView)
+                    ZStack{
+                        NavigationStack{
+                            //SettingsView(showSignInView: $showSignInView)
+                            HomeView(showSignInView: $showSignInView)
+                        }
                     }
+                    .onAppear{
+                        let authUsername = try? AuthenticationManager.shared.getAuthenticatedUser().username
+                        self.nullUsername = authUsername == nil
+                    }
+                    .fullScreenCover(isPresented: $nullUsername, content: {
+                        NavigationStack{
+                            ProfileView(nullUsername: $nullUsername)
+                        }
+                    })
+                    
                 }
             }
             .onAppear{
@@ -32,12 +42,9 @@ struct RootView: View {
                     AuthenticationView(showSignInView: $showSignInView)
                 }
             })
-        }
+        /*
         .onAppear{
             let authUsername = try? AuthenticationManager.shared.getAuthenticatedUser().username
-            if authUsername == ""{
-                self.nullUsername = false
-            }
             self.nullUsername = authUsername == nil
         }
         .fullScreenCover(isPresented: $nullUsername, content: {
@@ -45,6 +52,7 @@ struct RootView: View {
                 ProfileView(nullUsername: $nullUsername)
             }
         })
+         */
     }
 }
 

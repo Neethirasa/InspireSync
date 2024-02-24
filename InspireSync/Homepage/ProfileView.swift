@@ -47,10 +47,6 @@ struct ProfileView: View {
                         if !username.isEmpty{
                             nullUsername = false
                         }
-                        NavigationStack{
-                            //SettingsView(showSignInView: $showSignInView)
-                            HomeView(showSignInView: $showSignInView)
-                        }
                         
                     }label: {
                     Text("Submit")

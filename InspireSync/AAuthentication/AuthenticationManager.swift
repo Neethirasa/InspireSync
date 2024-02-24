@@ -13,14 +13,14 @@ struct AuthDataResultModel {
     let uid: String
     let email: String?
     let photoUrl: String?
-    let username: String
+    let username: String?
     
     init(user: User) {
         self.uid = user.uid
         self.email = user.email
         self.photoUrl = user.photoURL?.absoluteString
         //self.username = ""
-        self.username = ""
+        self.username = "Nive" //change to nil for username view
     }
 }
 
