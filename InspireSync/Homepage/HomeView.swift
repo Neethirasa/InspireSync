@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import WidgetKit
 
 @MainActor
 final class HomeViewModel: ObservableObject{
@@ -31,7 +32,12 @@ struct HomeView: View {
     @State private var settingsView = false
     @State private var menuView = false
     @Binding var showSignInView: Bool
+    @State private var showingQuote = false
+    @AppStorage("myDefaultString") var myString = ""
+    @ObservedObject var reloadViewHelper = ReloadViewHelper()
     
+    @State private var firstQuote = QuoteManager.shared.getFirstQuote()
+    @State private var secondQuote = QuoteManager.shared.getSecondQuote()
     
     var body: some View {
             
@@ -59,7 +65,7 @@ struct HomeView: View {
                             MenuView()
                         }
                     }
-                    Spacer().frame(height: 675)
+                    Spacer().frame(height: 700)
 
                 }
                 
@@ -73,7 +79,7 @@ struct HomeView: View {
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 60, height: 60)
                             
-                        Spacer().frame(height: 675)
+                        Spacer().frame(height: 700)
                     }
                     
                     
@@ -99,7 +105,7 @@ struct HomeView: View {
                                    }
                     }
                     
-                    Spacer().frame(height: 675)
+                    Spacer().frame(height: 700)
                 }
                 Spacer().frame(width: 25)
                 
@@ -109,7 +115,12 @@ struct HomeView: View {
             VStack{
                 
                 Spacer().frame(height: 75)
-                Button(action: { }, label: {
+                
+                
+                Button(action: {
+                    showingQuote.toggle()
+                    //reloadViewHelper.reloadView()
+                }, label: {
                   Text("+")
                     .frame(width: 300 , height: 150)
                     .font(.system(size: 60))
@@ -118,23 +129,34 @@ struct HomeView: View {
                     .padding()
                     .background(RoundedRectangle(cornerRadius: 10).stroke(.customTeal, lineWidth: 5))
                 })
+                .sheet(isPresented: $showingQuote) {
+                    sendQuoteView(firstQuote: $firstQuote, secondQuote: $secondQuote)
+                        }
                 
                 Spacer().frame(height: 40)
                 
-                Button(action: { }, label: {
-                  Text("In the end, we will remember not the words of our enemies, but the silence of our friends. - Martin Luther King Jr.")
+                Button(action: {
+                    myString = firstQuote
+                    WidgetCenter.shared.reloadAllTimelines()
+                }, label: {
+                    Text(firstQuote)
                     .frame(width: 300 , height: 150)
                     .font(.system(size: 16))
                     .foregroundColor(.white)
                     .cornerRadius(.infinity)
                     .padding()
                     .background(RoundedRectangle(cornerRadius: 10).stroke(.customTeal, lineWidth: 5))
+                    
+                    
                 })
                 
                 Spacer().frame(height: 40)
                 
-                Button(action: { }, label: {
-                  Text("The only way to do great work is to love what you do. - Steve Jobs")
+                Button(action: { 
+                    myString = secondQuote
+                    WidgetCenter.shared.reloadAllTimelines()
+                }, label: {
+                    Text(secondQuote)
                     .frame(width: 300 , height: 150)
                     .font(.system(size: 16))
                     .foregroundColor(.white)
@@ -172,6 +194,17 @@ struct HomeView: View {
             }
         */
         
+    }
+    
+}
+
+func helpMe (){
+    
+}
+
+class ReloadViewHelper: ObservableObject {
+    func reloadView() {
+        objectWillChange.send()
     }
 }
 

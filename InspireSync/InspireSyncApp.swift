@@ -17,6 +17,7 @@ struct InspireSyncApp: App {
     var body: some Scene {
         WindowGroup {
             RootView()
+                .defaultAppStorage(UserDefaults(suiteName: "group.Nivethikan-Neethirasa.InspireSync")!)
         }
     }
 }
