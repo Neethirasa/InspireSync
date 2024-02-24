@@ -55,9 +55,10 @@ final class SettingsViewModel: ObservableObject{
 struct SettingsView: View {
     
     @StateObject private var viewModel = SettingsViewModel()
-    @Binding var showSignInView: Bool
+    //@Binding var showSignInView: Bool
     
-
+    @State private var settingsView = false
+    @State private var showSignInView = false
     
     var body: some View {
         
@@ -143,6 +144,7 @@ struct SettingsView: View {
                 Button(role: .destructive){
                     Task{
                         do{
+                            settingsView.toggle()
                             showSignInView = true
                             try viewModel.signOut()
                             
@@ -163,7 +165,13 @@ struct SettingsView: View {
                     viewModel.loadAuthProviders()
                 }
                 .navigationBarTitle("")
+                .fullScreenCover(isPresented: $showSignInView, content: {
+                    NavigationStack{
+                        AuthenticationView(showSignInView: $showSignInView)
+                    }
+                })
                 Spacer().frame(height: 15)
+                
             }
             
         }
@@ -175,7 +183,7 @@ struct SettingsView: View {
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            SettingsView(showSignInView: .constant(false))
+            SettingsView()
         }
     }
 }

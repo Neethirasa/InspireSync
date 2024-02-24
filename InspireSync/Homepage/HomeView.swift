@@ -31,10 +31,12 @@ struct HomeView: View {
     @StateObject private var viewModel = HomeViewModel()
     @State private var settingsView = false
     @State private var menuView = false
-    @Binding var showSignInView: Bool
+    //@Binding var showSignInView: Bool
     @State private var showingQuote = false
     @AppStorage("myDefaultString") var myString = ""
     @ObservedObject var reloadViewHelper = ReloadViewHelper()
+    
+    @State private var showSignInView = false
     
     @State private var firstQuote = QuoteManager.shared.getFirstQuote()
     @State private var secondQuote = QuoteManager.shared.getSecondQuote()
@@ -51,7 +53,7 @@ struct HomeView: View {
                 Spacer().frame(width: 25)
                 
                 VStack(alignment: .leading){
-                    NavigationLink(destination: SettingsView(showSignInView: $showSignInView)) {
+                    NavigationStack{
                         Button(action: {
                             menuView.toggle()
                         }, label: {
@@ -90,19 +92,18 @@ struct HomeView: View {
                         
                         Spacer()
                         
-                        NavigationLink(destination: SettingsView(showSignInView: $showSignInView)) {
-                            
-                        Button(action: {
-                            settingsView.toggle()
-                        }, label: {
-                            Image(systemName: "person.crop.circle.dashed")
-                                .font(.system(size: 40))
-                                .foregroundColor(.customTeal)
-                        })
-                        .sheet(isPresented: $settingsView) {
-                            SettingsView(showSignInView: $showSignInView)
+                        NavigationStack{
+                            Button(action: {
+                                settingsView.toggle()
+                            }, label: {
+                                Image(systemName: "person.crop.circle.dashed")
+                                    .font(.system(size: 40))
+                                    .foregroundColor(.customTeal)
+                            })
+                            .sheet(isPresented: $settingsView) {
+                                SettingsView()
+                            }
                         }
-                                   }
                     }
                     
                     Spacer().frame(height: 700)
@@ -212,7 +213,7 @@ class ReloadViewHelper: ObservableObject {
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            HomeView(showSignInView: .constant(false))
+            HomeView()
         }
     }
 }
