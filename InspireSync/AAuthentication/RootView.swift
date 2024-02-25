@@ -18,7 +18,8 @@ struct RootView: View {
                     ZStack{
                         NavigationStack{
                             //SettingsView(showSignInView: $showSignInView)
-                            HomeView()
+                            //HomeView()
+                            SideView()
                         }
                     }
                     .onAppear{

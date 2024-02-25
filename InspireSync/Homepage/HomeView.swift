@@ -51,8 +51,9 @@ struct HomeView: View {
             HStack{
                 
                 Spacer().frame(width: 25)
-                
+                /*
                 VStack(alignment: .leading){
+                    
                     NavigationStack{
                         Button(action: {
                             menuView.toggle()
@@ -70,8 +71,9 @@ struct HomeView: View {
                     Spacer().frame(height: 700)
 
                 }
+                */
                 
-                
+                /*
                 HStack(){
                     Spacer()
                         .padding()
@@ -86,7 +88,9 @@ struct HomeView: View {
                     
                     
                 }
+                 */
                 
+                /*
                 VStack{
                     HStack{
                         
@@ -109,6 +113,7 @@ struct HomeView: View {
                     Spacer().frame(height: 700)
                 }
                 Spacer().frame(width: 25)
+                */
                 
                 
             }
