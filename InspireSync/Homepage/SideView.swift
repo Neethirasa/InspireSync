@@ -7,35 +7,30 @@
 
 import SwiftUI
 
-struct SideView: View {
-    @State private var isSideBarOpened = false
+struct SideView<RenderView: View>: View {
+    @Binding var isShowing: Bool
+    var direction: Edge
+    @ViewBuilder  var content: RenderView
     
     var body: some View {
-        ZStack{
-            NavigationView{
-                HomeView()
-                    .toolbar {
-                        VStack{
-                            Button {
-                                isSideBarOpened.toggle()
-                            } label: {
-                                Image("menuIcon")
-                                    .font(.system(size: 40))
-                                    .foregroundColor(.customTeal)
-                            }
-                        }
-                        .listStyle(.inset)
-                        
-                        Spacer().frame(width: 300)
-                        }
-                                      //.navigationTitle("Home")
-                                      //.navigationBarTitleDisplayMode(.inline)
+        ZStack(alignment: .leading) {
+            if isShowing {
+                Color.black
+                    .opacity(0.3)
+                    .ignoresSafeArea()
+                    .onTapGesture {
+                        isShowing.toggle()
+                    }
+                content
+                    .transition(.move(edge: direction))
+                    .background(
+                        Color.white
+                    )
             }
-            SideBarStack(isSidebarVisible: $isSideBarOpened)
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+        .ignoresSafeArea()
+        .animation(.easeInOut, value: isShowing)
     }
 }
 
-#Preview {
-    SideView()
-}

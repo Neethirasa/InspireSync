@@ -41,9 +41,142 @@ struct HomeView: View {
     @State private var firstQuote = QuoteManager.shared.getFirstQuote()
     @State private var secondQuote = QuoteManager.shared.getSecondQuote()
     
+    @State var presentSideMenu = false
+    
     var body: some View {
             
+        ZStack {
+            Color.washedBlack.edgesIgnoringSafeArea(.all)
+            
+            VStack {
+                
+                Spacer().frame(height: 40)
+                
+                Button(action: {
+                    showingQuote.toggle()
+                    //reloadViewHelper.reloadView()
+                }, label: {
+                  Text("+")
+                    .frame(width: 300 , height: 100)
+                    .font(.system(size: 60))
+                    .foregroundColor(.white)
+                    .cornerRadius(.infinity)
+                    .padding()
+                    .background(RoundedRectangle(cornerRadius: 10).stroke(.customTeal, lineWidth: 5))
+                })
+                .sheet(isPresented: $showingQuote) {
+                    sendQuoteView(firstQuote: $firstQuote, secondQuote: $secondQuote)
+                        }
+                
+                Spacer().frame(height: 40)
+                
+                Button(action: {
+                    myString = firstQuote
+                    WidgetCenter.shared.reloadAllTimelines()
+                }, label: {
+                    Text(firstQuote)
+                    .frame(width: 300 , height: 150)
+                    .font(.system(size: 16))
+                    .foregroundColor(.white)
+                    .cornerRadius(.infinity)
+                    .padding()
+                    .background(RoundedRectangle(cornerRadius: 10).stroke(.customTeal, lineWidth: 5))
+                    
+                    
+                })
+                
+                Spacer().frame(height: 40)
+                
+                Button(action: {
+                    myString = secondQuote
+                    WidgetCenter.shared.reloadAllTimelines()
+                }, label: {
+                    Text(secondQuote)
+                    .frame(width: 300 , height: 150)
+                    .font(.system(size: 16))
+                    .foregroundColor(.white)
+                    .cornerRadius(.infinity)
+                    .padding()
+                    .background(RoundedRectangle(cornerRadius: 10).stroke(.customTeal, lineWidth: 5))
+                })
+                
+                
+                
+                
+                
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .overlay(
+                ZStack {
+                    HStack {
+                      
+                        VStack{
+                            Button {
+                                presentSideMenu.toggle()
+                            } label: {
+                                Image("menuIcon")
+                                    .aspectRatio(contentMode: .fit)
+                                    .font(.system(size: 10))
+                                    .foregroundColor(.customTeal)
+                            }
+                        }
+                    
+                        
+                        Spacer().frame(width: 90)
+                        
+                        Image("Logo")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 60, height: 60)
+                        
+                        Spacer().frame(width: 90)
+                    
+                        NavigationStack{
+                            Button(action: {
+                                settingsView.toggle()
+                            }, label: {
+                                Image(systemName: "person.crop.circle.dashed")
+                                    .font(.system(size: 40))
+                                    .foregroundColor(.customTeal)
+                            })
+                            .sheet(isPresented: $settingsView) {
+                                SettingsView()
+                            }
+                        }
+                        
+                        //Spacer().frame(width: 20)
+                        
+                        
+                        
+                    }
+                }
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 60)
+                    .background(Color.washedBlack)
+                    .zIndex(1)
+                    .shadow(radius: 0.3)
+                , alignment: .top)
+            .background(Color.washedBlack.opacity(0.8))
+            
+            SideMenu()
+        }
         
+        .frame(maxWidth: .infinity)
+        
+    }
+    
+    
+    @ViewBuilder
+    private func SideMenu() -> some View {
+        SideView(isShowing: $presentSideMenu, direction: .leading) {
+            SideMenuViewContents(presentSideMenu: $presentSideMenu)
+                .frame(width: 200)
+        }
+    }
+        
+        
+        
+        /*
         ZStack{
                         
             Color.washedBlack.ignoresSafeArea()
@@ -175,6 +308,9 @@ struct HomeView: View {
             
         }
         
+        
+        
+        
         /*
             HStack{
                 
@@ -202,6 +338,7 @@ struct HomeView: View {
         
     }
     
+    */
 }
 
 func helpMe (){

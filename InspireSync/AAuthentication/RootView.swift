@@ -19,7 +19,7 @@ struct RootView: View {
                         NavigationStack{
                             //SettingsView(showSignInView: $showSignInView)
                             //HomeView()
-                            SideView()
+                            HomeView()
                         }
                     }
                     .onAppear{
