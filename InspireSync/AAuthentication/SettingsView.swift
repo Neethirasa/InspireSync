@@ -60,6 +60,8 @@ struct SettingsView: View {
     @State private var settingsView = false
     @State private var showSignInView = false
     
+    @Environment(\.dismiss) private var dismiss
+    
     var body: some View {
         
         ZStack{
@@ -67,7 +69,9 @@ struct SettingsView: View {
             
             HStack{
                 
+                /*
                 VStack{
+                    
                     Spacer().frame(height: 25)
                     Text("Settings")
                         .font(.system(size: 30, weight: .heavy))
@@ -76,12 +80,45 @@ struct SettingsView: View {
                                 fixedSize: 30))
                         .foregroundStyle(.white)
                     Spacer()
+                     
                 }
+                 */
+                     
             }
+            .navigationBarBackButtonHidden(true)
+            .toolbar {
+                            ToolbarItem(placement: .navigationBarLeading) {
+                                Button {
+                                    //print("Settings")
+                                    // 2
+                                    dismiss()
+
+                                } label: {
+                                    HStack {
+                                        Image(systemName: "chevron.backward")
+                                            .foregroundColor(.white)
+                                        Text("Settings")
+                                            .foregroundColor(.white)
+                                            .font(.custom(
+                                                    "Futura-Medium",
+                                                    fixedSize: 20))
+                                    }
+                                }
+                            }
+                        }
+          
             
             VStack{
-                Spacer().frame(height: 50)
+                //Spacer().frame(height: 50)
                 List {
+                    
+                    Text("My Account")
+                        .font(.custom(
+                                "Futura-Medium",
+                                fixedSize: 20))
+                    
+                    
+                    
                     
                     Button("Add Friend"){
                         

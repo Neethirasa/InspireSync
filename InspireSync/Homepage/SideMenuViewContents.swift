@@ -44,9 +44,11 @@ struct SideMenuViewContents: View {
                                     "Futura-Medium",
                                     fixedSize: 20))
                         })
-                        .sheet(isPresented: $settingsView) {
-                            SettingsView()
-                        }
+                        .fullScreenCover(isPresented: $settingsView, content: {
+                            NavigationStack{
+                                SettingsScreen()
+                            }
+                        })
                     }
                     .listRowBackground(Color.washedBlack)
                     
@@ -64,6 +66,7 @@ struct SideMenuViewContents: View {
                 }
                 
             }
+            .scrollDisabled(true)
             .frame(maxWidth: .infinity)
             .background(Color.washedBlack)
             .scrollContentBackground(.hidden)
@@ -91,5 +94,13 @@ struct SideMenuViewContents: View {
         .padding(.leading, 40)
         .padding(.top, 40)
         .padding(.bottom, 30)
+    }
+}
+
+struct SideMenuViewContents_Previews: PreviewProvider {
+    static var previews: some View {
+        NavigationStack {
+            HomeView()
+        }
     }
 }
