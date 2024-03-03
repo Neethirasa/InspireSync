@@ -36,21 +36,42 @@ struct SettingsScreen: View {
                                         }
                                     }
 						
-                        Spacer().frame(height: 100)
+                        Spacer().frame(height: UIScreen.main.bounds.height * 0.10)
                         
                         
-						Text("My Account")
-						.foregroundColor(Color(hex: "#FFFFFF"))
-						.font(.system(size: 18))
-						.padding(.bottom,9)
-						.padding(.horizontal,47)
-						VStack(alignment: .leading, spacing: 0){
-							Text("Username")
-							.foregroundColor(Color(hex: "#FFFFFF"))
+                        HStack(spacing: 0){
+                            
+                            Text("My Account")
+                            .foregroundColor(Color(hex: "#FFFFFF"))
                             .font(.custom(
                                     "Futura-Medium",
-                                    fixedSize: 14))
-							.padding(.bottom,8)
+                                    fixedSize: 16))
+                            //.frame(maxWidth: .infinity)
+                            Spacer().frame(width: UIScreen.main.bounds.width * 0.50)
+                        }
+                        .frame(height: 18)
+                        .frame(maxWidth: .infinity)
+                        .padding(.bottom,11)
+                        .padding(.horizontal,51)
+                        
+						VStack(alignment: .leading, spacing: 0){
+                            
+                            
+                            HStack(spacing: 0){
+                                Text("Username")
+                                .foregroundColor(Color(hex: "#FFFFFF"))
+                                .font(.custom(
+                                        "Futura-Medium",
+                                        fixedSize: 14))
+                                .frame(maxWidth: .infinity)
+                                Spacer().frame(width: UIScreen.main.bounds.width * 0.49)
+                                Image("arrow")
+                                    .resizable()
+                                    .frame(width: UIScreen.main.bounds.width * 0.05, height: UIScreen.main.bounds.height * 0.018, alignment: .leading)
+                            }
+                            
+                            Spacer().frame(height: UIScreen.main.bounds.height * 0.010)
+                            
 							VStack(alignment: .leading, spacing: 0){
 							}
 							.frame(height: 1)
@@ -64,10 +85,10 @@ struct SettingsScreen: View {
                                         "Futura-Medium",
                                         fixedSize: 14))
 								.frame(maxWidth: .infinity)
-								.padding(.trailing,175)
+                                Spacer().frame(width: UIScreen.main.bounds.width * 0.45)
                                 Image("arrow")
                                     .resizable()
-                                    .frame(width: 20, height: 14, alignment: .leading)
+                                    .frame(width: UIScreen.main.bounds.width * 0.05, height: UIScreen.main.bounds.height * 0.018, alignment: .leading)
 							}
 							.frame(height: 15)
 							.frame(maxWidth: .infinity)
@@ -88,12 +109,12 @@ struct SettingsScreen: View {
                                     "Futura-Medium",
                                     fixedSize: 16))
 							//.frame(maxWidth: .infinity)
+                            Spacer().frame(width: UIScreen.main.bounds.width * 0.45)
 						}
 						.frame(height: 18)
 						.frame(maxWidth: .infinity)
 						.padding(.bottom,11)
 						.padding(.horizontal,51)
-                        .padding(.trailing,175)
 					}
 					Group{
 						VStack(alignment: .leading, spacing: 0){
@@ -104,10 +125,10 @@ struct SettingsScreen: View {
                                         "Futura-Medium",
                                         fixedSize: 14))
 								.frame(maxWidth: .infinity)
-								.padding(.trailing,160)
+                                Spacer().frame(width: UIScreen.main.bounds.width * 0.40)
                                 Image("arrow")
                                     .resizable()
-                                    .frame(width: 20, height: 14, alignment: .leading)
+                                    .frame(width: UIScreen.main.bounds.width * 0.05, height: UIScreen.main.bounds.height * 0.018, alignment: .leading)
 					
 							}
 							.frame(height: 14)
@@ -127,10 +148,10 @@ struct SettingsScreen: View {
                                         fixedSize: 14))
 								.frame(maxWidth: .infinity)
 								.padding(.trailing,4)
-                                .padding(.trailing,130)
+                                Spacer().frame(width: UIScreen.main.bounds.width * 0.33)
                                 Image("arrow")
                                     .resizable()
-                                    .frame(width: 20, height: 14, alignment: .leading)
+                                    .frame(width: UIScreen.main.bounds.width * 0.05, height: UIScreen.main.bounds.height * 0.018, alignment: .leading)
 							}
 							.frame(height: 14)
 							.frame(maxWidth: .infinity)
@@ -151,7 +172,7 @@ struct SettingsScreen: View {
                                     "Futura-Medium",
                                     fixedSize: 16))
 							.frame(maxWidth: .infinity)
-                            .padding(.trailing,250)
+                            Spacer().frame(width: UIScreen.main.bounds.width * 0.65)
 						}
 						.frame(height: 18)
 						.frame(maxWidth: .infinity)
@@ -166,10 +187,10 @@ struct SettingsScreen: View {
                                         fixedSize: 14))
 								.frame(maxWidth: .infinity)
 								.padding(.trailing,4)
-                                .padding(.trailing,160)
+                                Spacer().frame(width: UIScreen.main.bounds.width * 0.43)
                                 Image("arrow")
                                     .resizable()
-                                    .frame(width: 20, height: 14, alignment: .leading)
+                                    .frame(width: UIScreen.main.bounds.width * 0.05, height: UIScreen.main.bounds.height * 0.018, alignment: .leading)
 							}
 							.frame(height: 14)
 							.frame(maxWidth: .infinity)
@@ -187,10 +208,10 @@ struct SettingsScreen: View {
                                         "Futura-Medium",
                                         fixedSize: 14))
 								.frame(maxWidth: .infinity)
-                                .padding(.trailing,150)
+                                Spacer().frame(width: UIScreen.main.bounds.width * 0.39)
                                 Image("arrow")
                                     .resizable()
-                                    .frame(width: 20, height: 14, alignment: .leading)
+                                    .frame(width: UIScreen.main.bounds.width * 0.05, height: UIScreen.main.bounds.height * 0.018, alignment: .leading)
 
 							}
 							.frame(height: 14)
@@ -209,10 +230,10 @@ struct SettingsScreen: View {
                                         "Futura-Medium",
                                         fixedSize: 14))
 								.frame(maxWidth: .infinity)
-                                .padding(.trailing,180)
+                                Spacer().frame(width: UIScreen.main.bounds.width * 0.46)
                                 Image("arrow")
                                     .resizable()
-                                    .frame(width: 20, height: 14, alignment: .leading)
+                                    .frame(width: UIScreen.main.bounds.width * 0.05, height: UIScreen.main.bounds.height * 0.018, alignment: .leading)
 
 							}
 							.frame(height: 14)
@@ -231,10 +252,10 @@ struct SettingsScreen: View {
                                         "Futura-Medium",
                                         fixedSize: 14))
 								.frame(maxWidth: .infinity)
-                                .padding(.trailing,170)
+                                Spacer().frame(width: UIScreen.main.bounds.width * 0.44)
                                 Image("arrow")
                                     .resizable()
-                                    .frame(width: 20, height: 14, alignment: .leading)
+                                    .frame(width: UIScreen.main.bounds.width * 0.05, height: UIScreen.main.bounds.height * 0.018, alignment: .leading)
 							}
 							.frame(height: 14)
 							.frame(maxWidth: .infinity)
@@ -250,10 +271,10 @@ struct SettingsScreen: View {
                         
                         
 					}
-                    Spacer().frame(height: 100)
+                    Spacer().frame(height: UIScreen.main.bounds.height * 0.1)
                     HStack(spacing: 0){
                         
-                        Spacer().frame(width: 140)
+                        Spacer().frame(width: UIScreen.main.bounds.width * 0.35)
                         Button(role: .destructive){
               
                         }label: {

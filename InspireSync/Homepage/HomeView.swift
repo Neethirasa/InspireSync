@@ -50,14 +50,14 @@ struct HomeView: View {
             
             VStack {
                 
-                Spacer().frame(height: 40)
+                Spacer().frame(height: UIScreen.main.bounds.height * 0.08)
                 
                 Button(action: {
                     showingQuote.toggle()
                     //reloadViewHelper.reloadView()
                 }, label: {
                   Text("+")
-                    .frame(width: 300 , height: 100)
+                        .frame(width: UIScreen.main.bounds.width * 0.76 , height: UIScreen.main.bounds.height * 0.10)
                     .font(.system(size: 60))
                     .foregroundColor(.white)
                     .cornerRadius(.infinity)
@@ -68,14 +68,14 @@ struct HomeView: View {
                     sendQuoteView(firstQuote: $firstQuote, secondQuote: $secondQuote)
                         }
                 
-                Spacer().frame(height: 40)
+                Spacer().frame(height: UIScreen.main.bounds.height * 0.05)
                 
                 Button(action: {
                     myString = firstQuote
                     WidgetCenter.shared.reloadAllTimelines()
                 }, label: {
                     Text(firstQuote)
-                    .frame(width: 300 , height: 150)
+                    .frame(width: UIScreen.main.bounds.width * 0.76 , height: UIScreen.main.bounds.height * 0.18)
                     .font(.system(size: 16))
                     .foregroundColor(.white)
                     .cornerRadius(.infinity)
@@ -85,14 +85,14 @@ struct HomeView: View {
                     
                 })
                 
-                Spacer().frame(height: 40)
+                Spacer().frame(height: UIScreen.main.bounds.height * 0.05)
                 
                 Button(action: {
                     myString = secondQuote
                     WidgetCenter.shared.reloadAllTimelines()
                 }, label: {
                     Text(secondQuote)
-                    .frame(width: 300 , height: 150)
+                    .frame(width: UIScreen.main.bounds.width * 0.76 , height: UIScreen.main.bounds.height * 0.18)
                     .font(.system(size: 16))
                     .foregroundColor(.white)
                     .cornerRadius(.infinity)
@@ -109,8 +109,9 @@ struct HomeView: View {
             .overlay(
                 ZStack {
                     HStack {
-                      
+                        Spacer().frame(width: UIScreen.main.bounds.width * 0.05)
                         VStack{
+                            Spacer().frame(height: UIScreen.main.bounds.height * 0.05)
                             Button {
                                 presentSideMenu.toggle()
                             } label: {
@@ -122,29 +123,36 @@ struct HomeView: View {
                         }
                     
                         
-                        Spacer().frame(width: 90)
+                        Spacer().frame(width: UIScreen.main.bounds.width * 0.25)
                         
-                        Image("Logo")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 60, height: 60)
+                        VStack{
+                            Spacer().frame(height: UIScreen.main.bounds.height * 0.05)
+                            Image("Logo")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 60, height: 60)
+                            
                         
-                        Spacer().frame(width: 90)
-                    
-                        NavigationStack{
-                            Button(action: {
-                                settingsView.toggle()
-                            }, label: {
-                                Image(systemName: "person.crop.circle.dashed")
-                                    .font(.system(size: 40))
-                                    .foregroundColor(.customTeal)
-                            })
-                            .sheet(isPresented: $settingsView) {
-                                SettingsView()
+                        }
+                        Spacer().frame(width: UIScreen.main.bounds.width * 0.25)
+                        
+                        VStack{
+                            Spacer().frame(height: UIScreen.main.bounds.height * 0.05)
+                            NavigationStack{
+                                Button(action: {
+                                    settingsView.toggle()
+                                }, label: {
+                                    Image(systemName: "person.crop.circle.dashed")
+                                        .font(.system(size: 40))
+                                        .foregroundColor(.customTeal)
+                                })
+                                .sheet(isPresented: $settingsView) {
+                                    SettingsView()
+                                }
                             }
                         }
                         
-                        //Spacer().frame(width: 20)
+                        Spacer().frame(width: UIScreen.main.bounds.width * 0.05)
                         
                         
                         
@@ -170,7 +178,7 @@ struct HomeView: View {
     private func SideMenu() -> some View {
         SideView(isShowing: $presentSideMenu, direction: .leading) {
             SideMenuViewContents(presentSideMenu: $presentSideMenu)
-                .frame(width: 200)
+                .frame(width: UIScreen.main.bounds.width * 0.5)
         }
     }
         
@@ -356,6 +364,8 @@ struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
             HomeView()
+                .previewDevice("iphone 13")
         }
+        
     }
 }

@@ -17,7 +17,7 @@ struct SideMenuViewContents: View {
         ZStack {
             Color.washedBlack.edgesIgnoringSafeArea(.all)
             VStack{
-                Spacer().frame(height: 50)
+                Spacer().frame(height: UIScreen.main.bounds.height * 0.055)
                 List {
                     
                     Text("InspireSync")
@@ -32,7 +32,7 @@ struct SideMenuViewContents: View {
                             "Futura-Medium",
                             fixedSize: 20))
                     
-                    Spacer().frame(height: 520)
+                    Spacer().frame(height: UIScreen.main.bounds.height * 0.65)
                         .listRowBackground(Color.washedBlack)
                     
                     NavigationStack{
@@ -53,17 +53,22 @@ struct SideMenuViewContents: View {
                     .listRowBackground(Color.washedBlack)
                     
                     
-                    Button(role: .destructive){
+                    VStack{
+                        Button(role: .destructive){
+                            
+                        }label: {
+                            Text("Log Out")
+                                .font(.custom(
+                                    "Futura-Medium",
+                                    fixedSize: 20))
+                        }
                         
-                    }label: {
-                        Text("Log Out")
-                            .font(.custom(
-                                "Futura-Medium",
-                                fixedSize: 20))
                     }
                     .listRowBackground(Color.washedBlack)
                     
                 }
+             
+                
                 
             }
             .scrollDisabled(true)
