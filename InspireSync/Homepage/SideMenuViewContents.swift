@@ -38,7 +38,7 @@ struct SideMenuViewContents: View {
                     .frame(width: UIScreen.main.bounds.width * 10)
                    // .frame(maxWidth: .infinity, alignment: .leading)
                     .background(Color(hex: "#696969"))
-                    
+                    /*
                     Button("Friends"){
                         
                     }.listRowBackground(Color.washedBlack)
@@ -46,8 +46,8 @@ struct SideMenuViewContents: View {
                             "Futura-Medium",
                             fixedSize: 20))
                         .foregroundColor(.white)
-                    
-                    Spacer().frame(height: UIScreen.main.bounds.height * 0.52)
+                    */
+                    Spacer().frame(height: UIScreen.main.bounds.height * 0.55)
                         .listRowBackground(Color.washedBlack)
                     
                     VStack(alignment: .leading, spacing: 0){

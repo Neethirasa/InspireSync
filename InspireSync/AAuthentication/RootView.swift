@@ -11,6 +11,7 @@ struct RootView: View {
     
     @State private var showSignInView: Bool = false
     @State private var nullUsername: Bool = false
+    @State private var Rootusername = "null"
     
     var body: some View {
             ZStack{
@@ -23,8 +24,8 @@ struct RootView: View {
                         }
                     }
                     .onAppear{
-                        let authUsername = try? AuthenticationManager.shared.getAuthenticatedUser().username
-                        self.nullUsername = authUsername == nil
+                        let authUsername = AuthenticationManager.shared.getDisplayName()
+                        self.nullUsername = authUsername == "empty"
                     }
                     .fullScreenCover(isPresented: $nullUsername, content: {
                         NavigationStack{

@@ -34,26 +34,33 @@ struct DeleteUserView: View {
             
             VStack() {
                 
+                
+                
                 VStack{
-                    HStack{
-                        Button {
-                            //print("Settings")
-                            // 2
-                            dismiss()
-
-                        } label: {
-                            HStack {
-                                Image(systemName: "chevron.backward")
-                                    .foregroundColor(.white)
-                                Text("Cancel")
-                                    .foregroundColor(.white)
-                                    .font(.custom(
-                                            "Futura-Medium",
-                                            fixedSize: 20))
-                            }
-                        }
-                        Spacer().frame(width: UIScreen.main.bounds.width * 0.65)
+                    HStack(spacing: 0){
+                        
                     }
+                    .navigationBarBackButtonHidden(true)
+                    .toolbar {
+                                    ToolbarItem(placement: .navigationBarLeading) {
+                                        Button {
+                                            //print("Settings")
+                                            // 2
+                                            dismiss()
+
+                                        } label: {
+                                            HStack {
+                                                Image(systemName: "chevron.backward")
+                                                    .foregroundColor(.white)
+                                                Text("Cancel")
+                                                    .foregroundColor(.white)
+                                                    .font(.custom(
+                                                            "Futura-Medium",
+                                                            fixedSize: 20))
+                                            }
+                                        }
+                                    }
+                                }
                     Spacer().frame(height: UIScreen.main.bounds.height * 0.15)
                     
                     Image("Logo")

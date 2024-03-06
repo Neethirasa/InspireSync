@@ -134,8 +134,8 @@ struct HomeView: View {
                             
                         
                         }
-                        Spacer().frame(width: UIScreen.main.bounds.width * 0.25)
-                        
+                        Spacer().frame(width: UIScreen.main.bounds.width * 0.35)
+                        /*
                         VStack{
                             Spacer().frame(height: UIScreen.main.bounds.height * 0.05)
                             NavigationStack{
@@ -151,7 +151,7 @@ struct HomeView: View {
                                 }
                             }
                         }
-                        
+                        */
                         Spacer().frame(width: UIScreen.main.bounds.width * 0.05)
                         
                         

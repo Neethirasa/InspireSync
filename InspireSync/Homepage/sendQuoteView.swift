@@ -15,6 +15,10 @@ extension View {
     }
 }
 
+private enum Field: Int, Hashable {
+  case yourTextField, yourOtherTextField
+}
+
 struct sendQuoteView: View {
     @Environment(\.dismiss) var dismiss
     
@@ -25,8 +29,10 @@ struct sendQuoteView: View {
     @Binding var firstQuote: String
     @Binding var secondQuote: String
     
+    @FocusState private var isFocused: Bool
     
-    
+    @FocusState private var focusedField: Field?
+
     
     var body: some View {
         
@@ -38,18 +44,19 @@ struct sendQuoteView: View {
             
             VStack {
                     TextField("Enter your quote", text: $quote, axis: .vertical) // <1>, <2>
+                    .multilineTextAlignment(.center)
                     .lineLimit(4)
-                    .padding()
-                    .frame(width: 300 , height: 150)
+                    .frame(width: UIScreen.main.bounds.width * 0.76 , height: UIScreen.main.bounds.height * 0.2)
+                    .focused($focusedField, equals: .yourTextField)
+                     .contentShape(RoundedRectangle(cornerRadius: 5))
+                     .onTapGesture { focusedField = .yourTextField }
                     .border(.secondary)
                     .font(.system(size: 16))
                     .foregroundColor(.white)
                     .cornerRadius(.infinity)
-                    .padding()
                     .background(RoundedRectangle(cornerRadius: 10).stroke(.customTeal, lineWidth: 5))
                     .onReceive(Just($quote)) { _ in limitText(textLimit) }
-                
-                Spacer().frame(height: 250)
+                Spacer().frame(height: UIScreen.main.bounds.height * 0.1)
                     }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
                    .contentShape(Rectangle())
@@ -79,7 +86,7 @@ struct sendQuoteView: View {
                     .font(.custom(
                             "Futura-Medium",
                             fixedSize: 20))
-                    Spacer().frame(width: 190)
+                    Spacer().frame(width: UIScreen.main.bounds.width * 0.3)
                     
                     
                     Button(){
@@ -95,12 +102,12 @@ struct sendQuoteView: View {
                         dismiss()
                         
                     }label: {
-                    Text("Send")
+                    Text("Add to Widget")
                   }
                     .font(.custom(
                             "Futura-Medium",
                             fixedSize: 20))
-                    Spacer().frame(width: 0)
+                    Spacer().frame(width: UIScreen.main.bounds.width * 0)
                 }
                 
                 
@@ -129,9 +136,9 @@ struct sendQuoteView: View {
 
 
 
-/*
+
 #Preview {
-    sendQuoteView()
+    sendQuoteView(firstQuote: .constant("Nive"), secondQuote: .constant("Dhanu"))
 }
- */
+ 
 

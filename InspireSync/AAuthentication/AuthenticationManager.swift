@@ -13,14 +13,14 @@ struct AuthDataResultModel {
     let uid: String
     let email: String?
     let photoUrl: String?
-    let username: String?
+    let displayName: String?
     
     init(user: User) {
         self.uid = user.uid
         self.email = user.email
         self.photoUrl = user.photoURL?.absoluteString
         //self.username = ""
-        self.username = "Nive" //change to nil for username view
+        self.displayName = nil //change to nil for username view
     }
 }
 
@@ -104,6 +104,20 @@ final class AuthenticationManager{
         }
         
     }
+    
+    func updateDisplayName(displayName: String){
+        let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
+        changeRequest?.displayName = displayName
+        changeRequest?.commitChanges { error in
+          // ...
+        }
+    }
+    
+    func getDisplayName() -> String {
+        
+        return Auth.auth().currentUser?.displayName ?? "empty"
+    }
+    
     
     
     func delete() async throws{

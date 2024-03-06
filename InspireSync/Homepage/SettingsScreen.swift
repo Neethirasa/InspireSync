@@ -11,6 +11,8 @@ struct SettingsScreen: View {
     
     @StateObject private var viewModel = SettingsViewModel()
     @State private var deleteUserView = false
+    let authUsername = AuthenticationManager.shared.getDisplayName()
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 0){
 			ScrollView(){
@@ -41,7 +43,7 @@ struct SettingsScreen: View {
                                         }
                                     }
 						
-                        Spacer().frame(height: UIScreen.main.bounds.height * 0.10)
+                        Spacer().frame(height: UIScreen.main.bounds.height * 0.08)
                         
                         
                         HStack(spacing: 0){
@@ -52,7 +54,7 @@ struct SettingsScreen: View {
                                     "Futura-Medium",
                                     fixedSize: 16))
                             //.frame(maxWidth: .infinity)
-                            Spacer().frame(width: UIScreen.main.bounds.width * 0.56)
+                            Spacer().frame(width: UIScreen.main.bounds.width * 0.57)
                         }
                         .frame(height: 18)
                         .frame(maxWidth: .infinity)
@@ -71,7 +73,7 @@ struct SettingsScreen: View {
                                 .frame(maxWidth: .infinity)
                                 Spacer().frame(width: UIScreen.main.bounds.width * 0.61)
                                     .overlay(alignment: .trailing) {
-                                                    Text("NoNameUser")
+                                                    Text(authUsername)//take quotes off
                                             .foregroundColor(Color(hex: "#FFFFFF"))
                                             .font(.custom(
                                                     "Futura-Medium",
@@ -85,8 +87,7 @@ struct SettingsScreen: View {
                                  */
                             }
                             
-                            Spacer().frame(height: UIScreen.main.bounds.height * 0.010)
-                            
+                            /*
 							VStack(alignment: .leading, spacing: 0){
 							}
 							.frame(height: UIScreen.main.bounds.height * 0.001)
@@ -107,24 +108,26 @@ struct SettingsScreen: View {
 							}
 							.frame(height: 15)
 							.frame(maxWidth: .infinity)
+                            */
 						}
 						.padding(.vertical,10)
 						.padding(.horizontal,5)
-						.frame(height: UIScreen.main.bounds.height * 0.075)
+						.frame(height: UIScreen.main.bounds.height * 0.04)
 						.frame(maxWidth: .infinity, alignment: .leading)
 						.background(Color(hex: "#333333"))
 						.cornerRadius(5)
 						.padding(.bottom,44)
 						.padding(.horizontal,UIScreen.main.bounds.width * 0.1)
 						HStack(spacing: 0){
-							
+							Image("sendfeedback")
+                                
 							Text("Send Feedback")
 							.foregroundColor(Color(hex: "#FFFFFF"))
                             .font(.custom(
                                     "Futura-Medium",
                                     fixedSize: 16))
 							//.frame(maxWidth: .infinity)
-                            Spacer().frame(width: UIScreen.main.bounds.width * 0.5)
+                            Spacer().frame(width: UIScreen.main.bounds.width * 0.46)
 						}
 						.frame(height: 18)
 						.frame(maxWidth: .infinity)
@@ -181,13 +184,16 @@ struct SettingsScreen: View {
 						.padding(.bottom,44)
                         .padding(.horizontal,UIScreen.main.bounds.width * 0.1)
 						HStack(spacing: 0){
+                            Image("help")
+                            
+                            
 							Text("Help")
 							.foregroundColor(Color(hex: "#FFFFFF"))
                             .font(.custom(
                                     "Futura-Medium",
                                     fixedSize: 16))
-							.frame(maxWidth: .infinity)
-                            Spacer().frame(width: UIScreen.main.bounds.width * 0.68)
+							//.frame(maxWidth: .infinity)
+                            Spacer().frame(width: UIScreen.main.bounds.width * 0.66)
 						}
 						.frame(height: 18)
 						.frame(maxWidth: .infinity)
@@ -283,10 +289,10 @@ struct SettingsScreen: View {
 						.background(Color(hex: "#333333"))
 						.cornerRadius(5)
                         .padding(.horizontal,UIScreen.main.bounds.width * 0.1)
+                        .padding(.bottom,44)
                         
-                        
-					}
-                    Spacer().frame(height: UIScreen.main.bounds.height * 0.1)
+                    }
+                    Spacer().frame(height: UIScreen.main.bounds.height * 0.15)
                     HStack(spacing: 0){
                         
                         Spacer().frame(width: UIScreen.main.bounds.width * 0.35)
@@ -337,7 +343,7 @@ struct SettingsScreen: View {
                     
 				}
 				.padding(.top,19)
-				.padding(.bottom,196)
+				//.padding(.bottom,596)
                 
                 
 			}

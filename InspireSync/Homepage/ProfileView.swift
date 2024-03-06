@@ -19,24 +19,35 @@ struct ProfileView: View {
             Color.washedBlack.ignoresSafeArea()
             VStack{
                 VStack{
-                    Text("Create your Username")
+                    Text("Create an Account")
                         .foregroundStyle(.white)
-                        .font(.system(size: 25, weight: .heavy))
                         .font(.custom(
                                 "Futura-Medium",
-                                fixedSize: 30))
+                                fixedSize: 40))
                         .padding()
                 }
+                Spacer().frame(height:UIScreen.main.bounds.height * 0.05)
                 
                 VStack{
+                    HStack{
+                        Text("Username")
+                            .foregroundStyle(.white)
+                            .font(.custom(
+                                    "Futura-Medium",
+                                    fixedSize: 20))
+                        Spacer().frame(width: UIScreen.main.bounds.width * 0.45)
+                    }
+                    
                     TextField("Enter your username", text: $username) // <1>, <2>
-                    .frame(width: 200 , height: 40)
+                    .frame(width: UIScreen.main.bounds.width * 0.6 , height: UIScreen.main.bounds.height * 0.02)
                     .font(.system(size: 16))
                     .foregroundColor(.white)
                     .cornerRadius(.infinity)
                     .padding()
-                    .background(RoundedRectangle(cornerRadius: 10).stroke(.customTeal, lineWidth: 5))
+                    .background(RoundedRectangle(cornerRadius: 10).stroke(.white, lineWidth: 2))
                     .onReceive(Just($username)) { _ in limitText(textLimit)
+                    
+                    AuthenticationManager.shared.updateDisplayName(displayName: username)
                 }
                     
                 }
@@ -49,11 +60,16 @@ struct ProfileView: View {
                         }
                         
                     }label: {
-                    Text("Submit")
+                    Text("Create Account")
+                            .font(.custom(
+                                    "Futura-Medium",
+                                    fixedSize: 20))
+                            .foregroundColor(.white)
+                            .padding()
                   }
-                    .font(.custom(
-                            "Futura-Medium",
-                            fixedSize: 20))
+                    .background(.customTeal)
+                    .background(RoundedRectangle(cornerRadius: 10).stroke(.customTeal, lineWidth: 2))
+                    .cornerRadius(10)
                 }
                 
             }
