@@ -25,6 +25,7 @@ final class SettingsViewModel: ObservableObject{
     }
     
     func deleteAccount() async throws{
+        
         try await AuthenticationManager.shared.delete()
     }
     

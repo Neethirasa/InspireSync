@@ -12,6 +12,9 @@ import SwiftUI
 struct SideMenuViewContents: View {
     @Binding var presentSideMenu: Bool
     @State private var settingsView = false
+    @State private var showSignInView = false
+    
+    @StateObject private var viewModel = SettingsViewModel()
     
     var body: some View {
         ZStack {
@@ -24,6 +27,17 @@ struct SideMenuViewContents: View {
                         .font(.custom(
                             "Futura-Medium",
                             fixedSize: 20))
+                        .foregroundColor(.white)
+                        .listRowBackground(Color.washedBlack)
+                    
+                    
+                    VStack(alignment: .leading, spacing: 0){
+                    }
+                    .listRowBackground(Color.washedBlack)
+                    .frame(height: UIScreen.main.bounds.height * 0.002)
+                    .frame(width: UIScreen.main.bounds.width * 10)
+                   // .frame(maxWidth: .infinity, alignment: .leading)
+                    .background(Color(hex: "#696969"))
                     
                     Button("Friends"){
                         
@@ -31,9 +45,17 @@ struct SideMenuViewContents: View {
                         .font(.custom(
                             "Futura-Medium",
                             fixedSize: 20))
+                        .foregroundColor(.white)
                     
-                    Spacer().frame(height: UIScreen.main.bounds.height * 0.65)
+                    Spacer().frame(height: UIScreen.main.bounds.height * 0.52)
                         .listRowBackground(Color.washedBlack)
+                    
+                    VStack(alignment: .leading, spacing: 0){
+                    }
+                    .listRowBackground(Color.washedBlack)
+                    .frame(height: UIScreen.main.bounds.height * 0.002)
+                    .frame(width: UIScreen.main.bounds.width * 10)
+                    .background(Color(hex: "#696969"))
                     
                     NavigationStack{
                         Button(action: {
@@ -43,6 +65,7 @@ struct SideMenuViewContents: View {
                                 .font(.custom(
                                     "Futura-Medium",
                                     fixedSize: 20))
+                                .foregroundColor(.white)
                         })
                         .fullScreenCover(isPresented: $settingsView, content: {
                             NavigationStack{
@@ -55,7 +78,16 @@ struct SideMenuViewContents: View {
                     
                     VStack{
                         Button(role: .destructive){
-                            
+                            Task{
+                                do{
+                                    //settingsView.toggle()
+                                    showSignInView = true
+                                    try viewModel.signOut()
+                                    
+                                }catch{
+                                    print(error)
+                                }
+                            }
                         }label: {
                             Text("Log Out")
                                 .font(.custom(
@@ -64,6 +96,16 @@ struct SideMenuViewContents: View {
                         }
                         
                     }
+                    
+                    .onAppear{
+                        viewModel.loadAuthProviders()
+                    }
+                    .navigationBarTitle("")
+                    .fullScreenCover(isPresented: $showSignInView, content: {
+                        NavigationStack{
+                            AuthenticationView(showSignInView: $showSignInView)
+                        }
+                    })
                     .listRowBackground(Color.washedBlack)
                     
                 }

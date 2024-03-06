@@ -33,6 +33,7 @@ enum AuthProviderOption: String {
 final class AuthenticationManager{
     
     static let shared = AuthenticationManager()
+    @State private var showSignInView = false
     
     private init() { }
     
@@ -105,9 +106,7 @@ final class AuthenticationManager{
     }
     
     
-    
     func delete() async throws{
-        
         guard let user = Auth.auth().currentUser else {
             throw URLError(.badURL)
         }
@@ -115,8 +114,6 @@ final class AuthenticationManager{
         try await user.delete()
          
     }
-    
-    
     
 }
 

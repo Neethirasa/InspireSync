@@ -38,6 +38,7 @@
 		1E9410972B927B8C000B8A04 /* tagjs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9410962B927B8C000B8A04 /* tagjs.swift */; };
 		1E9410992B927BC3000B8A04 /* SettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9410982B927BC3000B8A04 /* SettingsScreen.swift */; };
 		1E94109B2B927C8D000B8A04 /* URLImageStore in Frameworks */ = {isa = PBXBuildFile; productRef = 1E94109A2B927C8D000B8A04 /* URLImageStore */; };
+		1E94109F2B966C1D000B8A04 /* DeleteUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E94109E2B966C1D000B8A04 /* DeleteUserView.swift */; };
 		1EAFEF802B718958000BDCDD /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 1EAFEF7F2B718958000BDCDD /* FirebaseFirestore */; };
 		1EAFEF822B718958000BDCDD /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 1EAFEF812B718958000BDCDD /* FirebaseFirestoreSwift */; };
 		1EC006522B8BCABD001280F3 /* SideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EC006512B8BCABD001280F3 /* SideView.swift */; };
@@ -101,6 +102,7 @@
 		1E91DFDD2B55C7CD00C72D29 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		1E9410962B927B8C000B8A04 /* tagjs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = tagjs.swift; sourceTree = "<group>"; };
 		1E9410982B927BC3000B8A04 /* SettingsScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsScreen.swift; sourceTree = "<group>"; };
+		1E94109E2B966C1D000B8A04 /* DeleteUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteUserView.swift; sourceTree = "<group>"; };
 		1EC006512B8BCABD001280F3 /* SideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideView.swift; sourceTree = "<group>"; };
 		1ED7D9802B8315A00023647B /* InspireSyncWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = InspireSyncWidgetExtension.entitlements; sourceTree = "<group>"; };
 		1ED7D9812B83BAA30023647B /* QuoteManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteManager.swift; sourceTree = "<group>"; };
@@ -214,6 +216,7 @@
 				1E91DFC32B50FE1000C72D29 /* SettingsView.swift */,
 				1E91DFBF2B50F4F700C72D29 /* AuthenticationManager.swift */,
 				1E91DFD52B544FDF00C72D29 /* SignInGoogleHelper.swift */,
+				1E94109E2B966C1D000B8A04 /* DeleteUserView.swift */,
 			);
 			path = AAuthentication;
 			sourceTree = "<group>";
@@ -371,6 +374,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1E94109F2B966C1D000B8A04 /* DeleteUserView.swift in Sources */,
 				1E91DFD62B544FDF00C72D29 /* SignInGoogleHelper.swift in Sources */,
 				1E91DFC42B50FE1000C72D29 /* SettingsView.swift in Sources */,
 				1EC006522B8BCABD001280F3 /* SideView.swift in Sources */,

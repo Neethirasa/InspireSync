@@ -5,7 +5,12 @@ import SwiftUI
 struct SettingsScreen: View {
     
     @Environment(\.dismiss) private var dismiss
+    @State private var settingsView = false
+    @State private var showSignInView = false
+    @State private var showDeleteView = false
     
+    @StateObject private var viewModel = SettingsViewModel()
+    @State private var deleteUserView = false
     var body: some View {
         VStack(alignment: .leading, spacing: 0){
 			ScrollView(){
@@ -47,12 +52,12 @@ struct SettingsScreen: View {
                                     "Futura-Medium",
                                     fixedSize: 16))
                             //.frame(maxWidth: .infinity)
-                            Spacer().frame(width: UIScreen.main.bounds.width * 0.50)
+                            Spacer().frame(width: UIScreen.main.bounds.width * 0.56)
                         }
                         .frame(height: 18)
                         .frame(maxWidth: .infinity)
                         .padding(.bottom,11)
-                        .padding(.horizontal,51)
+                        .padding(.horizontal,5)
                         
 						VStack(alignment: .leading, spacing: 0){
                             
@@ -64,17 +69,27 @@ struct SettingsScreen: View {
                                         "Futura-Medium",
                                         fixedSize: 14))
                                 .frame(maxWidth: .infinity)
-                                Spacer().frame(width: UIScreen.main.bounds.width * 0.49)
+                                Spacer().frame(width: UIScreen.main.bounds.width * 0.61)
+                                    .overlay(alignment: .trailing) {
+                                                    Text("NoNameUser")
+                                            .foregroundColor(Color(hex: "#FFFFFF"))
+                                            .font(.custom(
+                                                    "Futura-Medium",
+                                                    fixedSize: 14))
+                                                }
+                                
+                                /*
                                 Image("arrow")
                                     .resizable()
-                                    .frame(width: UIScreen.main.bounds.width * 0.05, height: UIScreen.main.bounds.height * 0.018, alignment: .leading)
+                                    .frame(width:UIScreen.main.bounds.width * 0.05, height: UIScreen.main.bounds.height * 0.018, alignment: .leading)
+                                 */
                             }
                             
                             Spacer().frame(height: UIScreen.main.bounds.height * 0.010)
                             
 							VStack(alignment: .leading, spacing: 0){
 							}
-							.frame(height: 1)
+							.frame(height: UIScreen.main.bounds.height * 0.001)
 							.frame(maxWidth: .infinity, alignment: .leading)
 							.background(Color(hex: "#696969"))
 							.padding(.bottom,6)
@@ -85,7 +100,7 @@ struct SettingsScreen: View {
                                         "Futura-Medium",
                                         fixedSize: 14))
 								.frame(maxWidth: .infinity)
-                                Spacer().frame(width: UIScreen.main.bounds.width * 0.45)
+                                Spacer().frame(width: UIScreen.main.bounds.width * 0.52)
                                 Image("arrow")
                                     .resizable()
                                     .frame(width: UIScreen.main.bounds.width * 0.05, height: UIScreen.main.bounds.height * 0.018, alignment: .leading)
@@ -94,13 +109,13 @@ struct SettingsScreen: View {
 							.frame(maxWidth: .infinity)
 						}
 						.padding(.vertical,10)
-						.padding(.horizontal,11)
-						.frame(height: 66)
+						.padding(.horizontal,5)
+						.frame(height: UIScreen.main.bounds.height * 0.075)
 						.frame(maxWidth: .infinity, alignment: .leading)
 						.background(Color(hex: "#333333"))
 						.cornerRadius(5)
 						.padding(.bottom,44)
-						.padding(.horizontal,46)
+						.padding(.horizontal,UIScreen.main.bounds.width * 0.1)
 						HStack(spacing: 0){
 							
 							Text("Send Feedback")
@@ -109,12 +124,12 @@ struct SettingsScreen: View {
                                     "Futura-Medium",
                                     fixedSize: 16))
 							//.frame(maxWidth: .infinity)
-                            Spacer().frame(width: UIScreen.main.bounds.width * 0.45)
+                            Spacer().frame(width: UIScreen.main.bounds.width * 0.5)
 						}
 						.frame(height: 18)
 						.frame(maxWidth: .infinity)
 						.padding(.bottom,11)
-						.padding(.horizontal,51)
+						.padding(.horizontal,5)
 					}
 					Group{
 						VStack(alignment: .leading, spacing: 0){
@@ -124,8 +139,8 @@ struct SettingsScreen: View {
                                 .font(.custom(
                                         "Futura-Medium",
                                         fixedSize: 14))
-								.frame(maxWidth: .infinity)
-                                Spacer().frame(width: UIScreen.main.bounds.width * 0.40)
+								.frame(maxWidth: UIScreen.main.bounds.width * 0.9)
+                                Spacer().frame(width: UIScreen.main.bounds.width * 0.47)
                                 Image("arrow")
                                     .resizable()
                                     .frame(width: UIScreen.main.bounds.width * 0.05, height: UIScreen.main.bounds.height * 0.018, alignment: .leading)
@@ -136,7 +151,7 @@ struct SettingsScreen: View {
 							.padding(.bottom,9)
 							VStack(alignment: .leading, spacing: 0){
 							}
-							.frame(height: 1)
+                            .frame(height: UIScreen.main.bounds.height * 0.001)
 							.frame(maxWidth: .infinity, alignment: .leading)
 							.background(Color(hex: "#696969"))
 							.padding(.bottom,6)
@@ -146,9 +161,9 @@ struct SettingsScreen: View {
                                 .font(.custom(
                                         "Futura-Medium",
                                         fixedSize: 14))
-								.frame(maxWidth: .infinity)
+								.frame(maxWidth: UIScreen.main.bounds.width * 0.9)
 								.padding(.trailing,4)
-                                Spacer().frame(width: UIScreen.main.bounds.width * 0.33)
+                                Spacer().frame(width: UIScreen.main.bounds.width * 0.4)
                                 Image("arrow")
                                     .resizable()
                                     .frame(width: UIScreen.main.bounds.width * 0.05, height: UIScreen.main.bounds.height * 0.018, alignment: .leading)
@@ -158,13 +173,13 @@ struct SettingsScreen: View {
 						}
                         
 						.padding(.vertical,7)
-						.padding(.horizontal,10)
-						.frame(height: 58)
+						.padding(.horizontal,5)
+						.frame(height: UIScreen.main.bounds.height * 0.075)
 						.frame(maxWidth: .infinity, alignment: .leading)
 						.background(Color(hex: "#333333"))
 						.cornerRadius(5)
 						.padding(.bottom,44)
-						.padding(.horizontal,46)
+                        .padding(.horizontal,UIScreen.main.bounds.width * 0.1)
 						HStack(spacing: 0){
 							Text("Help")
 							.foregroundColor(Color(hex: "#FFFFFF"))
@@ -172,12 +187,12 @@ struct SettingsScreen: View {
                                     "Futura-Medium",
                                     fixedSize: 16))
 							.frame(maxWidth: .infinity)
-                            Spacer().frame(width: UIScreen.main.bounds.width * 0.65)
+                            Spacer().frame(width: UIScreen.main.bounds.width * 0.68)
 						}
 						.frame(height: 18)
 						.frame(maxWidth: .infinity)
 						.padding(.bottom,11)
-						.padding(.horizontal,51)
+						.padding(.horizontal,5)
 						VStack(alignment: .leading, spacing: 0){
 							HStack(spacing: 0){
 								Text("Privacy Policy")
@@ -185,9 +200,9 @@ struct SettingsScreen: View {
                                 .font(.custom(
                                         "Futura-Medium",
                                         fixedSize: 14))
-								.frame(maxWidth: .infinity)
+								.frame(maxWidth: UIScreen.main.bounds.width * 0.9)
 								.padding(.trailing,4)
-                                Spacer().frame(width: UIScreen.main.bounds.width * 0.43)
+                                Spacer().frame(width: UIScreen.main.bounds.width * 0.49)
                                 Image("arrow")
                                     .resizable()
                                     .frame(width: UIScreen.main.bounds.width * 0.05, height: UIScreen.main.bounds.height * 0.018, alignment: .leading)
@@ -197,7 +212,7 @@ struct SettingsScreen: View {
 							.padding(.bottom,9)
 							VStack(alignment: .leading, spacing: 0){
 							}
-							.frame(height: 1)
+                            .frame(height: UIScreen.main.bounds.height * 0.001)
 							.frame(maxWidth: .infinity, alignment: .leading)
 							.background(Color(hex: "#696969"))
 							.padding(.bottom,6)
@@ -207,8 +222,8 @@ struct SettingsScreen: View {
                                 .font(.custom(
                                         "Futura-Medium",
                                         fixedSize: 14))
-								.frame(maxWidth: .infinity)
-                                Spacer().frame(width: UIScreen.main.bounds.width * 0.39)
+								.frame(maxWidth: UIScreen.main.bounds.width * 0.9)
+                                Spacer().frame(width: UIScreen.main.bounds.width * 0.4598)
                                 Image("arrow")
                                     .resizable()
                                     .frame(width: UIScreen.main.bounds.width * 0.05, height: UIScreen.main.bounds.height * 0.018, alignment: .leading)
@@ -219,7 +234,7 @@ struct SettingsScreen: View {
 							.padding(.bottom,9)
 							VStack(alignment: .leading, spacing: 0){
 							}
-							.frame(height: 1)
+                            .frame(height: UIScreen.main.bounds.height * 0.001)
 							.frame(maxWidth: .infinity, alignment: .leading)
 							.background(Color(hex: "#696969"))
 							.padding(.bottom,6)
@@ -229,8 +244,8 @@ struct SettingsScreen: View {
                                 .font(.custom(
                                         "Futura-Medium",
                                         fixedSize: 14))
-								.frame(maxWidth: .infinity)
-                                Spacer().frame(width: UIScreen.main.bounds.width * 0.46)
+								.frame(maxWidth: UIScreen.main.bounds.width * 0.9)
+                                Spacer().frame(width: UIScreen.main.bounds.width * 0.531)
                                 Image("arrow")
                                     .resizable()
                                     .frame(width: UIScreen.main.bounds.width * 0.05, height: UIScreen.main.bounds.height * 0.018, alignment: .leading)
@@ -241,7 +256,7 @@ struct SettingsScreen: View {
 							.padding(.bottom,9)
 							VStack(alignment: .leading, spacing: 0){
 							}
-							.frame(height: 1)
+                            .frame(height: UIScreen.main.bounds.height * 0.001)
 							.frame(maxWidth: .infinity, alignment: .leading)
 							.background(Color(hex: "#696969"))
 							.padding(.bottom,6)
@@ -251,8 +266,8 @@ struct SettingsScreen: View {
                                 .font(.custom(
                                         "Futura-Medium",
                                         fixedSize: 14))
-								.frame(maxWidth: .infinity)
-                                Spacer().frame(width: UIScreen.main.bounds.width * 0.44)
+								.frame(maxWidth: UIScreen.main.bounds.width * 0.9)
+                                Spacer().frame(width: UIScreen.main.bounds.width * 0.501)
                                 Image("arrow")
                                     .resizable()
                                     .frame(width: UIScreen.main.bounds.width * 0.05, height: UIScreen.main.bounds.height * 0.018, alignment: .leading)
@@ -262,12 +277,12 @@ struct SettingsScreen: View {
                             
 						}
 						.padding(.vertical,7)
-						.padding(.horizontal,10)
-						.frame(height: 118)
+						.padding(.horizontal,5)
+						.frame(height: UIScreen.main.bounds.height * 0.15)
 						.frame(maxWidth: .infinity, alignment: .leading)
 						.background(Color(hex: "#333333"))
 						.cornerRadius(5)
-						.padding(.horizontal,46)
+                        .padding(.horizontal,UIScreen.main.bounds.width * 0.1)
                         
                         
 					}
@@ -275,14 +290,49 @@ struct SettingsScreen: View {
                     HStack(spacing: 0){
                         
                         Spacer().frame(width: UIScreen.main.bounds.width * 0.35)
-                        Button(role: .destructive){
-              
-                        }label: {
-                        Text("Delete Account")
-                                .font(.custom(
-                                        "Futura-Medium",
-                                        fixedSize: 18))
+                        
+                        /*
+                         NavigationStack{
+                             Button(action: {
+                                 settingsView.toggle()
+                             }, label: {
+                                 Text("Settings")
+                                     .font(.custom(
+                                         "Futura-Medium",
+                                         fixedSize: 20))
+                                     .foregroundColor(.white)
+                             })
+                             .fullScreenCover(isPresented: $settingsView, content: {
+                                 NavigationStack{
+                                     SettingsScreen()
+                                 }
+                             })
+                         }
+                         */
+                        NavigationStack{
+                            Button(role: .destructive){
+                                Task{
+                                    do{
+                                        showDeleteView.toggle()
+                                        
+                                    }catch{
+                                        print(error)
+                                    }
+                                }
+                            }label: {
+                            Text("Delete Account")
+                                    .font(.custom(
+                                            "Futura-Medium",
+                                            fixedSize: 18))
+                            }
                         }
+                        .fullScreenCover(isPresented: $showDeleteView, content: {
+                            NavigationStack{
+                                DeleteUserView(showDeleteView: $showDeleteView)
+                            }
+                        })
+                        
+                        
                     }
                     
 				}
