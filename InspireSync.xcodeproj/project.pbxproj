@@ -14,6 +14,7 @@
 		1E1D9C062B8313D900778E0D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1E1D9C052B8313D900778E0D /* Assets.xcassets */; };
 		1E1D9C0A2B8313D900778E0D /* InspireSyncWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 1E1D9BFB2B8313D700778E0D /* InspireSyncWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		1E2B19012B8D352700D675E4 /* SideMenuViewContents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E2B19002B8D352700D675E4 /* SideMenuViewContents.swift */; };
+		1E7CAD212B99768F00FCDD96 /* MenuButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7CAD202B99768F00FCDD96 /* MenuButtons.swift */; };
 		1E91DF712B50E6C300C72D29 /* InspireSyncApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E91DF702B50E6C300C72D29 /* InspireSyncApp.swift */; };
 		1E91DF732B50E6C300C72D29 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E91DF722B50E6C300C72D29 /* ContentView.swift */; };
 		1E91DF752B50E6C400C72D29 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1E91DF742B50E6C400C72D29 /* Assets.xcassets */; };
@@ -82,6 +83,7 @@
 		1E1D9C052B8313D900778E0D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1E1D9C072B8313D900778E0D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1E2B19002B8D352700D675E4 /* SideMenuViewContents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuViewContents.swift; sourceTree = "<group>"; };
+		1E7CAD202B99768F00FCDD96 /* MenuButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuButtons.swift; sourceTree = "<group>"; };
 		1E91DF6D2B50E6C300C72D29 /* InspireSync.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InspireSync.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1E91DF702B50E6C300C72D29 /* InspireSyncApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspireSyncApp.swift; sourceTree = "<group>"; };
 		1E91DF722B50E6C300C72D29 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -241,6 +243,7 @@
 				1ED7D9812B83BAA30023647B /* QuoteManager.swift */,
 				1ED7D9872B8433650023647B /* sendQuoteView.swift */,
 				1E2B19002B8D352700D675E4 /* SideMenuViewContents.swift */,
+				1E7CAD202B99768F00FCDD96 /* MenuButtons.swift */,
 			);
 			path = Homepage;
 			sourceTree = "<group>";
@@ -389,6 +392,7 @@
 				1E9410992B927BC3000B8A04 /* SettingsScreen.swift in Sources */,
 				1E91DFBC2B50F22600C72D29 /* AuthenticationView.swift in Sources */,
 				1ED7D9822B83BAA30023647B /* QuoteManager.swift in Sources */,
+				1E7CAD212B99768F00FCDD96 /* MenuButtons.swift in Sources */,
 				1E91DFD42B544DCE00C72D29 /* Utilities.swift in Sources */,
 				1E9410972B927B8C000B8A04 /* tagjs.swift in Sources */,
 				1E91DFC02B50F4F700C72D29 /* AuthenticationManager.swift in Sources */,

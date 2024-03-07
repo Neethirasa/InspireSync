@@ -16,6 +16,7 @@ struct SideMenuViewContents: View {
     
     @StateObject private var viewModel = SettingsViewModel()
     
+    
     var body: some View {
         ZStack {
             Color.washedBlack.edgesIgnoringSafeArea(.all)
@@ -23,12 +24,15 @@ struct SideMenuViewContents: View {
                 Spacer().frame(height: UIScreen.main.bounds.height * 0.055)
                 List {
                     
-                    Text("InspireSync")
-                        .font(.custom(
-                            "Futura-Medium",
-                            fixedSize: 20))
-                        .foregroundColor(.white)
-                        .listRowBackground(Color.washedBlack)
+                    HStack{
+                        Text("InspireSync")
+                            .font(.custom(
+                                "Futura-Medium",
+                                fixedSize: 20))
+                            .foregroundColor(.white)
+
+                    }
+                    .listRowBackground(Color.washedBlack)
                     
                     
                     VStack(alignment: .leading, spacing: 0){

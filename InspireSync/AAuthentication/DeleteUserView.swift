@@ -139,7 +139,8 @@ struct DeleteUserView: View {
                                 SignInWithAppleButtonViewRepresentable(type: .default, style: .black)
                                     .allowsHitTesting(/*@START_MENU_TOKEN@*/false/*@END_MENU_TOKEN@*/)
                             })
-                            .frame(height: 55)
+                            .frame(height: UIScreen.main.bounds.height * 0.055)
+                            .frame(width: UIScreen.main.bounds.width * 0.85)
                             .offset(y:75)
                             .fullScreenCover(isPresented: $deleteView, content: {
                                 NavigationStack{
@@ -179,5 +180,5 @@ struct DeleteUserView: View {
 
 
 #Preview {
-    DeleteUserView(showDeleteView: .constant(false))
+    DeleteUserView(showDeleteView: .constant(true))
 }

@@ -64,9 +64,11 @@ struct HomeView: View {
                     .padding()
                     .background(RoundedRectangle(cornerRadius: 10).stroke(.customTeal, lineWidth: 5))
                 })
-                .sheet(isPresented: $showingQuote) {
-                    sendQuoteView(firstQuote: $firstQuote, secondQuote: $secondQuote)
-                        }
+                .fullScreenCover(isPresented: $showingQuote, content: {
+                    NavigationStack{
+                        sendQuoteView(firstQuote: $firstQuote, secondQuote: $secondQuote)
+                    }
+                })
                 
                 Spacer().frame(height: UIScreen.main.bounds.height * 0.05)
                 

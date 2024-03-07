@@ -89,7 +89,7 @@ struct AuthenticationView: View {
             .padding(20)
             .safeAreaInset(edge: VerticalEdge.bottom){
                 
-                GoogleSignInButton(viewModel: GoogleSignInButtonViewModel(scheme: .light, style: .wide, state: .normal)) {
+                GoogleSignInButton(viewModel: GoogleSignInButtonViewModel(scheme: .dark, style: .wide, state: .normal)) {
                     Task{
                         do {
                             try await viewModel.signInGoogle()
@@ -119,7 +119,8 @@ struct AuthenticationView: View {
                     SignInWithAppleButtonViewRepresentable(type: .default, style: .black)
                         .allowsHitTesting(/*@START_MENU_TOKEN@*/false/*@END_MENU_TOKEN@*/)
                 })
-                .frame(height: 55)
+                .frame(height: UIScreen.main.bounds.height * 0.055)
+                .frame(width: UIScreen.main.bounds.width * 0.85)
                 .offset(y:75)
             })
             .padding()
