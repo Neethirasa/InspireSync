@@ -100,7 +100,7 @@ final class AuthenticationManager{
         do {
             try Auth.auth().signOut()
         } catch{
-            print("Error signing out: %@")
+            print("Error signing out: %@", error)
         }
         
     }

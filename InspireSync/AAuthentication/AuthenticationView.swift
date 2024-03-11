@@ -22,7 +22,8 @@ final class AuthenticationViewModel: ObservableObject {
         
         let helper = SignInAppleHelper()
         let tokens = try await helper.startSignInWithAppleFlow()
-        try await AuthenticationManager.shared.signInWithApple(tokens: tokens)
+        let authDataResult = try await AuthenticationManager.shared.signInWithApple(tokens: tokens)
+        try await UserManager.shared.createNewUser(auth: authDataResult)
             
     }
     
@@ -31,7 +32,8 @@ final class AuthenticationViewModel: ObservableObject {
         
         let helper = SignInGoogleHelper()
         let tokens = try await helper.signIn()
-        try await AuthenticationManager.shared.signInWithGoogle(tokens: tokens)
+        let authDataResult = try await AuthenticationManager.shared.signInWithGoogle(tokens: tokens)
+        try await UserManager.shared.createNewUser(auth: authDataResult)
             
     }
     
@@ -89,7 +91,7 @@ struct AuthenticationView: View {
             .padding(20)
             .safeAreaInset(edge: VerticalEdge.bottom){
                 
-                GoogleSignInButton(viewModel: GoogleSignInButtonViewModel(scheme: .dark, style: .wide, state: .normal)) {
+                GoogleSignInButton(viewModel: GoogleSignInButtonViewModel(scheme: .light, style: .wide, state: .normal)) {
                     Task{
                         do {
                             try await viewModel.signInGoogle()

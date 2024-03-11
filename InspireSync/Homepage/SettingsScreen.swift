@@ -1,6 +1,8 @@
 // Install URLImage: https://github.com/dmytro-anokhin/url-image
-import URLImage 
+import MessageUI
 import SwiftUI
+
+
 
 struct SettingsScreen: View {
     
@@ -13,7 +15,38 @@ struct SettingsScreen: View {
     @State private var deleteUserView = false
     let authUsername = AuthenticationManager.shared.getDisplayName()
     
+    @State var result: Result<MFMailComposeResult, Error>? = nil
+    @State var isShowingMailView = false
+    @State var isShowingPrivacyView = false
+    @State var isShowingTermsService = false
+    @StateObject private var viewEmailModel = EmailViewModel()
+    
+    @State private var navigationActive = false // Track the activation state
+    
+    let recipientEmail = "nivethikan@hotmail.com"
+    
+    private func presentingViewController() -> UIViewController? {
+        if #available(iOS 13.0, *) {
+            // Get the window scene
+            guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                  let rootViewController = windowScene.windows.first?.rootViewController else {
+                return nil
+            }
+            return rootViewController
+        } else {
+            // Fallback for older iOS versions
+            guard let window = UIApplication.shared.keyWindow,
+                  let rootViewController = window.rootViewController else {
+                return nil
+            }
+            return rootViewController
+        }
+    }
+
+    
     var body: some View {
+        
+        
         VStack(alignment: .leading, spacing: 0){
 			ScrollView(){
 				VStack(alignment: .leading, spacing: 0) {
@@ -144,10 +177,31 @@ struct SettingsScreen: View {
                                         fixedSize: 14))
 								.frame(maxWidth: UIScreen.main.bounds.width * 0.9)
                                 Spacer().frame(width: UIScreen.main.bounds.width * 0.47)
+                                
+                                NavigationStack{
+                                    Button(action: {
+                                        viewEmailModel.requestEmailAccess { success in
+                                                            if success {
+                                                                isShowingMailView.toggle()
+                                                            } else {
+                                                                // Handle access denied or restricted
+                                                            }
+                                                        }
+                                    }, label: {
+                                        Image("arrow")
+                                            .resizable()
+                                            .frame(width: UIScreen.main.bounds.width * 0.05, height: UIScreen.main.bounds.height * 0.018, alignment: .leading)
+                                    })
+                                    .sheet(isPresented: $isShowingMailView) {
+                                        MailView(result: $isShowingMailView, presentingViewController: presentingViewController(), recipients: [recipientEmail])
+                                            }
+                                    
+                                }
+                                /*
                                 Image("arrow")
                                     .resizable()
                                     .frame(width: UIScreen.main.bounds.width * 0.05, height: UIScreen.main.bounds.height * 0.018, alignment: .leading)
-					
+					*/
 							}
 							.frame(height: 14)
 							.frame(maxWidth: .infinity)
@@ -167,9 +221,25 @@ struct SettingsScreen: View {
 								.frame(maxWidth: UIScreen.main.bounds.width * 0.9)
 								.padding(.trailing,4)
                                 Spacer().frame(width: UIScreen.main.bounds.width * 0.4)
-                                Image("arrow")
-                                    .resizable()
-                                    .frame(width: UIScreen.main.bounds.width * 0.05, height: UIScreen.main.bounds.height * 0.018, alignment: .leading)
+                                NavigationStack{
+                                    Button(action: {
+                                        viewEmailModel.requestEmailAccess { success in
+                                                            if success {
+                                                                isShowingMailView.toggle()
+                                                            } else {
+                                                                // Handle access denied or restricted
+                                                            }
+                                                        }
+                                    }, label: {
+                                        Image("arrow")
+                                            .resizable()
+                                            .frame(width: UIScreen.main.bounds.width * 0.05, height: UIScreen.main.bounds.height * 0.018, alignment: .leading)
+                                    })
+                                    .sheet(isPresented: $isShowingMailView) {
+                                        MailView(result: $isShowingMailView, presentingViewController: presentingViewController(), recipients: [recipientEmail])
+                                            }
+                                    
+                                }
 							}
 							.frame(height: 14)
 							.frame(maxWidth: .infinity)
@@ -209,9 +279,19 @@ struct SettingsScreen: View {
 								.frame(maxWidth: UIScreen.main.bounds.width * 0.9)
 								.padding(.trailing,4)
                                 Spacer().frame(width: UIScreen.main.bounds.width * 0.49)
-                                Image("arrow")
-                                    .resizable()
-                                    .frame(width: UIScreen.main.bounds.width * 0.05, height: UIScreen.main.bounds.height * 0.018, alignment: .leading)
+                                NavigationStack{
+                                    Button(action: {
+                                        isShowingPrivacyView.toggle()
+                                    }, label: {
+                                        Image("arrow")
+                                            .resizable()
+                                            .frame(width: UIScreen.main.bounds.width * 0.05, height: UIScreen.main.bounds.height * 0.018, alignment: .leading)
+                                    })
+                                    .sheet(isPresented: $isShowingPrivacyView) {
+                                        PrivacyView()
+                                            }
+                                    
+                                }
 							}
 							.frame(height: 14)
 							.frame(maxWidth: .infinity)
@@ -230,61 +310,29 @@ struct SettingsScreen: View {
                                         fixedSize: 14))
 								.frame(maxWidth: UIScreen.main.bounds.width * 0.9)
                                 Spacer().frame(width: UIScreen.main.bounds.width * 0.4598)
-                                Image("arrow")
-                                    .resizable()
-                                    .frame(width: UIScreen.main.bounds.width * 0.05, height: UIScreen.main.bounds.height * 0.018, alignment: .leading)
+                                NavigationStack{
+                                    Button(action: {
+                                        isShowingTermsService.toggle()
+                                    }, label: {
+                                        Image("arrow")
+                                            .resizable()
+                                            .frame(width: UIScreen.main.bounds.width * 0.05, height: UIScreen.main.bounds.height * 0.018, alignment: .leading)
+                                    })
+                                    .sheet(isPresented: $isShowingTermsService) {
+                                        TermsServiceView()
+                                            }
+                                    
+                                }
 
 							}
 							.frame(height: 14)
 							.frame(maxWidth: .infinity)
-							.padding(.bottom,9)
-							VStack(alignment: .leading, spacing: 0){
-							}
-                            .frame(height: UIScreen.main.bounds.height * 0.001)
-							.frame(maxWidth: .infinity, alignment: .leading)
-							.background(Color(hex: "#696969"))
-							.padding(.bottom,6)
-							HStack(spacing: 0){
-								Text("Other Legal")
-								.foregroundColor(Color(hex: "#FFFFFF"))
-                                .font(.custom(
-                                        "Futura-Medium",
-                                        fixedSize: 14))
-								.frame(maxWidth: UIScreen.main.bounds.width * 0.9)
-                                Spacer().frame(width: UIScreen.main.bounds.width * 0.531)
-                                Image("arrow")
-                                    .resizable()
-                                    .frame(width: UIScreen.main.bounds.width * 0.05, height: UIScreen.main.bounds.height * 0.018, alignment: .leading)
-
-							}
-							.frame(height: 14)
-							.frame(maxWidth: .infinity)
-							.padding(.bottom,9)
-							VStack(alignment: .leading, spacing: 0){
-							}
-                            .frame(height: UIScreen.main.bounds.height * 0.001)
-							.frame(maxWidth: .infinity, alignment: .leading)
-							.background(Color(hex: "#696969"))
-							.padding(.bottom,6)
-							HStack(spacing: 0){
-								Text("Safety Center")
-								.foregroundColor(Color(hex: "#FFFFFF"))
-                                .font(.custom(
-                                        "Futura-Medium",
-                                        fixedSize: 14))
-								.frame(maxWidth: UIScreen.main.bounds.width * 0.9)
-                                Spacer().frame(width: UIScreen.main.bounds.width * 0.501)
-                                Image("arrow")
-                                    .resizable()
-                                    .frame(width: UIScreen.main.bounds.width * 0.05, height: UIScreen.main.bounds.height * 0.018, alignment: .leading)
-							}
-							.frame(height: 14)
-							.frame(maxWidth: .infinity)
+						
                             
 						}
 						.padding(.vertical,7)
 						.padding(.horizontal,5)
-						.frame(height: UIScreen.main.bounds.height * 0.15)
+                        .frame(height: UIScreen.main.bounds.height * 0.08)
 						.frame(maxWidth: .infinity, alignment: .leading)
 						.background(Color(hex: "#333333"))
 						.cornerRadius(5)
@@ -315,28 +363,23 @@ struct SettingsScreen: View {
                              })
                          }
                          */
-                        NavigationStack{
-                            Button(role: .destructive){
-                                Task{
-                                    do{
-                                        showDeleteView.toggle()
-                                        
-                                    }catch{
-                                        print(error)
-                                    }
+                        NavigationStack {
+                            Button(role: .destructive) {
+                                Task {
+                                    // This block doesn't throw any errors
+                                    showDeleteView.toggle()
                                 }
-                            }label: {
-                            Text("Delete Account")
-                                    .font(.custom(
-                                            "Futura-Medium",
-                                            fixedSize: 18))
+                            } label: {
+                                Text("Delete Account")
+                                    .font(.custom("Futura-Medium", fixedSize: 18))
                             }
                         }
-                        .fullScreenCover(isPresented: $showDeleteView, content: {
-                            NavigationStack{
+                        .fullScreenCover(isPresented: $showDeleteView) {
+                            NavigationStack {
                                 DeleteUserView(showDeleteView: $showDeleteView)
                             }
-                        })
+                        }
+
                         
                         
                     }

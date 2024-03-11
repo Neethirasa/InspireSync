@@ -7,11 +7,23 @@
 
 import SwiftUI
 import WidgetKit
-
+/*
+@MainActor
+final class ProfileViewModel: ObservableObject{
+    
+    @Published private(set) var user: DBUser? = nil
+    
+    func loadCurrentUser() async throws {
+        let authDataResult = try AuthenticationManager.shared.getAuthenticatedUser()
+        self.user = try await UserManager.shared.getUser(userId: authDataResult.uid)
+    }
+}
+*/
 @MainActor
 final class HomeViewModel: ObservableObject{
     
     @Published var authProviders: [AuthProviderOption] = []
+   // @Published private(set) var user: DBUser? = nil
     
     func  loadAuthProviders() {
         if let providers = try? AuthenticationManager.shared.getProviders(){
@@ -20,9 +32,14 @@ final class HomeViewModel: ObservableObject{
     }
     
     func signOut() throws{
-        try AuthenticationManager.shared.signOut()
+        AuthenticationManager.shared.signOut()
     }
-    
+    /*
+    func loadCurrentUser() async throws {
+        let authDataResult = try AuthenticationManager.shared.getAuthenticatedUser()
+        self.user = try await UserManager.shared.getUser(userId: authDataResult.uid)
+    }
+     */
 }
 
 
@@ -42,6 +59,8 @@ struct HomeView: View {
     @State private var secondQuote = QuoteManager.shared.getSecondQuote()
     
     @State var presentSideMenu = false
+    
+    @State var appeared: Double = 0
     
     var body: some View {
             
@@ -63,7 +82,10 @@ struct HomeView: View {
                     .cornerRadius(.infinity)
                     .padding()
                     .background(RoundedRectangle(cornerRadius: 10).stroke(.customTeal, lineWidth: 5))
-                })
+                })/*
+                .task {
+                    try? await viewModel.loadCurrentUser()
+                }*/
                 .fullScreenCover(isPresented: $showingQuote, content: {
                     NavigationStack{
                         sendQuoteView(firstQuote: $firstQuote, secondQuote: $secondQuote)

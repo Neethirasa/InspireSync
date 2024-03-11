@@ -8,10 +8,26 @@
 import SwiftUI
 import Combine
 
+@MainActor
+final class ProfileViewModel: ObservableObject{
+    
+    @Published private(set) var user: DBUser? = nil
+
+    
+    func loadCurrentUser() async throws {
+        let authDataResult = try AuthenticationManager.shared.getAuthenticatedUser()
+        self.user = try await UserManager.shared.getUser(userId: authDataResult.uid)
+    }
+}
+
 struct ProfileView: View {
     @State private var username: String = ""
     @Binding var nullUsername: Bool
     @State private var showSignInView: Bool = false
+    @StateObject private var viewModel = ProfileViewModel()
+    
+    
+    
     
     let textLimit = 10 //Your limit
     var body: some View {
@@ -55,7 +71,7 @@ struct ProfileView: View {
                 Spacer().frame(height: 30)
                 VStack{
                     Button(){
-                        if !username.isEmpty{
+                        if !username.isEmpty && !username.trimmingCharacters(in: .whitespaces).isEmpty{
                             nullUsername = false
                         }
                         
@@ -67,6 +83,9 @@ struct ProfileView: View {
                             .foregroundColor(.white)
                             .padding()
                   }
+                    .task {
+                        try? await viewModel.loadCurrentUser()
+                    }
                     .background(.customTeal)
                     .background(RoundedRectangle(cornerRadius: 10).stroke(.customTeal, lineWidth: 2))
                     .cornerRadius(10)

@@ -156,7 +156,7 @@ struct sendQuoteView: View {
                 Spacer().frame(height: UIScreen.main.bounds.height * 0.7)
                 HStack{
                     Spacer().frame(width: UIScreen.main.bounds.width * 0.4)
-                    if !quote.isEmpty {
+                    if !quote.isEmpty && !quote.trimmingCharacters(in: .whitespaces).isEmpty{
                         Button(){
                             myString = quote
                             WidgetCenter.shared.reloadAllTimelines()
