@@ -18,6 +18,11 @@ final class ProfileViewModel: ObservableObject{
         let authDataResult = try AuthenticationManager.shared.getAuthenticatedUser()
         self.user = try await UserManager.shared.getUser(userId: authDataResult.uid)
     }
+    
+    func addUserName() async throws {
+        let authDataResult = try AuthenticationManager.shared.getAuthenticatedUser()
+        try await UserManager.shared.updateUserName(auth: authDataResult)
+    }
 }
 
 struct ProfileView: View {
@@ -25,7 +30,6 @@ struct ProfileView: View {
     @Binding var nullUsername: Bool
     @State private var showSignInView: Bool = false
     @StateObject private var viewModel = ProfileViewModel()
-    
     
     
     
@@ -73,6 +77,16 @@ struct ProfileView: View {
                     Button(){
                         if !username.isEmpty && !username.trimmingCharacters(in: .whitespaces).isEmpty{
                             nullUsername = false
+                            
+                            do {
+                                        // Call the throwing function here
+                                try UserManager.shared.addUsername(name: username)
+                                        // Return your view content
+                                    } catch {
+                                        // Handle the error here
+                                        print("Error signing out: %@", error)
+                                    }
+                            
                         }
                         
                     }label: {
@@ -83,9 +97,6 @@ struct ProfileView: View {
                             .foregroundColor(.white)
                             .padding()
                   }
-                    .task {
-                        try? await viewModel.loadCurrentUser()
-                    }
                     .background(.customTeal)
                     .background(RoundedRectangle(cornerRadius: 10).stroke(.customTeal, lineWidth: 2))
                     .cornerRadius(10)

@@ -19,6 +19,7 @@ private enum Field: Int, Hashable {
   case yourTextField, yourOtherTextField
 }
 
+
 struct sendQuoteView: View {
     @Environment(\.dismiss) var dismiss
     
@@ -47,92 +48,77 @@ struct sendQuoteView: View {
             
             Color.washedBlack.ignoresSafeArea()
         
-            
-            
             VStack {
-                
                 VStack {
                     Spacer().frame(height: UIScreen.main.bounds.height * 0.05)
-                            Button(action: {
-                                //print("Expandable button tapped!!!")
-                                isExpanded.toggle()
-                                
-                            }) {
-                                HStack{
-                                    Text("Select Quotes")
-                                        .font(.custom(
-                                                "Futura-Medium",
-                                                fixedSize: 16))
-                                        .foregroundColor(.white)
-                                    
-                                    Spacer().frame(width: UIScreen.main.bounds.width * 0.45)
-                                    
-                                    Image("arrowDown")
-                                        .resizable()
-                                        .frame(width: 20, height: 20)
-                                        .foregroundStyle(.white)
-                                }
-                                .padding()
-                            }
-                            .background(RoundedRectangle(cornerRadius: 100).stroke(.customTeal, lineWidth: 5))
-                            .cornerRadius(100)
+                    Button(action: {
+                        //print("Expandable button tapped!!!")
+                        isExpanded.toggle()
+                    }) {
+                        HStack{
+                            Text("Select Quotes")
+                                .font(.custom("Futura-Medium", fixedSize: 16))
+                                .foregroundColor(.white)
+                            
+                            Spacer().frame(width: UIScreen.main.bounds.width * 0.45)
+                            
+                            Image("arrowDown")
+                                .resizable()
+                                .frame(width: 20, height: 20)
+                                .foregroundStyle(.white)
+                        }
+                        .padding()
+                    }
+                    .background(RoundedRectangle(cornerRadius: 100).stroke(.customTeal, lineWidth: 5))
+                    .cornerRadius(100)
                     
                     if isExpanded {
                         ScrollView {
-                            VStack(spacing: 20) {
+                            VStack(spacing: 10) {
                                 ForEach(0..<quotesArray.count,id: \.self) {
                                     MenuButtons(buttonImage: quotesArray[$0], quote: $quote)
                                 }
                             }
                         }
-                        
-                        .frame(height: 200)
+                        .accentColor(Color.white)
+                        .frame(height: 175)
                     }
-                    
-                            
-                        }
+                }
                 .animation(.spring(duration: 1, bounce: 0.9), value: animationAmount)
                 
                 VStack{
                     Text("Enter your quote below")
                         .foregroundColor(.white)
-                        .font(.custom(
-                                "Futura-Medium",
-                                fixedSize: 18))
+                        .font(.custom("Futura-Medium", fixedSize: 18))
                     
-                    
-                    
-                    TextField("Enter your quote", text: $quote, axis: .vertical)// <1>, <2>
+                    TextField("Enter your quote", text: $quote, axis: .vertical)
                         .multilineTextAlignment(.center)
                         .lineLimit(4)
                         .frame(width: UIScreen.main.bounds.width * 0.76 , height: UIScreen.main.bounds.height * 0.2)
                         .focused($focusedField, equals: .yourTextField)
-                         .contentShape(RoundedRectangle(cornerRadius: 5))
-                         .onTapGesture { focusedField = .yourTextField }
+                        .contentShape(RoundedRectangle(cornerRadius: 5))
+                        .onTapGesture { focusedField = .yourTextField }
                         .border(.secondary)
-                        .font(.system(size: 16))
+                        .font(.custom("Futura-Medium", fixedSize: 16))
                         .foregroundColor(.white)
                         .cornerRadius(.infinity)
                         .background(RoundedRectangle(cornerRadius: 10).stroke(.customTeal, lineWidth: 5))
                         .onReceive(Just($quote)) { _ in limitText(textLimit) }
-                    Spacer().frame(height: UIScreen.main.bounds.height * 0.1)
-                    
-                        }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                       .contentShape(Rectangle())
-                       .onTapGesture {let keyWindow = UIApplication.shared.connectedScenes
-                           .filter({$0.activationState == .foregroundActive})
-                           .map({$0 as? UIWindowScene})
-                           .compactMap({$0})
-                           .first?.windows
-                           .filter({$0.isKeyWindow}).first
-                           keyWindow!.endEditing(true)
-                       }
-                       .onLongPressGesture(
-                           pressing: { isPressed in if isPressed { self.endEditing() } },
-                           perform: {})
+                    Spacer().frame(height: UIScreen.main.bounds.height * 0.3)
                 }
-            
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom) // Ensure constant height
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    let keyWindow = UIApplication.shared.connectedScenes
+                        .filter({$0.activationState == .foregroundActive})
+                        .map({$0 as? UIWindowScene})
+                        .compactMap({$0})
+                        .first?.windows
+                        .filter({$0.isKeyWindow}).first
+                    keyWindow!.endEditing(true)
+                }
+                .onLongPressGesture(pressing: { isPressed in if isPressed { self.endEditing() } }, perform: {})
+            }
             
             VStack{
                 

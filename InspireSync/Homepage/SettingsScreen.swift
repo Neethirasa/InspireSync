@@ -15,15 +15,13 @@ struct SettingsScreen: View {
     @State private var deleteUserView = false
     let authUsername = AuthenticationManager.shared.getDisplayName()
     
-    @State var result: Result<MFMailComposeResult, Error>? = nil
-    @State var isShowingMailView = false
+    @State var isShowingBugView = false
     @State var isShowingPrivacyView = false
     @State var isShowingTermsService = false
     @StateObject private var viewEmailModel = EmailViewModel()
     
     @State private var navigationActive = false // Track the activation state
     
-    let recipientEmail = "nivethikan@hotmail.com"
     
     private func presentingViewController() -> UIViewController? {
         if #available(iOS 13.0, *) {
@@ -89,7 +87,7 @@ struct SettingsScreen: View {
                             //.frame(maxWidth: .infinity)
                             Spacer().frame(width: UIScreen.main.bounds.width * 0.57)
                         }
-                        .frame(height: 18)
+                        .frame(height: UIScreen.main.bounds.height * 0.01)
                         .frame(maxWidth: .infinity)
                         .padding(.bottom,11)
                         .padding(.horizontal,5)
@@ -107,10 +105,11 @@ struct SettingsScreen: View {
                                 Spacer().frame(width: UIScreen.main.bounds.width * 0.61)
                                     .overlay(alignment: .trailing) {
                                                     Text(authUsername)//take quotes off
-                                            .foregroundColor(Color(hex: "#FFFFFF"))
+                                            .foregroundColor(Color.gray)
                                             .font(.custom(
                                                     "Futura-Medium",
                                                     fixedSize: 14))
+                                            .italic()
                                                 }
                                 
                                 /*
@@ -180,20 +179,16 @@ struct SettingsScreen: View {
                                 
                                 NavigationStack{
                                     Button(action: {
-                                        viewEmailModel.requestEmailAccess { success in
-                                                            if success {
-                                                                isShowingMailView.toggle()
-                                                            } else {
-                                                                // Handle access denied or restricted
-                                                            }
-                                                        }
+                                        isShowingBugView.toggle()
                                     }, label: {
                                         Image("arrow")
                                             .resizable()
                                             .frame(width: UIScreen.main.bounds.width * 0.05, height: UIScreen.main.bounds.height * 0.018, alignment: .leading)
+                                            .contrast(15)
+                                            
                                     })
-                                    .sheet(isPresented: $isShowingMailView) {
-                                        MailView(result: $isShowingMailView, presentingViewController: presentingViewController(), recipients: [recipientEmail])
+                                    .sheet(isPresented: $isShowingBugView ) {
+                                        BugView()
                                             }
                                     
                                 }
@@ -223,20 +218,15 @@ struct SettingsScreen: View {
                                 Spacer().frame(width: UIScreen.main.bounds.width * 0.4)
                                 NavigationStack{
                                     Button(action: {
-                                        viewEmailModel.requestEmailAccess { success in
-                                                            if success {
-                                                                isShowingMailView.toggle()
-                                                            } else {
-                                                                // Handle access denied or restricted
-                                                            }
-                                                        }
+                                        isShowingBugView.toggle()
                                     }, label: {
                                         Image("arrow")
                                             .resizable()
                                             .frame(width: UIScreen.main.bounds.width * 0.05, height: UIScreen.main.bounds.height * 0.018, alignment: .leading)
+                                            .contrast(15)
                                     })
-                                    .sheet(isPresented: $isShowingMailView) {
-                                        MailView(result: $isShowingMailView, presentingViewController: presentingViewController(), recipients: [recipientEmail])
+                                    .sheet(isPresented: $isShowingBugView ) {
+                                        BugView()
                                             }
                                     
                                 }
@@ -286,6 +276,7 @@ struct SettingsScreen: View {
                                         Image("arrow")
                                             .resizable()
                                             .frame(width: UIScreen.main.bounds.width * 0.05, height: UIScreen.main.bounds.height * 0.018, alignment: .leading)
+                                            .contrast(15)
                                     })
                                     .sheet(isPresented: $isShowingPrivacyView) {
                                         PrivacyView()
@@ -317,6 +308,7 @@ struct SettingsScreen: View {
                                         Image("arrow")
                                             .resizable()
                                             .frame(width: UIScreen.main.bounds.width * 0.05, height: UIScreen.main.bounds.height * 0.018, alignment: .leading)
+                                            .contrast(15)
                                     })
                                     .sheet(isPresented: $isShowingTermsService) {
                                         TermsServiceView()

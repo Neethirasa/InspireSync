@@ -33,7 +33,7 @@ struct MenuButtons: View {
                       .frame(height: 1)
                       .frame(width: UIScreen.main.bounds.width * 0.5)
                      // .frame(maxWidth: .infinity, alignment: .leading)
-                      .background(Color.black)
+                      .background(Color.white)
                   }
                   
               }

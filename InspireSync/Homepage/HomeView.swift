@@ -7,6 +7,7 @@
 
 import SwiftUI
 import WidgetKit
+import Combine
 /*
 @MainActor
 final class ProfileViewModel: ObservableObject{
@@ -61,11 +62,27 @@ struct HomeView: View {
     @State var presentSideMenu = false
     
     @State var appeared: Double = 0
+
+    private let objectWillChange = PassthroughSubject<Void, Never>()
+    
+    @State private var counter = 0
+    @State private var isTimerActive = true
+    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    
+    @State private var homeUsername = " "
+    @State private var animationAmount = 1.0
     
     var body: some View {
+        
             
         ZStack {
             Color.washedBlack.edgesIgnoringSafeArea(.all)
+            
+            RoundedRectangle(cornerRadius: 10)
+                    .stroke(Color.white.opacity(0.3), lineWidth: 2) // Semi-transparent stroke
+                    .blur(radius: 4) // Blur effect
+                    .offset(x: -2, y: -2) // Offset to create the glass effect
+                    .mask(RoundedRectangle(cornerRadius: 10)) // Mask to limit blur effect
             
             VStack {
                 
@@ -77,7 +94,9 @@ struct HomeView: View {
                 }, label: {
                   Text("+")
                         .frame(width: UIScreen.main.bounds.width * 0.76 , height: UIScreen.main.bounds.height * 0.10)
-                    .font(.system(size: 60))
+                        .font(.custom(
+                                "Futura-Medium",
+                                fixedSize: 60))
                     .foregroundColor(.white)
                     .cornerRadius(.infinity)
                     .padding()
@@ -99,10 +118,14 @@ struct HomeView: View {
                     WidgetCenter.shared.reloadAllTimelines()
                 }, label: {
                     Text(firstQuote)
+                    .minimumScaleFactor(0.5)
                     .frame(width: UIScreen.main.bounds.width * 0.76 , height: UIScreen.main.bounds.height * 0.18)
-                    .font(.system(size: 16))
+                    .font(.custom(
+                            "Futura-Medium",
+                            fixedSize: 18))
                     .foregroundColor(.white)
                     .cornerRadius(.infinity)
+                    .lineLimit(4)
                     .padding()
                     .background(RoundedRectangle(cornerRadius: 10).stroke(.customTeal, lineWidth: 5))
                     
@@ -116,10 +139,14 @@ struct HomeView: View {
                     WidgetCenter.shared.reloadAllTimelines()
                 }, label: {
                     Text(secondQuote)
+                    .minimumScaleFactor(0.5)
                     .frame(width: UIScreen.main.bounds.width * 0.76 , height: UIScreen.main.bounds.height * 0.18)
-                    .font(.system(size: 16))
+                    .font(.custom(
+                            "Futura-Medium",
+                            fixedSize: 18))
                     .foregroundColor(.white)
                     .cornerRadius(.infinity)
+                    .lineLimit(4)
                     .padding()
                     .background(RoundedRectangle(cornerRadius: 10).stroke(.customTeal, lineWidth: 5))
                 })
@@ -132,54 +159,59 @@ struct HomeView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .overlay(
                 ZStack {
-                    HStack {
-                        Spacer().frame(width: UIScreen.main.bounds.width * 0.05)
-                        VStack{
-                            Spacer().frame(height: UIScreen.main.bounds.height * 0.05)
-                            Button {
-                                presentSideMenu.toggle()
-                            } label: {
-                                Image("menuIcon")
-                                    .aspectRatio(contentMode: .fit)
-                                    .font(.system(size: 10))
-                                    .foregroundColor(.customTeal)
-                            }
-                        }
-                    
-                        
-                        Spacer().frame(width: UIScreen.main.bounds.width * 0.25)
-                        
-                        VStack{
-                            Spacer().frame(height: UIScreen.main.bounds.height * 0.05)
-                            Image("Logo")
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: 60, height: 60)
-                            
-                        
-                        }
-                        Spacer().frame(width: UIScreen.main.bounds.width * 0.35)
-                        /*
-                        VStack{
-                            Spacer().frame(height: UIScreen.main.bounds.height * 0.05)
-                            NavigationStack{
-                                Button(action: {
-                                    settingsView.toggle()
-                                }, label: {
-                                    Image(systemName: "person.crop.circle.dashed")
-                                        .font(.system(size: 40))
+                    VStack{
+                        HStack {
+                            Spacer().frame(width: UIScreen.main.bounds.width * 0.25)
+
+                                Button {
+                                    presentSideMenu.toggle()
+                                } label: {
+                                    Image("menuIcon")
+                                        .aspectRatio(contentMode: .fit)
+                                        .font(.system(size: 10))
                                         .foregroundColor(.customTeal)
-                                })
-                                .sheet(isPresented: $settingsView) {
-                                    SettingsView()
                                 }
+                                .padding()
+                            HStack(alignment: .center){
+                                Text("Welcome " + homeUsername)
+                                    .font(.custom(
+                                            "Futura-Medium",
+                                            size: 25))
+                                    .foregroundStyle(Color.white)
+                                    .minimumScaleFactor(0.5)
+                                    .frame(width:200, height: 80)
+                                    .lineLimit(1)
+                            .onReceive(timer) { _ in
+                                        // Update the counter every second
+                                        counter += 1
+                                self.homeUsername = AuthenticationManager.shared.getDisplayName()
+                                
+                                if (!self.homeUsername.isEmpty && counter >= 10){
+                                    isTimerActive = false
+                                    timer.upstream.connect().cancel()
+                                }
+                                    }
                             }
+                            .frame(width: UIScreen.main.bounds.width * 0.5)
+                                .animation(.spring(duration: 1, bounce: 0.9), value: animationAmount)
+      
+                            
+                                NavigationStack{
+                                    Button(action: {
+                                        settingsView.toggle()
+                                    }, label: {
+                                        Image(systemName: "person.crop.circle.dashed")
+                                            .font(.system(size: 40))
+                                            .foregroundColor(.customTeal)
+                                    })
+                                    .sheet(isPresented: $settingsView) {
+                                        SettingsView()
+                                    }
+                                }
+                                .padding()
+                            Spacer().frame(width: UIScreen.main.bounds.width * 0.25)
+
                         }
-                        */
-                        Spacer().frame(width: UIScreen.main.bounds.width * 0.05)
-                        
-                        
-                        
                     }
                 }
                     .frame(maxWidth: .infinity)
