@@ -28,6 +28,27 @@ enum AuthProviderOption: String {
     case email = "password"
     case apple = "apple.com"
     case google = "google.com"
+    
+    // Handle unknown provider IDs by returning nil
+    init?(rawValue: String) {
+        switch rawValue {
+        case "password":
+            self = .email
+        case "apple.com":
+            self = .apple
+        case "google.com":
+            self = .google
+        default:
+            // If the provider ID is unknown, return nil
+            return nil
+        }
+    }
+}
+
+
+// Define custom error type
+enum AuthError: Error {
+    case noProviderData
 }
 
 final class AuthenticationManager{
@@ -47,12 +68,12 @@ final class AuthenticationManager{
     
     func getProviders() throws -> [AuthProviderOption] {
         guard let providerData = Auth.auth().currentUser?.providerData else {
-            throw URLError(.badServerResponse)
+            throw AuthError.noProviderData
         }
         
         var providers: [AuthProviderOption] = []
         for provider in providerData {
-            if let option = AuthProviderOption(rawValue: provider.providerID){
+            if let option = AuthProviderOption(rawValue: provider.providerID) {
                 providers.append(option)
             } else {
                 assertionFailure("Provider option not found: \(provider.providerID)")
@@ -100,7 +121,7 @@ final class AuthenticationManager{
         do {
             try Auth.auth().signOut()
         } catch{
-            print("Error signing out: %@", error)
+            print("Error signing out: %@")
         }
         
     }

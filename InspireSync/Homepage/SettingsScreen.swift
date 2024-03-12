@@ -169,18 +169,19 @@ struct SettingsScreen: View {
 					Group{
 						VStack(alignment: .leading, spacing: 0){
 							HStack(spacing: 0){
-								Text("I spotted a bug")
-								.foregroundColor(Color(hex: "#FFFFFF"))
-                                .font(.custom(
-                                        "Futura-Medium",
-                                        fixedSize: 14))
-								.frame(maxWidth: UIScreen.main.bounds.width * 0.9)
-                                Spacer().frame(width: UIScreen.main.bounds.width * 0.47)
+								
                                 
                                 NavigationStack{
                                     Button(action: {
                                         isShowingBugView.toggle()
                                     }, label: {
+                                        Text("I spotted a bug")
+                                        .foregroundColor(Color(hex: "#FFFFFF"))
+                                        .font(.custom(
+                                                "Futura-Medium",
+                                                fixedSize: 14))
+                                        .frame(maxWidth: UIScreen.main.bounds.width * 0.9)
+                                        Spacer().frame(width: UIScreen.main.bounds.width * 0.47)
                                         Image("arrow")
                                             .resizable()
                                             .frame(width: UIScreen.main.bounds.width * 0.05, height: UIScreen.main.bounds.height * 0.018, alignment: .leading)
@@ -208,18 +209,19 @@ struct SettingsScreen: View {
 							.background(Color(hex: "#696969"))
 							.padding(.bottom,6)
 							HStack(spacing: 0){
-								Text("I have a suggestion")
-								.foregroundColor(Color(hex: "#FFFFFF"))
-                                .font(.custom(
-                                        "Futura-Medium",
-                                        fixedSize: 14))
-								.frame(maxWidth: UIScreen.main.bounds.width * 0.9)
-								.padding(.trailing,4)
-                                Spacer().frame(width: UIScreen.main.bounds.width * 0.4)
+								
                                 NavigationStack{
                                     Button(action: {
                                         isShowingBugView.toggle()
                                     }, label: {
+                                        Text("I have a suggestion")
+                                        .foregroundColor(Color(hex: "#FFFFFF"))
+                                        .font(.custom(
+                                                "Futura-Medium",
+                                                fixedSize: 14))
+                                        .frame(maxWidth: UIScreen.main.bounds.width * 0.9)
+                                        .padding(.trailing,4)
+                                        Spacer().frame(width: UIScreen.main.bounds.width * 0.4)
                                         Image("arrow")
                                             .resizable()
                                             .frame(width: UIScreen.main.bounds.width * 0.05, height: UIScreen.main.bounds.height * 0.018, alignment: .leading)
@@ -261,25 +263,26 @@ struct SettingsScreen: View {
 						.padding(.horizontal,5)
 						VStack(alignment: .leading, spacing: 0){
 							HStack(spacing: 0){
-								Text("Privacy Policy")
-								.foregroundColor(Color(hex: "#FFFFFF"))
-                                .font(.custom(
-                                        "Futura-Medium",
-                                        fixedSize: 14))
-								.frame(maxWidth: UIScreen.main.bounds.width * 0.9)
-								.padding(.trailing,4)
-                                Spacer().frame(width: UIScreen.main.bounds.width * 0.49)
+								
                                 NavigationStack{
                                     Button(action: {
                                         isShowingPrivacyView.toggle()
                                     }, label: {
+                                        Text("Privacy Policy")
+                                        .foregroundColor(Color(hex: "#FFFFFF"))
+                                        .font(.custom(
+                                                "Futura-Medium",
+                                                fixedSize: 14))
+                                        .frame(maxWidth: UIScreen.main.bounds.width * 0.9)
+                                        .padding(.trailing,4)
+                                        Spacer().frame(width: UIScreen.main.bounds.width * 0.49)
                                         Image("arrow")
                                             .resizable()
                                             .frame(width: UIScreen.main.bounds.width * 0.05, height: UIScreen.main.bounds.height * 0.018, alignment: .leading)
                                             .contrast(15)
                                     })
                                     .sheet(isPresented: $isShowingPrivacyView) {
-                                        PrivacyView()
+                                        PrivacyView(url: URL(string: "https://docs.google.com/document/d/e/2PACX-1vQCfVq7kFa2DR49OehK2p44ZXCaB2VSwJHqiiBVMoveY3eEm_yPB512pJHC4iONCd01f33O-g_-HiaD/pub")!)
                                             }
                                     
                                 }
@@ -294,24 +297,26 @@ struct SettingsScreen: View {
 							.background(Color(hex: "#696969"))
 							.padding(.bottom,6)
 							HStack(spacing: 0){
-								Text("Terms of Service")
-								.foregroundColor(Color(hex: "#FFFFFF"))
-                                .font(.custom(
-                                        "Futura-Medium",
-                                        fixedSize: 14))
-								.frame(maxWidth: UIScreen.main.bounds.width * 0.9)
-                                Spacer().frame(width: UIScreen.main.bounds.width * 0.4598)
+								
                                 NavigationStack{
                                     Button(action: {
                                         isShowingTermsService.toggle()
                                     }, label: {
+                                        Text("Terms of Service")
+                                        .foregroundColor(Color(hex: "#FFFFFF"))
+                                        .font(.custom(
+                                                "Futura-Medium",
+                                                fixedSize: 14))
+                                        .frame(maxWidth: UIScreen.main.bounds.width * 0.9)
+                                        Spacer().frame(width: UIScreen.main.bounds.width * 0.4598)
                                         Image("arrow")
                                             .resizable()
                                             .frame(width: UIScreen.main.bounds.width * 0.05, height: UIScreen.main.bounds.height * 0.018, alignment: .leading)
                                             .contrast(15)
                                     })
                                     .sheet(isPresented: $isShowingTermsService) {
-                                        TermsServiceView()
+                                        TermsServiceView(url: URL(string: "https://docs.google.com/document/d/e/2PACX-1vQCfVq7kFa2DR49OehK2p44ZXCaB2VSwJHqiiBVMoveY3eEm_yPB512pJHC4iONCd01f33O-g_-HiaD/pub")!)
+                                            .background(Color.washedBlack)
                                             }
                                     
                                 }

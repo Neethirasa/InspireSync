@@ -7,6 +7,8 @@
 
 import SwiftUI
 import Combine
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 
 private enum Field: Int, Hashable {
   case yourTextField, yourOtherTextField
@@ -14,9 +16,13 @@ private enum Field: Int, Hashable {
 
 struct BugView: View {
     @FocusState private var focusedField: Field?
-    @State private var suggestion: String = ""
+    @State private var message: String = ""
     @State private var email: String = ""
-    @Environment(\.dismiss) var dismiss
+    @State private var username: String = AuthenticationManager.shared.getDisplayName()
+    @Environment(\.presentationMode) var presentationMode
+    @State private var remainingTime: String = ""
+    @State private var showAlert = false
+    
     
     var body: some View {
         ZStack{
@@ -57,7 +63,7 @@ struct BugView: View {
                             "Futura-Medium",
                             fixedSize: 18))
                 
-                TextField("Enter your suggestion", text: $suggestion, axis: .vertical)// <1>, <2>
+                TextField("Enter your suggestion", text: $message, axis: .vertical)// <1>, <2>
                     .multilineTextAlignment(.center)
                     .lineLimit(4)
                     .frame(width: UIScreen.main.bounds.width * 0.76 , height: UIScreen.main.bounds.height * 0.2)
@@ -79,7 +85,7 @@ struct BugView: View {
                 
                 HStack{
                     Button(role: .destructive){
-                      dismiss()
+                        presentationMode.wrappedValue.dismiss()
                     }label: {
                     Text("Cancel")
                   }
@@ -95,9 +101,10 @@ struct BugView: View {
                 Spacer().frame(height: UIScreen.main.bounds.height * 0.7)
                 HStack{
                     Spacer().frame(width: UIScreen.main.bounds.width * 0.4)
-                    if (!suggestion.isEmpty && !email.isEmpty && !suggestion.trimmingCharacters(in: .whitespaces).isEmpty && !email.trimmingCharacters(in: .whitespaces).isEmpty) {
+                    if (!message.isEmpty && !email.isEmpty && !message.trimmingCharacters(in: .whitespaces).isEmpty && !email.trimmingCharacters(in: .whitespaces).isEmpty) {
                         Button(){
-                            dismiss()
+                            sendMessage()
+                            //dismiss()
                             
                         }label: {
                         Text("Send")
@@ -109,10 +116,69 @@ struct BugView: View {
                     }
                 }
             }
+            .alert(isPresented: $showAlert) {
+                    Alert(title: Text("Please wait"),
+                          message: Text("You can send another message in \(remainingTime). Email nivethikn@hotmail.com for other questions."),
+                          dismissButton: .default(Text("OK")))
+                }
         }
         .background(Color("WashedBlack"))
         .scrollContentBackground(.hidden)
     }
+    
+    func sendMessage() {
+        // Check if the last sent message time is greater than or equal to 24 hours ago
+        guard let lastSentTime = UserDefaults.standard.object(forKey: "lastSentTime") as? Date else {
+            sendToFirestore()
+            presentationMode.wrappedValue.dismiss()
+            return
+        }
+        
+        let currentDate = Date()
+        let timeDifference = currentDate.timeIntervalSince(lastSentTime)
+        let twentyFourHoursInSeconds: TimeInterval = 24 * 60 * 60
+        
+        if timeDifference >= twentyFourHoursInSeconds {
+            sendToFirestore()
+            presentationMode.wrappedValue.dismiss()
+        } else {
+            // Calculate remaining time
+            let remainingSeconds = twentyFourHoursInSeconds - timeDifference
+            let hours = Int(remainingSeconds) / 3600
+            let minutes = Int(remainingSeconds) / 60 % 60
+            let seconds = Int(remainingSeconds) % 60
+            
+            remainingTime = String(format: "%02d:%02d:%02d", hours, minutes, seconds)
+            
+            // Show a popup informing the user to wait
+            showAlert = true
+        }
+    }
+        
+        func sendToFirestore() {
+            // Reference to the Firestore database
+            let db = Firestore.firestore()
+            
+            // Create a dictionary to represent the data
+            let data: [String: Any] = [
+                "user_name" : username,
+                "email": email,
+                "message": message,
+                "timestamp": Date()
+            ]
+            
+            // Add a new document with a generated ID to the "userMessages" collection
+            db.collection("userMessages").addDocument(data: data) { error in
+                if let error = error {
+                    print("Error adding document: \(error)")
+                } else {
+                    print("Document added to Firestore")
+                    
+                    // Save the current time as the last sent message time
+                    UserDefaults.standard.set(Date(), forKey: "lastSentTime")
+                }
+            }
+        }
 }
 
 

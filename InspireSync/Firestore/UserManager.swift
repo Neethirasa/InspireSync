@@ -58,7 +58,12 @@ final class UserManager{
         }
     }
     
-    func addUsername(name: String) throws{
+    func addUsername(name: String) throws {
+        guard !name.isEmpty else {
+            print("Username is empty. Not updating data.")
+            return
+        }
+        
         var userName: [String:Any] = [
             "displayName" : name
         ]

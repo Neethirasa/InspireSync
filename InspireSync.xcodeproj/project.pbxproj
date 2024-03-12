@@ -10,6 +10,7 @@
 		1E10DA3C2B9EA3FD00B30D2C /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E10DA3B2B9EA3FD00B30D2C /* UserManager.swift */; };
 		1E10DA3F2B9EA5FD00B30D2C /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 1E10DA3E2B9EA5FD00B30D2C /* FirebaseFirestore */; };
 		1E10DA412B9EA5FD00B30D2C /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 1E10DA402B9EA5FD00B30D2C /* FirebaseFirestoreSwift */; };
+		1E10DA432B9F9C8100B30D2C /* SuggestionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E10DA422B9F9C8100B30D2C /* SuggestionManager.swift */; };
 		1E1D9BFD2B8313D700778E0D /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E1D9BFC2B8313D700778E0D /* WidgetKit.framework */; };
 		1E1D9BFF2B8313D700778E0D /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E1D9BFE2B8313D700778E0D /* SwiftUI.framework */; };
 		1E1D9C022B8313D800778E0D /* InspireSyncWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E1D9C012B8313D800778E0D /* InspireSyncWidgetBundle.swift */; };
@@ -19,7 +20,6 @@
 		1E2B19012B8D352700D675E4 /* SideMenuViewContents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E2B19002B8D352700D675E4 /* SideMenuViewContents.swift */; };
 		1E7CAD212B99768F00FCDD96 /* MenuButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7CAD202B99768F00FCDD96 /* MenuButtons.swift */; };
 		1E7CAD322B9A184C00FCDD96 /* BugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7CAD312B9A184C00FCDD96 /* BugView.swift */; };
-		1E7CAD332B9A184C00FCDD96 /* BugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7CAD312B9A184C00FCDD96 /* BugView.swift */; };
 		1E7CAD352B9A5CFA00FCDD96 /* MailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7CAD342B9A5CFA00FCDD96 /* MailView.swift */; };
 		1E7CAD362B9A5CFA00FCDD96 /* MailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7CAD342B9A5CFA00FCDD96 /* MailView.swift */; };
 		1E7CAD382B9A651900FCDD96 /* EmailHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7CAD372B9A651900FCDD96 /* EmailHelper.swift */; };
@@ -93,6 +93,7 @@
 
 /* Begin PBXFileReference section */
 		1E10DA3B2B9EA3FD00B30D2C /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserManager.swift; path = InspireSync/Firestore/UserManager.swift; sourceTree = SOURCE_ROOT; };
+		1E10DA422B9F9C8100B30D2C /* SuggestionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionManager.swift; sourceTree = "<group>"; };
 		1E1D9BFB2B8313D700778E0D /* InspireSyncWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = InspireSyncWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		1E1D9BFC2B8313D700778E0D /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		1E1D9BFE2B8313D700778E0D /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
@@ -198,6 +199,7 @@
 			isa = PBXGroup;
 			children = (
 				1E10DA3B2B9EA3FD00B30D2C /* UserManager.swift */,
+				1E10DA422B9F9C8100B30D2C /* SuggestionManager.swift */,
 			);
 			path = Firestore;
 			sourceTree = "<group>";
@@ -426,7 +428,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				1E1D9C022B8313D800778E0D /* InspireSyncWidgetBundle.swift in Sources */,
-				1E7CAD332B9A184C00FCDD96 /* BugView.swift in Sources */,
 				1E7CAD392B9A651900FCDD96 /* EmailHelper.swift in Sources */,
 				1E7CAD4A2B9BB11100FCDD96 /* TermsServiceView.swift in Sources */,
 				1E7CAD442B9A8BCC00FCDD96 /* TextView.swift in Sources */,
@@ -460,6 +461,7 @@
 				1E91DFBC2B50F22600C72D29 /* AuthenticationView.swift in Sources */,
 				1E7CAD432B9A8BCC00FCDD96 /* TextView.swift in Sources */,
 				1ED7D9822B83BAA30023647B /* QuoteManager.swift in Sources */,
+				1E10DA432B9F9C8100B30D2C /* SuggestionManager.swift in Sources */,
 				1E7CAD212B99768F00FCDD96 /* MenuButtons.swift in Sources */,
 				1E91DFD42B544DCE00C72D29 /* Utilities.swift in Sources */,
 				1E7CAD352B9A5CFA00FCDD96 /* MailView.swift in Sources */,
