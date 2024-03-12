@@ -75,13 +75,13 @@ struct sendQuoteView: View {
                     if isExpanded {
                         ScrollView {
                             VStack(spacing: 10) {
-                                ForEach(0..<quotesArray.count,id: \.self) {
-                                    MenuButtons(buttonImage: quotesArray[$0], quote: $quote)
+                                ForEach(0..<quotesArray.count,id: \.self) { index in
+                                    MenuButtons(buttonImage: quotesArray[index], quote: $quote, isExpanded: $isExpanded)
                                 }
                             }
                         }
                         .accentColor(Color.white)
-                        .frame(height: 175)
+                        .frame(height: UIScreen.main.bounds.height * 0.2)
                     }
                 }
                 .animation(.spring(duration: 1, bounce: 0.9), value: animationAmount)

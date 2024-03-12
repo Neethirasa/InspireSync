@@ -12,11 +12,13 @@ struct MenuButtons: View {
     var buttonImage: String
     
     @Binding var quote: String
-      
+    @Binding  var isExpanded: Bool
+    
       var body: some View {
           Button(action: {
               print(buttonImage)
               quote = buttonImage
+              isExpanded.toggle()
           }) {
               ZStack {
                   VStack{

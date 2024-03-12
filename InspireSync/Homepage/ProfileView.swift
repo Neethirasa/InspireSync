@@ -60,7 +60,7 @@ struct ProfileView: View {
                     
                     TextField("Enter your username", text: $username) // <1>, <2>
                     .frame(width: UIScreen.main.bounds.width * 0.6 , height: UIScreen.main.bounds.height * 0.02)
-                    .font(.system(size: 16))
+                    .font(.custom("Futura-Medium", fixedSize: 16))
                     .foregroundColor(.white)
                     .cornerRadius(.infinity)
                     .padding()
