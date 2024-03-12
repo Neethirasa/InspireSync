@@ -19,10 +19,6 @@ final class ProfileViewModel: ObservableObject{
         self.user = try await UserManager.shared.getUser(userId: authDataResult.uid)
     }
     
-    func addUserName() async throws {
-        let authDataResult = try AuthenticationManager.shared.getAuthenticatedUser()
-        try await UserManager.shared.updateUserName(auth: authDataResult)
-    }
 }
 
 struct ProfileView: View {

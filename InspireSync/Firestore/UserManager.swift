@@ -24,6 +24,23 @@ final class UserManager{
     static let shared = UserManager()
     private init() {}
     
+    func userExists(auth: AuthDataResultModel) async throws -> Bool {
+            // Get a reference to the user document in Firestore using the user's UID
+            let userRef = Firestore.firestore().collection("users").document(auth.uid)
+            
+            do {
+                // Attempt to get the document snapshot
+                let documentSnapshot = try await userRef.getDocument()
+                
+                // Return true if the document exists, false otherwise
+                return documentSnapshot.exists
+            } catch {
+                // If there's an error, print it and return false
+                print("Error fetching user document: \(error)")
+                return false
+            }
+        }
+    
     func createNewUser(auth: AuthDataResultModel) async throws{
         
         var userData: [String:Any] = [

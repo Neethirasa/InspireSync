@@ -11,6 +11,8 @@ import AuthenticationServices
 import CryptoKit
 import GoogleSignIn
 import GoogleSignInSwift
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 
 
 struct DeleteUserView: View {
@@ -89,6 +91,9 @@ struct DeleteUserView: View {
                                 do {
                                     try await viewModel.signInGoogle()
                                     showDeleteView = false
+                                    // Delete user data from Firestore
+                                    try await Firestore.firestore().collection("users").document(AuthenticationManager.shared.getAuthenticatedUser().uid).delete()
+                                    
                                     try await viewModelSetting.deleteAccount()
                                     // Present the RootView
                                     if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
@@ -131,7 +136,10 @@ struct DeleteUserView: View {
                                     do {
                                         try await viewModel.signInApple()
                                         showDeleteView = false
+                                        // Delete user data from Firestore
+                                        try await Firestore.firestore().collection("users").document(AuthenticationManager.shared.getAuthenticatedUser().uid).delete()
                                         try await viewModelSetting.deleteAccount()
+                                        
                                         deleteView.toggle()
                                         // Present the RootView
                                         if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
