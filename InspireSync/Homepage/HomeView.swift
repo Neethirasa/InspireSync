@@ -61,7 +61,7 @@ struct HomeView: View {
 
     private let objectWillChange = PassthroughSubject<Void, Never>()
     
-    @State private var counter = 0
+   
     @State private var isTimerActive = true
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
@@ -179,11 +179,10 @@ struct HomeView: View {
                                     .frame(width:200, height: 80)
                                     .lineLimit(1)
                             .onReceive(timer) { _ in
-                                        // Update the counter every second
-                                        counter += 1
+                                    
                                 self.homeUsername = AuthenticationManager.shared.getDisplayName()
                                 
-                                if (!self.homeUsername.isEmpty && counter >= 10){
+                                if !(homeUsername == "") {
                                     isTimerActive = false
                                     timer.upstream.connect().cancel()
                                 }

@@ -88,6 +88,13 @@ struct SideMenuViewContents: View {
                                     showSignInView = true
                                     try viewModel.signOut()
                                     
+                                    // Present the RootView
+                                    if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                                        let window = windowScene.windows.first {
+                                                    window.rootViewController = UIHostingController(rootView: RootView())
+                                                }
+                                    
+                                    
                                 }catch{
                                     print(error)
                                 }
@@ -100,16 +107,6 @@ struct SideMenuViewContents: View {
                         }
                         
                     }
-                    
-                    .onAppear{
-                        viewModel.loadAuthProviders()
-                    }
-                    .navigationBarTitle("")
-                    .fullScreenCover(isPresented: $showSignInView, content: {
-                        NavigationStack{
-                            AuthenticationView(showSignInView: $showSignInView)
-                        }
-                    })
                     .listRowBackground(Color.washedBlack)
                     
                 }

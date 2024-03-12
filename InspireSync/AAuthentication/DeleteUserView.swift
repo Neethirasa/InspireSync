@@ -90,7 +90,11 @@ struct DeleteUserView: View {
                                     try await viewModel.signInGoogle()
                                     showDeleteView = false
                                     try await viewModelSetting.deleteAccount()
-                                    exit(0)
+                                    // Present the RootView
+                                    if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                                        let window = windowScene.windows.first {
+                                                    window.rootViewController = UIHostingController(rootView: RootView())
+                                                }
                                 } catch {
                                     print(error)
                                 }
@@ -129,7 +133,11 @@ struct DeleteUserView: View {
                                         showDeleteView = false
                                         try await viewModelSetting.deleteAccount()
                                         deleteView.toggle()
-                                        exit(0)
+                                        // Present the RootView
+                                        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                                            let window = windowScene.windows.first {
+                                                        window.rootViewController = UIHostingController(rootView: RootView())
+                                                    }
                                         
                                     } catch {
                                         print(error)

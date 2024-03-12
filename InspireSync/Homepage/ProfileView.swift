@@ -66,8 +66,6 @@ struct ProfileView: View {
                     .padding()
                     .background(RoundedRectangle(cornerRadius: 10).stroke(.white, lineWidth: 2))
                     .onReceive(Just($username)) { _ in limitText(textLimit)
-                    
-                    AuthenticationManager.shared.updateDisplayName(displayName: username)
                 }
                     
                 }
@@ -77,7 +75,7 @@ struct ProfileView: View {
                     Button(){
                         if !username.isEmpty && !username.trimmingCharacters(in: .whitespaces).isEmpty{
                             nullUsername = false
-                            
+                            AuthenticationManager.shared.updateDisplayName(displayName: username)
                             do {
                                         // Call the throwing function here
                                 try UserManager.shared.addUsername(name: username)

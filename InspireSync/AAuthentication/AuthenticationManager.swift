@@ -136,7 +136,7 @@ final class AuthenticationManager{
     
     func getDisplayName() -> String {
         
-        return Auth.auth().currentUser?.displayName ?? "empty"
+        return Auth.auth().currentUser?.displayName ?? ""
     }
     
     

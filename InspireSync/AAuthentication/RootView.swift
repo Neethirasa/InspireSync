@@ -25,7 +25,7 @@ struct RootView: View {
                     }
                     .onAppear{
                         let authUsername = AuthenticationManager.shared.getDisplayName()
-                        self.nullUsername = authUsername == "empty"
+                        self.nullUsername = authUsername == ""
                     }
                     .fullScreenCover(isPresented: $nullUsername, content: {
                         NavigationStack{
