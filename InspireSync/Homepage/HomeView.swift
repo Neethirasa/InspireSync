@@ -181,11 +181,29 @@ struct HomeView: View {
                             .onReceive(timer) { _ in
                                     
                                 self.homeUsername = AuthenticationManager.shared.getDisplayName()
-                                
-                                if !(homeUsername == "") {
+                                /*
+                                Task {
+                                        do {
+                                            let isDisplayNameNull = try await UserManager.shared.isDisplayNameNil(forUserID: AuthenticationManager.shared.getUserID())
+                                            // Now you have the result of the async call
+                                            // You can perform any synchronous operations based on the result
+                                            if !isDisplayNameNull {
+                                                // Perform actions when display name is not null
+                                                isTimerActive = false
+                                                timer.upstream.connect().cancel()
+                                            }
+                                        } catch {
+                                            // Handle any errors that occurred during the async call
+                                            print("Error checking if display name is null: \(error)")
+                                        }
+                                    }
+                                */
+                                /*
+                                if !(AuthenticationManager.shared.isDisplayNameNull()) {
                                     isTimerActive = false
                                     timer.upstream.connect().cancel()
                                 }
+                                 */
                                     }
                             }
                             .frame(width: UIScreen.main.bounds.width * 0.5)

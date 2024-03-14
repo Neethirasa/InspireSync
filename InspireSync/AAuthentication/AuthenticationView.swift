@@ -69,18 +69,16 @@ struct AuthenticationView: View {
             Color.washedBlack.ignoresSafeArea()
             
             VStack() {
-                
+                Spacer().frame(height: UIScreen.main.bounds.height * 0.06)
                 Image("Logo")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 150, height: 150)
                 
-                Text("InspireSync")
-                    .padding()
-                    .foregroundColor(.newPrimaryColor)
-                    .font(.custom(
-                            "Futura-Medium",
-                            fixedSize: 47))
+                Image("name")
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 250, height: 100)
 
                 
                 

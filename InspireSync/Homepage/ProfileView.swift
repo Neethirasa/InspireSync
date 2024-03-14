@@ -23,92 +23,124 @@ final class ProfileViewModel: ObservableObject{
 
 struct ProfileView: View {
     @State private var username: String = ""
+    @State private var displayNameExists = false
     @Binding var nullUsername: Bool
     @State private var showSignInView: Bool = false
     @StateObject private var viewModel = ProfileViewModel()
     
-    
+    @FocusState private var isUsernameFocused: Bool // Track the focus state of the text field
     
     let textLimit = 10 //Your limit
     var body: some View {
-        ZStack{
-            Color.washedBlack.ignoresSafeArea()
-            VStack{
-                VStack{
-                    Text("Create an Account")
-                        .foregroundStyle(.white)
-                        .font(.custom(
-                                "Futura-Medium",
-                                fixedSize: 40))
-                        .padding()
-                }
-                Spacer().frame(height:UIScreen.main.bounds.height * 0.05)
-                
-                VStack{
-                    HStack{
-                        Text("Username")
-                            .foregroundStyle(.white)
-                            .font(.custom(
-                                    "Futura-Medium",
-                                    fixedSize: 20))
-                        Spacer().frame(width: UIScreen.main.bounds.width * 0.45)
-                    }
-                    
-                    TextField("Enter your username", text: $username) // <1>, <2>
-                    .frame(width: UIScreen.main.bounds.width * 0.6 , height: UIScreen.main.bounds.height * 0.02)
-                    .font(.custom("Futura-Medium", fixedSize: 16))
-                    .foregroundColor(.white)
-                    .cornerRadius(.infinity)
-                    .padding()
-                    .background(RoundedRectangle(cornerRadius: 10).stroke(.white, lineWidth: 2))
-                    .onReceive(Just($username)) { _ in limitText(textLimit)
-                }
-                    
-                }
-                
-                Spacer().frame(height: 30)
-                VStack{
-                    Button(){
-                        if !username.isEmpty && !username.trimmingCharacters(in: .whitespaces).isEmpty{
-                            nullUsername = false
-                            AuthenticationManager.shared.updateDisplayName(displayName: username)
-                            do {
+        NavigationView{
+            ZStack{
+                ZStack{
+                    Color.washedBlack.ignoresSafeArea()
+                    VStack{
+                        VStack{
+                            Text("Create an Account")
+                                .foregroundStyle(.white)
+                                .font(.custom(
+                                        "Futura-Medium",
+                                        fixedSize: 40))
+                                .padding()
+                        }
+                        Spacer().frame(height:UIScreen.main.bounds.height * 0.05)
+                        
+                        VStack{
+                            HStack{
+                                Text("Username")
+                                    .foregroundStyle(.white)
+                                    .font(.custom(
+                                            "Futura-Medium",
+                                            fixedSize: 20))
+                                Spacer().frame(width: UIScreen.main.bounds.width * 0.45)
+                            }
+                            
+                            TextField("Enter your username", text: $username) // <1>, <2>
+                            .frame(width: UIScreen.main.bounds.width * 0.6 , height: UIScreen.main.bounds.height * 0.02)
+                            .font(.custom("Futura-Medium", fixedSize: 16))
+                            .foregroundColor(.white)
+                            .cornerRadius(.infinity)
+                            .padding()
+                            .background(RoundedRectangle(cornerRadius: 10).stroke(.white, lineWidth: 2))
+                            .onReceive(Just(username)) { _ in
+                                    limitText(textLimit)
+                                    checkDisplayName() // Call checkDisplayName() when the username changes
+                                }
+                            .focused($isUsernameFocused) // Bind the focus state of the text field
+                            .onSubmit { // Detect when the user submits the text field
+                                    checkDisplayName()
+                                                    }
+                            
+                        }
+                        
+                        if displayNameExists {
+                               Text("Display name already exists. Please try another one.")
+                                   .foregroundColor(.red)
+                                   .font(.custom("Futura-Medium", fixedSize: 14))
+                                   .padding(.top, 5)
+                           }
+                        
+                        Spacer().frame(height: 30)
+                        VStack{
+                            Button {
+                                // Check if the username is not empty and display name doesn't exist
+                                if !username.isEmpty && !username.trimmingCharacters(in: .whitespaces).isEmpty && !displayNameExists {
+                                    nullUsername = false
+                                    AuthenticationManager.shared.updateDisplayName(displayName: username)
+                                    do {
                                         // Call the throwing function here
-                                try UserManager.shared.addUsername(name: username)
+                                        try UserManager.shared.addUsername(name: username)
                                         // Return your view content
                                     } catch {
                                         // Handle the error here
                                         print("Error signing out: %@", error)
                                     }
-                            
+                                }
+                            } label: {
+                                Text("Create Account")
+                                    .font(.custom("Futura-Medium", fixedSize: 20))
+                                    .foregroundColor(.white)
+                                    .padding()
+                            }
+                            .background(.customTeal)
+                            .background(RoundedRectangle(cornerRadius: 10).stroke(.customTeal, lineWidth: 2))
+                            .cornerRadius(10)
+                            .disabled(displayNameExists) // Disable the button if display name exists
                         }
                         
-                    }label: {
-                    Text("Create Account")
-                            .font(.custom(
-                                    "Futura-Medium",
-                                    fixedSize: 20))
-                            .foregroundColor(.white)
-                            .padding()
-                  }
-                    .background(.customTeal)
-                    .background(RoundedRectangle(cornerRadius: 10).stroke(.customTeal, lineWidth: 2))
-                    .cornerRadius(10)
+                    }
+                    
+                    
                 }
+                .background(.washedBlack)
+                .scrollContentBackground(.hidden)
+            }
+            .onChange(of: displayNameExists) {
+                            // Refresh the view when displayNameExists changes
+                            self.isUsernameFocused = true
                 
             }
-            
-            
+            .navigationTitle("Create Username")
         }
-        .background(.washedBlack)
-        .scrollContentBackground(.hidden)
-    
+        .background(Color.washedBlack.ignoresSafeArea())
     }
     
     //Function to keep text length in limits
         func limitText(_ upper: Int) {
             if username.count > upper {
                 username = String(username.prefix(upper))
+            }
+        }
+    
+    private func checkDisplayName() {
+            Task {
+                do {
+                    displayNameExists = try await UserManager.shared.displayNameExists(displayName: username)
+                } catch {
+                    print("Error checking display name:", error)
+                }
             }
         }
 }

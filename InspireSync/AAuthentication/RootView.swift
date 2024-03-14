@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+
 struct RootView: View {
     
     @State private var showSignInView: Bool = false
@@ -24,8 +25,12 @@ struct RootView: View {
                         }
                     }
                     .onAppear{
-                        let authUsername = AuthenticationManager.shared.getDisplayName()
-                        self.nullUsername = authUsername == ""
+                        //let authUsername = AuthenticationManager.shared.getDisplayName()
+                        //self.nullUsername = authUsername == "nil"
+                        Task {
+                            await loadNullUsername()
+                        }
+
                     }
                     .fullScreenCover(isPresented: $nullUsername, content: {
                         NavigationStack{
@@ -56,6 +61,16 @@ struct RootView: View {
             }
         })
          */
+    }
+    
+    func loadNullUsername() async {
+        do {
+            let isNull = try await AuthenticationManager.shared.isDisplayNameNull()
+            self.nullUsername = isNull
+        } catch {
+            // Handle the error here
+            print("Error checking if display name is null: \(error)")
+        }
     }
 }
 

@@ -43,10 +43,12 @@ final class UserManager{
     
     func createNewUser(auth: AuthDataResultModel) async throws{
         
+        let temp = "nil"
+        
         var userData: [String:Any] = [
             "user_id" : auth.uid,
             "date_created" : Timestamp(),
-            "displayName" : auth.displayName as Any
+            "displayName" : temp as Any
         ]
         
         if let email = auth.email{
@@ -60,20 +62,22 @@ final class UserManager{
         try await Firestore.firestore().collection("users").document(auth.uid).setData(userData, merge: false)
     }
     
-    func updateUserName(auth: AuthDataResultModel) async throws{
-        var userName: [String:Any] = [
-            "displayName" : auth.displayName as Any
-        ]
-        let userRef = Firestore.firestore().collection("users").document(auth.uid)
+    func displayNameExists(displayName: String) async throws -> Bool {
+        // Create a query to find users with the given displayName
+        let query = Firestore.firestore().collection("users").whereField("displayName", isEqualTo: displayName)
         
-        userRef.updateData(userName) { error in
-            if let error = error {
-                print("Failed to update data: \(error.localizedDescription)")
-            } else {
-                print("Data updated successfully!")
-            }
+        do {
+            // Fetch the documents matching the query
+            let querySnapshot = try await query.getDocuments()
+            
+            // Return true if any documents are found, indicating that the displayName exists
+            return !querySnapshot.isEmpty
+        } catch {
+            // Throw the error to be handled by the caller
+            throw error
         }
     }
+
     
     func addUsername(name: String) throws {
         guard !name.isEmpty else {
@@ -109,6 +113,34 @@ final class UserManager{
         return DBUser(userId: userId, displayName: displayName, email: email, dateCreated: dateCreated)
         
     }
+    
+    func isDisplayNameNil(forUserID userID: String) async throws -> Bool {
+        // Check if the userID is "nil" or empty
+        guard userID != "nil" && !userID.isEmpty else {
+            // If the userID is "nil" or empty, return true
+            return true
+        }
+        
+        // If the userID is valid, proceed to fetch the user document
+        let userRef = Firestore.firestore().collection("users").document(userID)
+        
+        do {
+            let documentSnapshot = try await userRef.getDocument()
+            guard let data = documentSnapshot.data(),
+                  let displayName = data["displayName"] as? String else {
+                // If displayName key doesn't exist or its value is not a String,
+                // consider it as nil
+                return true
+            }
+            return displayName == "nil"
+        } catch {
+            // Print and rethrow any errors that occur during the process
+            print("Error fetching user document: \(error)")
+            throw error
+        }
+    }
+
+
     
     
 }

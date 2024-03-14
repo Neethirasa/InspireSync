@@ -136,8 +136,34 @@ final class AuthenticationManager{
     
     func getDisplayName() -> String {
         
-        return Auth.auth().currentUser?.displayName ?? ""
+        return Auth.auth().currentUser?.displayName ?? "nil"
     }
+    
+    func getUserID() -> String {
+        return Auth.auth().currentUser?.uid ?? "nil"
+    }
+    
+    func isDisplayNameNull() async -> Bool {
+        do {
+            // Get the current user's UID
+            guard let uid = Auth.auth().currentUser?.uid else {
+                // If the current user is not authenticated, return false
+                return false
+            }
+            
+            // Call the asynchronous function to check if the display name is nil or empty
+            let isNull = try await UserManager.shared.isDisplayNameNil(forUserID: uid)
+            
+            // Return true if the display name is nil or empty, otherwise return false
+            return isNull
+        } catch {
+            // Handle any errors that occur during the process
+            print("Error checking if display name is nil or empty: \(error)")
+            return false // Return false by default in case of errors
+        }
+    }
+
+
     
     
     
