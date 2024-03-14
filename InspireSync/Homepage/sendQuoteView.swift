@@ -8,6 +8,8 @@
 import SwiftUI
 import Combine
 import WidgetKit
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 
 extension View {
     func endEditing() {
@@ -37,7 +39,10 @@ struct sendQuoteView: View {
     @State var isExpanded = false
     @State private var animationAmount = 1.0
     
-    var quotesArray: [String] = ["In the midst of chaos, there is also opportunity.","Success is not final, failure is not fatal: It is the courage to continue that counts.", "The future belongs to those who believe in the beauty of their dreams.", "The only limit to our realization of tomorrow will be our doubts of today.","Believe you can and you're halfway there." ]
+    @State private var quotesArray: [String] = []
+    @State private var isLoading = true
+    
+    //var quotesArray: [String] = ["In the midst of chaos, there is also opportunity.","Success is not final, failure is not fatal: It is the courage to continue that counts.", "The future belongs to those who believe in the beauty of their dreams.", "The only limit to our realization of tomorrow will be our doubts of today.","Believe you can and you're halfway there." ]
     
     
     var body: some View {
@@ -73,6 +78,25 @@ struct sendQuoteView: View {
                     .cornerRadius(100)
                     
                     if isExpanded {
+                        ZStack {
+                                    if isLoading {
+                                        ProgressView("Loading quotes...")
+                                    } else {
+                                        // Your main view code here
+                                        ScrollView {
+                                            VStack(spacing: 10) {
+                                                ForEach(quotesArray, id: \.self) { quote in
+                                                    // Display quotes
+                                                    MenuButtons(buttonImage: quote, quote: $quote, isExpanded: $isExpanded)
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                .onAppear {
+                                    fetchQuotesFromFirestore()
+                                }
+                        /*
                         ScrollView {
                             VStack(spacing: 10) {
                                 ForEach(0..<quotesArray.count,id: \.self) { index in
@@ -82,6 +106,7 @@ struct sendQuoteView: View {
                         }
                         .accentColor(Color.white)
                         .frame(height: UIScreen.main.bounds.height * 0.2)
+                        */
                     }
                 }
                 .animation(.spring(duration: 1, bounce: 0.9), value: animationAmount)
@@ -183,6 +208,31 @@ struct sendQuoteView: View {
                 quote = String(quote.prefix(upper))
             }
         }
+    
+    func fetchQuotesFromFirestore() {
+        // Fetch quotes from Firestore
+        Firestore.firestore().collection("quotes").getDocuments { snapshot, error in
+            if let error = error {
+                print("Error fetching quotes: \(error.localizedDescription)")
+            } else {
+                // Extract quotes from snapshot
+                if let documents = snapshot?.documents {
+                    // Clear the existing quotes array before adding new quotes
+                    quotesArray.removeAll()
+                    
+                    // Iterate through the documents and extract the full quote
+                    for document in documents {
+                        if let fullQuote = document.data()["quotetext"] as? String {
+                            quotesArray.append(fullQuote)
+                        }
+                    }
+                }
+            }
+            isLoading = false
+        }
+    }
+
+
 }
 
 
