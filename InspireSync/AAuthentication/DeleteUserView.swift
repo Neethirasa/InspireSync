@@ -56,12 +56,6 @@ struct DeleteUserView: View {
                 Image("name").resizable().aspectRatio(contentMode: .fill).frame(width: 250, height: 100)
                 Text("Sign in Again to Delete Account").foregroundColor(.red).font(.custom("Futura-Medium", fixedSize: 18))
                 
-                GoogleSignInButton(viewModel: GoogleSignInButtonViewModel(scheme: .light, style: .wide, state: .normal)) {
-                    checkUserBeforeDeletion()
-                    attemptDeleteWithGoogle()
-                }
-                .padding()
-                .offset(y:75)
                 
                 NavigationStack{
                     Button(action: {
@@ -72,7 +66,7 @@ struct DeleteUserView: View {
                             .allowsHitTesting(true)
                     })
                     .frame(height: UIScreen.main.bounds.height * 0.055)
-                    .frame(width: UIScreen.main.bounds.width * 0.95)
+                    .frame(width: UIScreen.main.bounds.width * 0.85)
                     .offset(y:75)
                     .fullScreenCover(isPresented: $deleteView, content: {
                         NavigationStack{
@@ -80,9 +74,16 @@ struct DeleteUserView: View {
                         }
                     })
                 }
+                .padding(5)
+                
+                CustomGoogleSignInButton{
+                    checkUserBeforeDeletion()
+                    attemptDeleteWithGoogle()
+                }
                 .padding()
-                .navigationTitle("")
-                Spacer().frame(height: UIScreen.main.bounds.height * 0.08)
+                .offset(y:75)
+                
+                Spacer().frame(height: UIScreen.main.bounds.height * 0.11)
             }
         }
         .alert(isPresented: $showAlert) {

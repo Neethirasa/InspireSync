@@ -20,6 +20,7 @@
 		1E2B19012B8D352700D675E4 /* SideMenuViewContents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E2B19002B8D352700D675E4 /* SideMenuViewContents.swift */; };
 		1E6145B62BA419BF00533A0C /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 1E6145B52BA419BF00533A0C /* KeychainSwift */; };
 		1E6145B82BA41A0300533A0C /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6145B72BA41A0300533A0C /* KeychainService.swift */; };
+		1E6145BA2BA42A2E00533A0C /* CustomGoogleSignInButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6145B92BA42A2E00533A0C /* CustomGoogleSignInButton.swift */; };
 		1E7CAD212B99768F00FCDD96 /* MenuButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7CAD202B99768F00FCDD96 /* MenuButtons.swift */; };
 		1E7CAD322B9A184C00FCDD96 /* BugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7CAD312B9A184C00FCDD96 /* BugView.swift */; };
 		1E7CAD352B9A5CFA00FCDD96 /* MailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7CAD342B9A5CFA00FCDD96 /* MailView.swift */; };
@@ -100,6 +101,7 @@
 		1E1D9C072B8313D900778E0D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1E2B19002B8D352700D675E4 /* SideMenuViewContents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuViewContents.swift; sourceTree = "<group>"; };
 		1E6145B72BA41A0300533A0C /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
+		1E6145B92BA42A2E00533A0C /* CustomGoogleSignInButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomGoogleSignInButton.swift; sourceTree = "<group>"; };
 		1E7CAD202B99768F00FCDD96 /* MenuButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuButtons.swift; sourceTree = "<group>"; };
 		1E7CAD312B9A184C00FCDD96 /* BugView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BugView.swift; sourceTree = "<group>"; };
 		1E7CAD342B9A5CFA00FCDD96 /* MailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailView.swift; sourceTree = "<group>"; };
@@ -272,6 +274,7 @@
 				1E91DFD52B544FDF00C72D29 /* SignInGoogleHelper.swift */,
 				1E94109E2B966C1D000B8A04 /* DeleteUserView.swift */,
 				1E6145B72BA41A0300533A0C /* KeychainService.swift */,
+				1E6145B92BA42A2E00533A0C /* CustomGoogleSignInButton.swift */,
 			);
 			path = AAuthentication;
 			sourceTree = "<group>";
@@ -440,6 +443,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1E94109F2B966C1D000B8A04 /* DeleteUserView.swift in Sources */,
+				1E6145BA2BA42A2E00533A0C /* CustomGoogleSignInButton.swift in Sources */,
 				1E7CAD462B9BB10400FCDD96 /* PrivacyView.swift in Sources */,
 				1E10DA3C2B9EA3FD00B30D2C /* UserManager.swift in Sources */,
 				1E91DFD62B544FDF00C72D29 /* SignInGoogleHelper.swift in Sources */,

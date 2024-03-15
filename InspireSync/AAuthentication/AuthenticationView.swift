@@ -126,23 +126,6 @@ struct AuthenticationView: View {
                 
             }
             .padding(20)
-            .safeAreaInset(edge: VerticalEdge.bottom){
-                
-                GoogleSignInButton(viewModel: GoogleSignInButtonViewModel(scheme: .light, style: .wide, state: .normal)) {
-                    Task{
-                        do {
-                            try await viewModel.signInGoogle()
-                            showSignInView = false
-                        } catch {
-                            print(error)
-                        }
-                    }
-                }
-                
-                .padding()
-                .offset(y:75)
-                
-            }
             
             .safeAreaInset(edge: VerticalEdge.bottom, content: {
                 Button(action: {
@@ -162,8 +145,35 @@ struct AuthenticationView: View {
                 .frame(width: UIScreen.main.bounds.width * 0.85)
                 .offset(y:75)
             })
-            .padding()
-            .navigationTitle("")
+            .padding(5)
+            
+            .safeAreaInset(edge: VerticalEdge.bottom){
+                /*
+                GoogleSignInButton(viewModel: GoogleSignInButtonViewModel(scheme: .light, style: .wide, state: .normal)) {
+                    Task{
+                        do {
+                            try await viewModel.signInGoogle()
+                            showSignInView = false
+                        } catch {
+                            print(error)
+                        }
+                    }
+                }
+                */
+                CustomGoogleSignInButton{
+                    Task{
+                        do {
+                            try await viewModel.signInGoogle()
+                            showSignInView = false
+                        } catch {
+                            print(error)
+                        }
+                    }
+                }
+                .padding()
+                .offset(y:75)
+                
+            }
         }
         
     }
