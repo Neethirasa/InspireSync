@@ -122,7 +122,6 @@ struct ProfileView: View {
                             self.isUsernameFocused = true
                 
             }
-            .navigationTitle("Create Username")
         }
         .background(Color.washedBlack.ignoresSafeArea())
     }

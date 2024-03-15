@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 import FirebaseAuth
+import KeychainSwift
 
 struct AuthDataResultModel {
     let uid: String
@@ -196,10 +197,5 @@ extension AuthenticationManager{
         return AuthDataResultModel(user: authDataResult.user)
     }
     
-    
-
-    
- 
-    
-    
 }
+

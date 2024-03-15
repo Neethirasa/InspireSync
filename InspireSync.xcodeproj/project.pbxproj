@@ -18,6 +18,8 @@
 		1E1D9C062B8313D900778E0D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1E1D9C052B8313D900778E0D /* Assets.xcassets */; };
 		1E1D9C0A2B8313D900778E0D /* InspireSyncWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 1E1D9BFB2B8313D700778E0D /* InspireSyncWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		1E2B19012B8D352700D675E4 /* SideMenuViewContents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E2B19002B8D352700D675E4 /* SideMenuViewContents.swift */; };
+		1E6145B62BA419BF00533A0C /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 1E6145B52BA419BF00533A0C /* KeychainSwift */; };
+		1E6145B82BA41A0300533A0C /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6145B72BA41A0300533A0C /* KeychainService.swift */; };
 		1E7CAD212B99768F00FCDD96 /* MenuButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7CAD202B99768F00FCDD96 /* MenuButtons.swift */; };
 		1E7CAD322B9A184C00FCDD96 /* BugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7CAD312B9A184C00FCDD96 /* BugView.swift */; };
 		1E7CAD352B9A5CFA00FCDD96 /* MailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7CAD342B9A5CFA00FCDD96 /* MailView.swift */; };
@@ -97,6 +99,7 @@
 		1E1D9C052B8313D900778E0D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1E1D9C072B8313D900778E0D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1E2B19002B8D352700D675E4 /* SideMenuViewContents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuViewContents.swift; sourceTree = "<group>"; };
+		1E6145B72BA41A0300533A0C /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
 		1E7CAD202B99768F00FCDD96 /* MenuButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuButtons.swift; sourceTree = "<group>"; };
 		1E7CAD312B9A184C00FCDD96 /* BugView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BugView.swift; sourceTree = "<group>"; };
 		1E7CAD342B9A5CFA00FCDD96 /* MailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailView.swift; sourceTree = "<group>"; };
@@ -156,6 +159,7 @@
 				1E7CAD3E2B9A864000FCDD96 /* NavigationTransitions in Frameworks */,
 				1EAFEF822B718958000BDCDD /* FirebaseFirestoreSwift in Frameworks */,
 				1E94109B2B927C8D000B8A04 /* URLImageStore in Frameworks */,
+				1E6145B62BA419BF00533A0C /* KeychainSwift in Frameworks */,
 				1E91DFB92B50EFB000C72D29 /* FirebaseAuth in Frameworks */,
 				1E91DF822B50E94200C72D29 /* FirebaseAnalytics in Frameworks */,
 				1E9410932B9279E2000B8A04 /* URLImage in Frameworks */,
@@ -267,6 +271,7 @@
 				1E91DFBF2B50F4F700C72D29 /* AuthenticationManager.swift */,
 				1E91DFD52B544FDF00C72D29 /* SignInGoogleHelper.swift */,
 				1E94109E2B966C1D000B8A04 /* DeleteUserView.swift */,
+				1E6145B72BA41A0300533A0C /* KeychainService.swift */,
 			);
 			path = AAuthentication;
 			sourceTree = "<group>";
@@ -347,6 +352,7 @@
 				1E9410922B9279E2000B8A04 /* URLImage */,
 				1E94109A2B927C8D000B8A04 /* URLImageStore */,
 				1E7CAD3D2B9A864000FCDD96 /* NavigationTransitions */,
+				1E6145B52BA419BF00533A0C /* KeychainSwift */,
 			);
 			productName = InspireSync;
 			productReference = 1E91DF6D2B50E6C300C72D29 /* InspireSync.app */;
@@ -384,6 +390,7 @@
 				1E91DFC82B53B37700C72D29 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 				1E9410912B9279E2000B8A04 /* XCRemoteSwiftPackageReference "url-image" */,
 				1E7CAD3A2B9A862800FCDD96 /* XCRemoteSwiftPackageReference "swiftui-navigation-transitions" */,
+				1E6145B42BA419BF00533A0C /* XCRemoteSwiftPackageReference "keychain-swift" */,
 			);
 			productRefGroup = 1E91DF6E2B50E6C300C72D29 /* Products */;
 			projectDirPath = "";
@@ -455,6 +462,7 @@
 				1E7CAD212B99768F00FCDD96 /* MenuButtons.swift in Sources */,
 				1E91DFD42B544DCE00C72D29 /* Utilities.swift in Sources */,
 				1E7CAD352B9A5CFA00FCDD96 /* MailView.swift in Sources */,
+				1E6145B82BA41A0300533A0C /* KeychainService.swift in Sources */,
 				1E7CAD322B9A184C00FCDD96 /* BugView.swift in Sources */,
 				1E9410972B927B8C000B8A04 /* tagjs.swift in Sources */,
 				1E7CAD382B9A651900FCDD96 /* EmailHelper.swift in Sources */,
@@ -749,6 +757,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		1E6145B42BA419BF00533A0C /* XCRemoteSwiftPackageReference "keychain-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/evgenyneu/keychain-swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 21.0.0;
+			};
+		};
 		1E7CAD3A2B9A862800FCDD96 /* XCRemoteSwiftPackageReference "swiftui-navigation-transitions" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/davdroman/swiftui-navigation-transitions.git";
@@ -793,6 +809,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 1E91DF802B50E94200C72D29 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestoreSwift;
+		};
+		1E6145B52BA419BF00533A0C /* KeychainSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1E6145B42BA419BF00533A0C /* XCRemoteSwiftPackageReference "keychain-swift" */;
+			productName = KeychainSwift;
 		};
 		1E7CAD3B2B9A862800FCDD96 /* NavigationTransitions */ = {
 			isa = XCSwiftPackageProductDependency;

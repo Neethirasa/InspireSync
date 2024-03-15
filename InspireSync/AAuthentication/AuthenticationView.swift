@@ -11,12 +11,18 @@ import AuthenticationServices
 import CryptoKit
 import GoogleSignIn
 import GoogleSignInSwift
-
+import KeychainSwift
+import FirebaseAuth
 
 @MainActor
 final class AuthenticationViewModel: ObservableObject {
     
     let signInAppleHelper = SignInAppleHelper()
+    static let shared = AuthenticationViewModel()
+    private let keychain = KeychainSwift()
+        
+    init() { }
+    
     
     func signInApple() async throws {
         
@@ -30,7 +36,17 @@ final class AuthenticationViewModel: ObservableObject {
                 // If the user doesn't exist, create a new user
                 if !userExists {
                     try await UserManager.shared.createNewUser(auth: authDataResult)
+                    // Call this right after a successful sign-in
+                    KeychainService.shared.storeOriginalUserID(Auth.auth().currentUser?.uid ?? "")
                 }
+            
+    }
+    
+    func signInAppleReauth() async throws {
+        
+        let helper = SignInAppleHelper()
+        let tokens = try await helper.startSignInWithAppleFlow()
+        try await AuthenticationManager.shared.signInWithApple(tokens: tokens)
             
     }
     
@@ -47,10 +63,19 @@ final class AuthenticationViewModel: ObservableObject {
                 // If the user doesn't exist, create a new user
                 if !userExists {
                     try await UserManager.shared.createNewUser(auth: authDataResult)
+                    // Call this right after a successful sign-in
+                    KeychainService.shared.storeOriginalUserID(Auth.auth().currentUser?.uid ?? "")
                 }
             
     }
     
+    func signInGoogleReauth() async throws {
+        
+        let helper = SignInGoogleHelper()
+        let tokens = try await helper.signIn()
+        try await AuthenticationManager.shared.signInWithGoogle(tokens: tokens)
+            
+    }
     
 }
   
