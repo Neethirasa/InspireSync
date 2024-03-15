@@ -21,17 +21,12 @@
 		1E7CAD212B99768F00FCDD96 /* MenuButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7CAD202B99768F00FCDD96 /* MenuButtons.swift */; };
 		1E7CAD322B9A184C00FCDD96 /* BugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7CAD312B9A184C00FCDD96 /* BugView.swift */; };
 		1E7CAD352B9A5CFA00FCDD96 /* MailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7CAD342B9A5CFA00FCDD96 /* MailView.swift */; };
-		1E7CAD362B9A5CFA00FCDD96 /* MailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7CAD342B9A5CFA00FCDD96 /* MailView.swift */; };
 		1E7CAD382B9A651900FCDD96 /* EmailHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7CAD372B9A651900FCDD96 /* EmailHelper.swift */; };
-		1E7CAD392B9A651900FCDD96 /* EmailHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7CAD372B9A651900FCDD96 /* EmailHelper.swift */; };
 		1E7CAD3C2B9A862800FCDD96 /* NavigationTransitions in Frameworks */ = {isa = PBXBuildFile; productRef = 1E7CAD3B2B9A862800FCDD96 /* NavigationTransitions */; };
 		1E7CAD3E2B9A864000FCDD96 /* NavigationTransitions in Frameworks */ = {isa = PBXBuildFile; productRef = 1E7CAD3D2B9A864000FCDD96 /* NavigationTransitions */; };
 		1E7CAD432B9A8BCC00FCDD96 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7CAD422B9A8BCC00FCDD96 /* TextView.swift */; };
-		1E7CAD442B9A8BCC00FCDD96 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7CAD422B9A8BCC00FCDD96 /* TextView.swift */; };
 		1E7CAD462B9BB10400FCDD96 /* PrivacyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7CAD452B9BB10400FCDD96 /* PrivacyView.swift */; };
-		1E7CAD472B9BB10400FCDD96 /* PrivacyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7CAD452B9BB10400FCDD96 /* PrivacyView.swift */; };
 		1E7CAD492B9BB11100FCDD96 /* TermsServiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7CAD482B9BB11100FCDD96 /* TermsServiceView.swift */; };
-		1E7CAD4A2B9BB11100FCDD96 /* TermsServiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7CAD482B9BB11100FCDD96 /* TermsServiceView.swift */; };
 		1E91DF712B50E6C300C72D29 /* InspireSyncApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E91DF702B50E6C300C72D29 /* InspireSyncApp.swift */; };
 		1E91DF732B50E6C300C72D29 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E91DF722B50E6C300C72D29 /* ContentView.swift */; };
 		1E91DF752B50E6C400C72D29 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1E91DF742B50E6C400C72D29 /* Assets.xcassets */; };
@@ -428,13 +423,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				1E1D9C022B8313D800778E0D /* InspireSyncWidgetBundle.swift in Sources */,
-				1E7CAD392B9A651900FCDD96 /* EmailHelper.swift in Sources */,
-				1E7CAD4A2B9BB11100FCDD96 /* TermsServiceView.swift in Sources */,
-				1E7CAD442B9A8BCC00FCDD96 /* TextView.swift in Sources */,
 				1E1D9C042B8313D800778E0D /* InspireSyncWidget.swift in Sources */,
-				1E7CAD472B9BB10400FCDD96 /* PrivacyView.swift in Sources */,
 				1ED7D9832B83BAA30023647B /* QuoteManager.swift in Sources */,
-				1E7CAD362B9A5CFA00FCDD96 /* MailView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
