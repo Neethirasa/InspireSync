@@ -2,8 +2,6 @@
 import MessageUI
 import SwiftUI
 
-
-
 struct SettingsScreen: View {
     
     @Environment(\.dismiss) private var dismiss
@@ -18,6 +16,7 @@ struct SettingsScreen: View {
     @State var isShowingBugView = false
     @State var isShowingPrivacyView = false
     @State var isShowingTermsService = false
+    @State var isCustomWidget = false
     @StateObject private var viewEmailModel = EmailViewModel()
     
     @State private var navigationActive = false // Track the activation state
@@ -118,33 +117,47 @@ struct SettingsScreen: View {
                                     .frame(width:UIScreen.main.bounds.width * 0.05, height: UIScreen.main.bounds.height * 0.018, alignment: .leading)
                                  */
                             }
+                            .padding(.bottom,6)
                             
-                            /*
+                            
 							VStack(alignment: .leading, spacing: 0){
 							}
 							.frame(height: UIScreen.main.bounds.height * 0.001)
 							.frame(maxWidth: .infinity, alignment: .leading)
 							.background(Color(hex: "#696969"))
 							.padding(.bottom,6)
-							HStack(spacing: 0){
-								Text("Notifications")
-								.foregroundColor(Color(hex: "#FFFFFF"))
-                                .font(.custom(
-                                        "Futura-Medium",
-                                        fixedSize: 14))
-								.frame(maxWidth: .infinity)
-                                Spacer().frame(width: UIScreen.main.bounds.width * 0.52)
-                                Image("arrow")
-                                    .resizable()
-                                    .frame(width: UIScreen.main.bounds.width * 0.05, height: UIScreen.main.bounds.height * 0.018, alignment: .leading)
-							}
+                            HStack(spacing: 0){
+                                
+                                NavigationStack{
+                                    Button(action: {
+                                        isCustomWidget.toggle()
+                                    }, label: {
+                                        Text("Customize your Widget")
+                                        .foregroundColor(Color(hex: "#FFFFFF"))
+                                        .font(.custom(
+                                                "Futura-Medium",
+                                                fixedSize: 14))
+                                        .frame(maxWidth: UIScreen.main.bounds.width * 0.9)
+                                        .padding(.trailing,4)
+                                        Spacer().frame(width: UIScreen.main.bounds.width * 0.333)
+                                        Image("arrow")
+                                            .resizable()
+                                            .frame(width: UIScreen.main.bounds.width * 0.05, height: UIScreen.main.bounds.height * 0.018, alignment: .leading)
+                                            .contrast(15)
+                                    })
+                                    .sheet(isPresented: $isCustomWidget ) {
+                                        WidgetCustom()
+                                            }
+                                    
+                                }
+                            }
 							.frame(height: 15)
 							.frame(maxWidth: .infinity)
-                            */
+                            
 						}
 						.padding(.vertical,10)
 						.padding(.horizontal,5)
-						.frame(height: UIScreen.main.bounds.height * 0.04)
+						.frame(height: UIScreen.main.bounds.height * 0.069)
 						.frame(maxWidth: .infinity, alignment: .leading)
 						.background(Color(hex: "#333333"))
 						.cornerRadius(5)
