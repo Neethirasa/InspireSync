@@ -6,10 +6,47 @@
 //
 
 import SwiftUI
+import WidgetKit
 
 class TextFieldSettingsViewModel: ObservableObject {
-    @Published var textFieldColor: Color = .black
-    @Published var textColor: Color = .white
+    @Published var textFieldColor: Color = .black {
+        didSet {
+            saveColor(textFieldColor, forKey: "textFieldColor")
+        }
+    }
+    @Published var textColor: Color = .white {
+        didSet {
+            saveColor(textColor, forKey: "textColor")
+        }
+    }
+
+    init() {
+        loadSavedColors()
+    }
+
+    private func saveColor(_ color: Color, forKey key: String) {
+        guard let defaults = UserDefaults(suiteName: "group.Nivethikan-Neethirasa.InspireSync") else { return }
+        do {
+            let uiColor = UIColor(color)
+            let colorData = try NSKeyedArchiver.archivedData(withRootObject: uiColor, requiringSecureCoding: false)
+            defaults.set(colorData, forKey: key)
+            WidgetCenter.shared.reloadAllTimelines()
+        } catch {
+            print("Failed to save color")
+        }
+    }
+
+    func loadSavedColors() {
+        textFieldColor = loadColor(forKey: "textFieldColor") ?? .black
+        textColor = loadColor(forKey: "textColor") ?? .white
+    }
+
+     func loadColor(forKey key: String) -> Color? {
+        guard let defaults = UserDefaults(suiteName: "group.Nivethikan-Neethirasa.InspireSync"),
+              let colorData = defaults.data(forKey: key),
+              let uiColor = try? NSKeyedUnarchiver.unarchivedObject(ofClass: UIColor.self, from: colorData) else { return nil }
+        return Color(uiColor)
+    }
 }
 
 struct WidgetCustom: View {
@@ -17,12 +54,11 @@ struct WidgetCustom: View {
         @StateObject var viewModel = TextFieldSettingsViewModel()
         @State private var sampleText: String = "Courage is not the absence of fear, but the triumph over it."
     
-    @State var widgetColor: Color = .black
-    @State var widgetTextColor: Color = .white
+    
 
         var body: some View {
             ZStack {
-                Color.washedBlack.edgesIgnoringSafeArea(.all)
+                Color("WashedBlack").edgesIgnoringSafeArea(.all)
                 HStack(spacing: 0){
                     
                 }
@@ -55,7 +91,7 @@ struct WidgetCustom: View {
                         .cornerRadius(.infinity)
                         .lineLimit(4)
                         .padding()
-                        .background(RoundedRectangle(cornerRadius: 10).stroke(.customTeal, lineWidth: 5))
+                        .background(RoundedRectangle(cornerRadius: 10).stroke(Color("customTeal"), lineWidth: 5))
                         .background(viewModel.textFieldColor)
                         .foregroundColor(viewModel.textColor)
                     
@@ -93,7 +129,7 @@ struct WidgetCustom: View {
                     Spacer().frame(width: UIScreen.main.bounds.width * 0.45)
                         
                         Button(){
-    
+                            WidgetCenter.shared.reloadAllTimelines()
                             dismiss()
                             
                         }label: {
@@ -107,10 +143,17 @@ struct WidgetCustom: View {
                 }
                 
             }
-            .background(Color.washedBlack.ignoresSafeArea())
+            .onAppear {
+                    viewModel.loadSavedColors()
+                    }
+            .background(Color("WashedBlack").ignoresSafeArea())
         }
+    
+    
 }
 
-#Preview {
-    WidgetCustom(widgetColor: .black, widgetTextColor: .white)
-}
+/*
+ #Preview {
+ WidgetCustom as! any View
+ }
+ */

@@ -22,6 +22,9 @@
 		1E6145B82BA41A0300533A0C /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6145B72BA41A0300533A0C /* KeychainService.swift */; };
 		1E6145BA2BA42A2E00533A0C /* CustomGoogleSignInButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6145B92BA42A2E00533A0C /* CustomGoogleSignInButton.swift */; };
 		1E6145BC2BA4305900533A0C /* WidgetCustom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6145BB2BA4305900533A0C /* WidgetCustom.swift */; };
+		1E6145BF2BA43F3800533A0C /* ColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6145BE2BA43F3800533A0C /* ColorExtensions.swift */; };
+		1E6145C12BA43F6100533A0C /* ColorStorageUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6145C02BA43F6100533A0C /* ColorStorageUtil.swift */; };
+		1E6145C22BA4414B00533A0C /* ColorStorageUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6145C02BA43F6100533A0C /* ColorStorageUtil.swift */; };
 		1E7CAD212B99768F00FCDD96 /* MenuButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7CAD202B99768F00FCDD96 /* MenuButtons.swift */; };
 		1E7CAD322B9A184C00FCDD96 /* BugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7CAD312B9A184C00FCDD96 /* BugView.swift */; };
 		1E7CAD352B9A5CFA00FCDD96 /* MailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7CAD342B9A5CFA00FCDD96 /* MailView.swift */; };
@@ -47,7 +50,6 @@
 		1E91DFCA2B53B37700C72D29 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 1E91DFC92B53B37700C72D29 /* GoogleSignIn */; };
 		1E91DFCC2B53B37700C72D29 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 1E91DFCB2B53B37700C72D29 /* GoogleSignInSwift */; };
 		1E91DFD12B53B4DB00C72D29 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1E91DFD02B53B4DB00C72D29 /* GoogleService-Info.plist */; };
-		1E91DFD42B544DCE00C72D29 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E91DFD32B544DCE00C72D29 /* Utilities.swift */; };
 		1E91DFD62B544FDF00C72D29 /* SignInGoogleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E91DFD52B544FDF00C72D29 /* SignInGoogleHelper.swift */; };
 		1E91DFDA2B55A2F600C72D29 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E91DFD92B55A2F600C72D29 /* HomeView.swift */; };
 		1E91DFDE2B55C7CD00C72D29 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E91DFDD2B55C7CD00C72D29 /* ProfileView.swift */; };
@@ -64,6 +66,8 @@
 		1ED7D9882B8433650023647B /* sendQuoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED7D9872B8433650023647B /* sendQuoteView.swift */; };
 		1EE5A1C22B572B8B00A9171A /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1EE5A1C12B572B8B00A9171A /* Launch Screen.storyboard */; };
 		1EE5A1C42B572D1F00A9171A /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE5A1C32B572D1F00A9171A /* MenuView.swift */; };
+		1EF29C9B2BA4DE6A00CC2F43 /* WidgetCustom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6145BB2BA4305900533A0C /* WidgetCustom.swift */; };
+		1EF29CA02BA5307000CC2F43 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF29C9F2BA5307000CC2F43 /* Utilities.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -104,6 +108,8 @@
 		1E6145B72BA41A0300533A0C /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
 		1E6145B92BA42A2E00533A0C /* CustomGoogleSignInButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomGoogleSignInButton.swift; sourceTree = "<group>"; };
 		1E6145BB2BA4305900533A0C /* WidgetCustom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetCustom.swift; sourceTree = "<group>"; };
+		1E6145BE2BA43F3800533A0C /* ColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtensions.swift; sourceTree = "<group>"; };
+		1E6145C02BA43F6100533A0C /* ColorStorageUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorStorageUtil.swift; sourceTree = "<group>"; };
 		1E7CAD202B99768F00FCDD96 /* MenuButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuButtons.swift; sourceTree = "<group>"; };
 		1E7CAD312B9A184C00FCDD96 /* BugView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BugView.swift; sourceTree = "<group>"; };
 		1E7CAD342B9A5CFA00FCDD96 /* MailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailView.swift; sourceTree = "<group>"; };
@@ -125,7 +131,6 @@
 		1E91DFC62B53A8D100C72D29 /* SignInAppleHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInAppleHelper.swift; sourceTree = "<group>"; };
 		1E91DFCD2B53B3CF00C72D29 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		1E91DFD02B53B4DB00C72D29 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Users/nivethikanneethirasa/Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
-		1E91DFD32B544DCE00C72D29 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		1E91DFD52B544FDF00C72D29 /* SignInGoogleHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInGoogleHelper.swift; sourceTree = "<group>"; };
 		1E91DFD92B55A2F600C72D29 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		1E91DFDD2B55C7CD00C72D29 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
@@ -138,6 +143,7 @@
 		1ED7D9872B8433650023647B /* sendQuoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sendQuoteView.swift; sourceTree = "<group>"; };
 		1EE5A1C12B572B8B00A9171A /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		1EE5A1C32B572D1F00A9171A /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
+		1EF29C9F2BA5307000CC2F43 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -185,6 +191,15 @@
 			path = InspireSyncWidget;
 			sourceTree = "<group>";
 		};
+		1E6145BD2BA43F2C00533A0C /* Colors */ = {
+			isa = PBXGroup;
+			children = (
+				1E6145BE2BA43F3800533A0C /* ColorExtensions.swift */,
+				1E6145C02BA43F6100533A0C /* ColorStorageUtil.swift */,
+			);
+			path = Colors;
+			sourceTree = "<group>";
+		};
 		1E7CAD302B9A182E00FCDD96 /* SettingsPage */ = {
 			isa = PBXGroup;
 			children = (
@@ -230,6 +245,7 @@
 		1E91DF6F2B50E6C300C72D29 /* InspireSync */ = {
 			isa = PBXGroup;
 			children = (
+				1E6145BD2BA43F2C00533A0C /* Colors */,
 				1E7CAD4B2B9CD35400FCDD96 /* Firestore */,
 				1E7CAD302B9A182E00FCDD96 /* SettingsPage */,
 				1E91DFCD2B53B3CF00C72D29 /* Info.plist */,
@@ -284,7 +300,7 @@
 		1E91DFD22B544DB600C72D29 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				1E91DFD32B544DCE00C72D29 /* Utilities.swift */,
+				1EF29C9F2BA5307000CC2F43 /* Utilities.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -438,6 +454,8 @@
 				1E1D9C022B8313D800778E0D /* InspireSyncWidgetBundle.swift in Sources */,
 				1E1D9C042B8313D800778E0D /* InspireSyncWidget.swift in Sources */,
 				1ED7D9832B83BAA30023647B /* QuoteManager.swift in Sources */,
+				1E6145C22BA4414B00533A0C /* ColorStorageUtil.swift in Sources */,
+				1EF29C9B2BA4DE6A00CC2F43 /* WidgetCustom.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -456,6 +474,7 @@
 				1E91DF732B50E6C300C72D29 /* ContentView.swift in Sources */,
 				1E91DF712B50E6C300C72D29 /* InspireSyncApp.swift in Sources */,
 				1E91DFDE2B55C7CD00C72D29 /* ProfileView.swift in Sources */,
+				1E6145BF2BA43F3800533A0C /* ColorExtensions.swift in Sources */,
 				1E91DFC22B50FB5800C72D29 /* RootView.swift in Sources */,
 				1E6145BC2BA4305900533A0C /* WidgetCustom.swift in Sources */,
 				1E91DFDA2B55A2F600C72D29 /* HomeView.swift in Sources */,
@@ -467,8 +486,9 @@
 				1E7CAD432B9A8BCC00FCDD96 /* TextView.swift in Sources */,
 				1ED7D9822B83BAA30023647B /* QuoteManager.swift in Sources */,
 				1E10DA432B9F9C8100B30D2C /* SuggestionManager.swift in Sources */,
+				1EF29CA02BA5307000CC2F43 /* Utilities.swift in Sources */,
+				1E6145C12BA43F6100533A0C /* ColorStorageUtil.swift in Sources */,
 				1E7CAD212B99768F00FCDD96 /* MenuButtons.swift in Sources */,
-				1E91DFD42B544DCE00C72D29 /* Utilities.swift in Sources */,
 				1E7CAD352B9A5CFA00FCDD96 /* MailView.swift in Sources */,
 				1E6145B82BA41A0300533A0C /* KeychainService.swift in Sources */,
 				1E7CAD322B9A184C00FCDD96 /* BugView.swift in Sources */,
