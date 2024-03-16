@@ -138,8 +138,8 @@ struct SettingsScreen: View {
                                                 "Futura-Medium",
                                                 fixedSize: 14))
                                         .frame(maxWidth: UIScreen.main.bounds.width * 0.9)
-                                        .padding(.trailing,4)
-                                        Spacer().frame(width: UIScreen.main.bounds.width * 0.333)
+                                        //.padding(.trailing,4)
+                                        Spacer().frame(width: UIScreen.main.bounds.width * 0.3439)
                                         Image("arrow")
                                             .resizable()
                                             .frame(width: UIScreen.main.bounds.width * 0.05, height: UIScreen.main.bounds.height * 0.018, alignment: .leading)

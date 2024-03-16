@@ -39,29 +39,42 @@ struct InspireSyncWidgetEntryView: View {
     var entry: Provider.Entry
     
     var body: some View {
-        let textFieldColor = Color(ColorStorageUtil.loadColor(forKey: "textFieldColor") ?? UIColor.black)
-
-        let textColor = Color(ColorStorageUtil.loadColor(forKey: "textColor") ?? UIColor.white)
-
+        // Retrieve preferences
+        let textFieldColor = UserDefaults(suiteName: "group.Nivethikan-Neethirasa.InspireSync")?.color(forKey: "textFieldColor") ?? Color.black
+        let textColor = UserDefaults(suiteName: "group.Nivethikan-Neethirasa.InspireSync")?.color(forKey: "textColor") ?? Color.white
+        let fontName = UserDefaults(suiteName: "group.Nivethikan-Neethirasa.InspireSync")?.string(forKey: "selectedFont") ?? "System"
+        
         VStack {
             Text(entry.myString)
-                        //.background(textFieldColor) // Change the background color of the widget
-                        .foregroundColor(textColor) // Change the text color
-                        .font(.custom(
-                                "Futura-Medium",
-                                fixedSize: 18))
-                    .padding()
+                .font(fontForName(fontName))
+                .padding()
+            .foregroundColor(textColor)
         }
         .widgetBackground(textFieldColor)
-        
-        // Use textFieldColor and textColor in your widget's view
     }
     
-    private func loadColor(forKey key: String) -> Color? {
-        let defaults = UserDefaults(suiteName: "group.Nivethikan-Neethirasa.InspireSync")
-        if let colorData = defaults?.data(forKey: key),
-           let uiColor = try? NSKeyedUnarchiver.unarchivedObject(ofClass: UIColor.self, from: colorData) {
-            return Color(uiColor)
+    func fontForName(_ name: String) -> Font {
+        switch name {
+        case "Helvetica":
+            return .custom("Helvetica", size: 16)
+        case "Courier":
+            return .custom("Courier", size: 16)
+        default:
+            return .system(size: 16)
+        }
+    }
+}
+
+// Extension to simplify color retrieval from UserDefaults
+extension UserDefaults {
+    func color(forKey key: String) -> Color? {
+        guard let colorData = data(forKey: key) else { return nil }
+        do {
+            if let uiColor = try NSKeyedUnarchiver.unarchivedObject(ofClass: UIColor.self, from: colorData) {
+                return Color(uiColor)
+            }
+        } catch {
+            print("Failed to unarchive UIColor: \(error)")
         }
         return nil
     }
