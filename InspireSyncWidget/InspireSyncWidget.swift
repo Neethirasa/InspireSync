@@ -54,15 +54,44 @@ struct InspireSyncWidgetEntryView: View {
     }
     
     func fontForName(_ name: String) -> Font {
+        let size: CGFloat = 16 // Define a consistent size for all fonts
+
         switch name {
-        case "Helvetica":
-            return .custom("Helvetica", size: 16)
-        case "Courier":
-            return .custom("Courier", size: 16)
+        case "Futura-Medium":
+            return .custom("Futura-Medium", size: size)
+        case "San Francisco":
+            return .system(size: size) // San Francisco is the system font
+        case "Helvetica Neue":
+            return .custom("HelveticaNeue", size: size)
+        case "Arial":
+            return .custom("ArialMT", size: size)
+        case "Times New Roman":
+            return .custom("TimesNewRomanPSMT", size: size)
+        case "Courier New":
+            return .custom("CourierNewPSMT", size: size)
+        case "Georgia":
+            return .custom("Georgia", size: size)
+        case "Trebuchet MS":
+            return .custom("TrebuchetMS", size: size)
+        case "Verdana":
+            return .custom("Verdana", size: size)
+        case "Gill Sans":
+            return .custom("GillSans", size: size)
+        case "Avenir Next":
+            return .custom("AvenirNext-Regular", size: size)
+        case "Baskerville":
+            return .custom("Baskerville", size: size)
+        case "Didot":
+            return .custom("Didot", size: size)
+        case "American Typewriter":
+            return .custom("AmericanTypewriter", size: size)
+        case "Chalkboard SE":
+            return .custom("ChalkboardSE-Regular", size: size)
         default:
-            return .system(size: 16)
+            return .system(size: size) // Fallback to system font
         }
     }
+
 }
 
 // Extension to simplify color retrieval from UserDefaults

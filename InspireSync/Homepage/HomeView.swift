@@ -163,10 +163,12 @@ struct HomeView: View {
                                 Button {
                                     presentSideMenu.toggle()
                                 } label: {
+                                    
                                     Image("menuIcon")
-                                        .aspectRatio(contentMode: .fit)
-                                        .font(.system(size: 10))
-                                        .foregroundColor(.customTeal)
+                                        .resizable()
+                                        .scaledToFill()
+                                        .frame(width: 40, height: 40)
+                                        .foregroundColor(.white)
                                 }
                                 .padding()
                             HStack(alignment: .center){
@@ -178,32 +180,9 @@ struct HomeView: View {
                                     .minimumScaleFactor(0.5)
                                     .frame(width:200, height: 80)
                                     .lineLimit(1)
-                            .onReceive(timer) { _ in
-                                    
-                                self.homeUsername = AuthenticationManager.shared.getDisplayName()
-                                /*
-                                Task {
-                                        do {
-                                            let isDisplayNameNull = try await UserManager.shared.isDisplayNameNil(forUserID: AuthenticationManager.shared.getUserID())
-                                            // Now you have the result of the async call
-                                            // You can perform any synchronous operations based on the result
-                                            if !isDisplayNameNull {
-                                                // Perform actions when display name is not null
-                                                isTimerActive = false
-                                                timer.upstream.connect().cancel()
-                                            }
-                                        } catch {
-                                            // Handle any errors that occurred during the async call
-                                            print("Error checking if display name is null: \(error)")
-                                        }
-                                    }
-                                */
-                                /*
-                                if !(AuthenticationManager.shared.isDisplayNameNull()) {
-                                    isTimerActive = false
-                                    timer.upstream.connect().cancel()
-                                }
-                                 */
+                                    .onReceive(timer) { _ in
+                                        
+                                        self.homeUsername = AuthenticationManager.shared.getDisplayName()
                                     }
                             }
                             .frame(width: UIScreen.main.bounds.width * 0.5)
@@ -214,9 +193,11 @@ struct HomeView: View {
                                     Button(action: {
                                         settingsView.toggle()
                                     }, label: {
-                                        Image(systemName: "person.crop.circle.dashed")
-                                            .font(.system(size: 40))
-                                            .foregroundColor(.customTeal)
+                                        Image("profilepic")
+                                            .resizable()
+                                            .scaledToFill()
+                                            .frame(width: 40, height: 40)
+                                            .foregroundColor(.white)
                                     })
                                     .sheet(isPresented: $settingsView) {
                                         SettingsView()
