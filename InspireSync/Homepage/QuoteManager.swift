@@ -18,12 +18,6 @@ final class QuoteManager{
     
     func addQuotes(quote: String){
         
-        /*
-        if (quotesArray.isEmpty){
-            quotesArray.append(firstQuote)
-            quotesArray.append(secondQuote)
-        }
-         */
         quotesArray.insert(quote, at: 0)
         removeLastQuote()
     }

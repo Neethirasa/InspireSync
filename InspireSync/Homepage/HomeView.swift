@@ -8,18 +8,7 @@
 import SwiftUI
 import WidgetKit
 import Combine
-/*
-@MainActor
-final class ProfileViewModel: ObservableObject{
-    
-    @Published private(set) var user: DBUser? = nil
-    
-    func loadCurrentUser() async throws {
-        let authDataResult = try AuthenticationManager.shared.getAuthenticatedUser()
-        self.user = try await UserManager.shared.getUser(userId: authDataResult.uid)
-    }
-}
-*/
+
 @MainActor
 final class HomeViewModel: ObservableObject{
     
@@ -31,12 +20,7 @@ final class HomeViewModel: ObservableObject{
     func signOut() throws{
         AuthenticationManager.shared.signOut()
     }
-    /*
-    func loadCurrentUser() async throws {
-        let authDataResult = try AuthenticationManager.shared.getAuthenticatedUser()
-        self.user = try await UserManager.shared.getUser(userId: authDataResult.uid)
-    }
-     */
+
 }
 
 
@@ -45,7 +29,7 @@ struct HomeView: View {
     @StateObject private var viewModel = HomeViewModel()
     @State private var settingsView = false
     @State private var menuView = false
-    //@Binding var showSignInView: Bool
+
     @State private var showingQuote = false
     @AppStorage("myDefaultString") var myString = ""
     @ObservedObject var reloadViewHelper = ReloadViewHelper()
@@ -97,10 +81,7 @@ struct HomeView: View {
                     .cornerRadius(.infinity)
                     .padding()
                     .background(RoundedRectangle(cornerRadius: 10).stroke(.customTeal, lineWidth: 5))
-                })/*
-                .task {
-                    try? await viewModel.loadCurrentUser()
-                }*/
+                })
                 .fullScreenCover(isPresented: $showingQuote, content: {
                     NavigationStack{
                         sendQuoteView(firstQuote: $firstQuote, secondQuote: $secondQuote)

@@ -17,7 +17,6 @@ struct SettingsScreen: View {
     @State var isShowingPrivacyView = false
     @State var isShowingTermsService = false
     @State var isCustomWidget = false
-    @StateObject private var viewEmailModel = EmailViewModel()
     
     @State private var navigationActive = false // Track the activation state
     
@@ -111,11 +110,7 @@ struct SettingsScreen: View {
                                             .italic()
                                                 }
                                 
-                                /*
-                                Image("arrow")
-                                    .resizable()
-                                    .frame(width:UIScreen.main.bounds.width * 0.05, height: UIScreen.main.bounds.height * 0.018, alignment: .leading)
-                                 */
+        
                             }
                             .padding(.bottom,6)
                             
@@ -206,11 +201,7 @@ struct SettingsScreen: View {
                                             }
                                     
                                 }
-                                /*
-                                Image("arrow")
-                                    .resizable()
-                                    .frame(width: UIScreen.main.bounds.width * 0.05, height: UIScreen.main.bounds.height * 0.018, alignment: .leading)
-					*/
+                        
 							}
 							.frame(height: 14)
 							.frame(maxWidth: .infinity)
@@ -354,25 +345,7 @@ struct SettingsScreen: View {
                     HStack(spacing: 0){
                         
                         Spacer().frame(width: UIScreen.main.bounds.width * 0.35)
-                        
-                        /*
-                         NavigationStack{
-                             Button(action: {
-                                 settingsView.toggle()
-                             }, label: {
-                                 Text("Settings")
-                                     .font(.custom(
-                                         "Futura-Medium",
-                                         fixedSize: 20))
-                                     .foregroundColor(.white)
-                             })
-                             .fullScreenCover(isPresented: $settingsView, content: {
-                                 NavigationStack{
-                                     SettingsScreen()
-                                 }
-                             })
-                         }
-                         */
+               
                         NavigationStack {
                             Button(role: .destructive) {
                                 Task {

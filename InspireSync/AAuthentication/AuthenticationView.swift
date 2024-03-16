@@ -108,21 +108,7 @@ struct AuthenticationView: View {
                 
                 
                 
-                
-                /*
-                 NavigationLink{
-                 SignInEmailView(showSignInView: $showSignInView)
-                 } label: {
-                 Text("Sign In With Email")
-                 .font(.headline)
-                 .foregroundColor(.white)
-                 .frame(height: 55)
-                 .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)
-                 .background(Color.blue)
-                 .cornerRadius(10)
-                 
-                 }
-                 */
+       
                 
             }
             .padding(20)
@@ -148,18 +134,7 @@ struct AuthenticationView: View {
             .padding(5)
             
             .safeAreaInset(edge: VerticalEdge.bottom){
-                /*
-                GoogleSignInButton(viewModel: GoogleSignInButtonViewModel(scheme: .light, style: .wide, state: .normal)) {
-                    Task{
-                        do {
-                            try await viewModel.signInGoogle()
-                            showSignInView = false
-                        } catch {
-                            print(error)
-                        }
-                    }
-                }
-                */
+
                 CustomGoogleSignInButton{
                     Task{
                         do {

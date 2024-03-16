@@ -96,17 +96,7 @@ struct sendQuoteView: View {
                                 .onAppear {
                                     fetchQuotesFromFirestore()
                                 }
-                        /*
-                        ScrollView {
-                            VStack(spacing: 10) {
-                                ForEach(0..<quotesArray.count,id: \.self) { index in
-                                    MenuButtons(buttonImage: quotesArray[index], quote: $quote, isExpanded: $isExpanded)
-                                }
-                            }
-                        }
-                        .accentColor(Color.white)
-                        .frame(height: UIScreen.main.bounds.height * 0.2)
-                        */
+                        
                     }
                 }
                 .animation(.spring(duration: 1, bounce: 0.9), value: animationAmount)
@@ -186,7 +176,7 @@ struct sendQuoteView: View {
                         .font(.custom(
                                 "Futura-Medium",
                                 fixedSize: 20))
-                        //Spacer().frame(width: UIScreen.main.bounds.width * 0)
+                   
                     }
                 }
             }

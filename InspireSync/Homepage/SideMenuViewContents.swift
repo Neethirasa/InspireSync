@@ -42,15 +42,7 @@ struct SideMenuViewContents: View {
                     .frame(width: UIScreen.main.bounds.width * 10)
                    // .frame(maxWidth: .infinity, alignment: .leading)
                     .background(Color(hex: "#696969"))
-                    /*
-                    Button("Friends"){
-                        
-                    }.listRowBackground(Color.washedBlack)
-                        .font(.custom(
-                            "Futura-Medium",
-                            fixedSize: 20))
-                        .foregroundColor(.white)
-                    */
+
                     Spacer().frame(height: UIScreen.main.bounds.height * 0.55)
                         .listRowBackground(Color.washedBlack)
                     
@@ -123,20 +115,7 @@ struct SideMenuViewContents: View {
     
     func SideMenuTopView() -> some View {
         VStack {
-            /*
-            HStack {
-                Button(action: {
-                    presentSideMenu.toggle()
-                }, label: {
-                    Image(systemName: "x.circle")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .foregroundColor(.white)
-                })
-                .frame(width: 34, height: 34)
-                Spacer()
-            }
-            */
+
         }
         .frame(maxWidth: .infinity)
         .padding(.leading, 40)
