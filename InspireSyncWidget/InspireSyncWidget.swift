@@ -24,10 +24,21 @@ struct Provider: TimelineProvider {
     }
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<SimpleEntry>) -> ()) {
-        let entry = SimpleEntry(date: Date(), myString: getMyString())
-        let timeline = Timeline(entries: [entry], policy: .atEnd)
+        var entries: [SimpleEntry] = []
+        let currentDate = Date()
+        let refreshInterval = TimeInterval(15 * 60) // 15 minutes
+
+        // Generate entries for the next several hours, each 15 minutes apart
+        for index in 0..<4 {
+            let entryDate = Calendar.current.date(byAdding: .second, value: Int(refreshInterval) * index, to: currentDate)!
+            let entry = SimpleEntry(date: entryDate, myString: getMyString())
+            entries.append(entry)
+        }
+
+        let timeline = Timeline(entries: entries, policy: .atEnd)
         completion(timeline)
     }
+
     
     private func getMyString() -> String {
         let defaults = UserDefaults(suiteName:"group.Nivethikan-Neethirasa.InspireSync")

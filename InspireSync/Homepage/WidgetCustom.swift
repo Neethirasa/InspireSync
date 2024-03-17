@@ -32,7 +32,6 @@ class TextFieldSettingsViewModel: ObservableObject {
     
     private func saveFontSizeSelection(fontSize: CGFloat) {
             UserDefaults(suiteName: "group.Nivethikan-Neethirasa.InspireSync")?.set(Double(fontSize), forKey: "selectedFontSize")
-            WidgetCenter.shared.reloadAllTimelines()
         }
 
         private func loadSavedFontSize() {
