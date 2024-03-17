@@ -19,11 +19,27 @@ class TextFieldSettingsViewModel: ObservableObject {
     @Published var selectedFont: String = "System" {
         didSet { saveFontSelection(fontName: selectedFont) }
     }
+    
+    @Published var selectedFontSize: CGFloat = 14 {
+            didSet { saveFontSizeSelection(fontSize: selectedFontSize) }
+        }
 
     init() {
         loadSavedColors()
         loadSavedFont()
+        loadSavedFontSize()
     }
+    
+    private func saveFontSizeSelection(fontSize: CGFloat) {
+            UserDefaults(suiteName: "group.Nivethikan-Neethirasa.InspireSync")?.set(Double(fontSize), forKey: "selectedFontSize")
+            WidgetCenter.shared.reloadAllTimelines()
+        }
+
+        private func loadSavedFontSize() {
+            if let savedFontSize = UserDefaults(suiteName: "group.Nivethikan-Neethirasa.InspireSync")?.double(forKey: "selectedFontSize") {
+                selectedFontSize = CGFloat(savedFontSize)
+            }
+        }
 
     private func saveColor(_ color: Color, forKey key: String) {
         guard let defaults = UserDefaults(suiteName: "group.Nivethikan-Neethirasa.InspireSync") else { return }
@@ -87,13 +103,13 @@ struct WidgetCustom: View {
                 Spacer().frame(height: UIScreen.main.bounds.height * 0.05)
                 
                 TextField("Sample", text: $sampleText, axis: .vertical)
-                    .font(.custom(viewModel.selectedFont, fixedSize: 18))
+                    .font(.custom(viewModel.selectedFont, fixedSize: viewModel.selectedFontSize))
                     .frame(width: UIScreen.main.bounds.width * 0.76, height: UIScreen.main.bounds.height * 0.18)
                     .cornerRadius(10)
                     .padding()
                     .background(viewModel.textFieldColor) // Apply background color
                     .foregroundColor(viewModel.textColor)
-                    .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color("customTeal"), lineWidth: 5))
+                    .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.black, lineWidth: 5))
 
                 // Place the Form in a separate ZStack layer with the desired background
                 ZStack {
@@ -102,23 +118,85 @@ struct WidgetCustom: View {
                     Form {
                         
                         Section() {
+                            /*
                             Text("Colors")
                                 .font(.custom(
                                         "Futura-Medium",
                                         fixedSize: 18))
                                 .foregroundColor(.white)
                                 .listRowBackground(Color("WashedBlack"))
+                             */
                             
                             ColorPicker("Widget Color", selection: $viewModel.textFieldColor)
-                                .font(.custom("Futura-Medium", fixedSize: 16))
+                                .font(.custom("Futura-Medium", fixedSize: 14))
                                 .foregroundColor(.white)
                             
                             ColorPicker("Text Color", selection: $viewModel.textColor)
-                                .font(.custom("Futura-Medium", fixedSize: 16))
+                                .font(.custom("Futura-Medium", fixedSize: 14))
                                 .foregroundColor(.white)
+                            
+                            Text("Font Size")
+                                .font(.custom(
+                                        "Futura-Medium",
+                                        fixedSize: 14))
+                                .foregroundColor(.white)
+                            Slider(value: $viewModel.selectedFontSize, in: 8...28, step: 1) {
+                            }
+                            Text("Current size: \(viewModel.selectedFontSize, specifier: "%.0f")")
+                                .font(.custom(
+                                        "Futura-Medium",
+                                        fixedSize: 14))
+                                .foregroundColor(.white)
+                            Text("Font Style")
+                                .font(.custom(
+                                        "Futura-Medium",
+                                        fixedSize: 14))
+                                .foregroundColor(.white)
+                                .listRowBackground(Color("WashedBlack"))
+                            Picker("Font", selection: $viewModel.selectedFont) {
+                                ForEach(fonts, id: \.self) { font in
+                                    Text(font).tag(font)
+                                        .foregroundColor(.white)
+                                }
+                            }
+                            .frame(height: UIScreen.main.bounds.height * 0.15)
+                            .pickerStyle(.wheel)
+                            .background(Color("WashedBlack"))
                         }
                         .listRowBackground(Color("WashedBlack")) // Individual row background
-
+                        /*
+                        Section() {
+                            Text("Font Size")
+                                .font(.custom(
+                                        "Futura-Medium",
+                                        fixedSize: 16))
+                                .foregroundColor(.white)
+                            Slider(value: $viewModel.selectedFontSize, in: 8...28, step: 1) {
+                            }
+                            Text("Current size: \(viewModel.selectedFontSize, specifier: "%.0f")")
+                                .font(.custom(
+                                        "Futura-Medium",
+                                        fixedSize: 16))
+                                .foregroundColor(.white)
+                            Text("Font Style")
+                                .font(.custom(
+                                        "Futura-Medium",
+                                        fixedSize: 16))
+                                .foregroundColor(.white)
+                                .listRowBackground(Color("WashedBlack"))
+                            Picker("Font", selection: $viewModel.selectedFont) {
+                                ForEach(fonts, id: \.self) { font in
+                                    Text(font).tag(font)
+                                        .foregroundColor(.white)
+                                }
+                            }
+                            .frame(height: UIScreen.main.bounds.height * 0.15)
+                            .pickerStyle(.wheel)
+                            .background(Color("WashedBlack"))
+                        }
+                        .listRowBackground(Color("WashedBlack"))
+                        */
+                        /*
                         Section() {
                             Text("Font Style")
                                 .font(.custom(
@@ -138,6 +216,7 @@ struct WidgetCustom: View {
                             
                         }
                         .listRowBackground(Color("WashedBlack")) // Individual row background
+                        */
                     }
                     .onAppear {
                         UITableView.appearance().backgroundColor = UIColor.clear // Attempt to clear UITableView background
@@ -167,7 +246,7 @@ struct WidgetCustom: View {
                                                 "Futura-Medium",
                                                 fixedSize: 20))
                                     }
-                Spacer().frame(height: UIScreen.main.bounds.height * 0.07)
+                Spacer().frame(height: UIScreen.main.bounds.height * 0.05)
                 
             }
         }

@@ -43,18 +43,19 @@ struct InspireSyncWidgetEntryView: View {
         let textFieldColor = UserDefaults(suiteName: "group.Nivethikan-Neethirasa.InspireSync")?.color(forKey: "textFieldColor") ?? Color.black
         let textColor = UserDefaults(suiteName: "group.Nivethikan-Neethirasa.InspireSync")?.color(forKey: "textColor") ?? Color.white
         let fontName = UserDefaults(suiteName: "group.Nivethikan-Neethirasa.InspireSync")?.string(forKey: "selectedFont") ?? "System"
+        let fontSize = CGFloat(UserDefaults(suiteName: "group.Nivethikan-Neethirasa.InspireSync")?.double(forKey: "selectedFontSize") ?? 16)
         
         VStack {
             Text(entry.myString)
-                .font(fontForName(fontName))
+                .font(fontForName(fontName, size: fontSize))
                 .padding()
             .foregroundColor(textColor)
         }
         .widgetBackground(textFieldColor)
     }
     
-    func fontForName(_ name: String) -> Font {
-        let size: CGFloat = 16 // Define a consistent size for all fonts
+    func fontForName(_ name: String, size: CGFloat) -> Font {
+        //let size: CGFloat = 16 // Define a consistent size for all fonts
 
         switch name {
         case "Futura-Medium":
