@@ -118,7 +118,7 @@ struct BugView: View {
             }
             .alert(isPresented: $showAlert) {
                     Alert(title: Text("Please wait"),
-                          message: Text("You can send another message in \(remainingTime). Email nivethikn@hotmail.com for other questions."),
+                          message: Text("You can send another message in \(remainingTime). Email nivethikan@hotmail.com for other questions."),
                           dismissButton: .default(Text("OK")))
                 }
         }
