@@ -8,19 +8,20 @@
 import Foundation
 import SwiftUI
 import FirebaseAuth
+import KeychainSwift
 
 struct AuthDataResultModel {
     let uid: String
     let email: String?
     let photoUrl: String?
-    let username: String?
+    let displayName: String?
     
     init(user: User) {
         self.uid = user.uid
         self.email = user.email
         self.photoUrl = user.photoURL?.absoluteString
         //self.username = ""
-        self.username = "Nive" //change to nil for username view
+        self.displayName = nil //change to nil for username view
     }
 }
 
@@ -28,11 +29,33 @@ enum AuthProviderOption: String {
     case email = "password"
     case apple = "apple.com"
     case google = "google.com"
+    
+    // Handle unknown provider IDs by returning nil
+    init?(rawValue: String) {
+        switch rawValue {
+        case "password":
+            self = .email
+        case "apple.com":
+            self = .apple
+        case "google.com":
+            self = .google
+        default:
+            // If the provider ID is unknown, return nil
+            return nil
+        }
+    }
+}
+
+
+// Define custom error type
+enum AuthError: Error {
+    case noProviderData
 }
 
 final class AuthenticationManager{
     
     static let shared = AuthenticationManager()
+    @State private var showSignInView = false
     
     private init() { }
     
@@ -46,12 +69,12 @@ final class AuthenticationManager{
     
     func getProviders() throws -> [AuthProviderOption] {
         guard let providerData = Auth.auth().currentUser?.providerData else {
-            throw URLError(.badServerResponse)
+            throw AuthError.noProviderData
         }
         
         var providers: [AuthProviderOption] = []
         for provider in providerData {
-            if let option = AuthProviderOption(rawValue: provider.providerID){
+            if let option = AuthProviderOption(rawValue: provider.providerID) {
                 providers.append(option)
             } else {
                 assertionFailure("Provider option not found: \(provider.providerID)")
@@ -60,40 +83,7 @@ final class AuthenticationManager{
         print(providers)
         return providers
     }
-    
-    @discardableResult
-    func createUser(email: String, password: String) async throws -> AuthDataResultModel{
-        let authDataResult = try await Auth.auth().createUser(withEmail: email, password: password)
-        return AuthDataResultModel(user: authDataResult.user)
-    }
-    
-    @discardableResult
-    func signInUser(email: String, password: String) async throws -> AuthDataResultModel{
-        let authDataResult = try await Auth.auth().signIn(withEmail: email, password: password)
-        return AuthDataResultModel(user: authDataResult.user)
-    }
-    
-    func resetPassword(email: String) async throws {
-        try await Auth.auth().sendPasswordReset(withEmail: email )
-    }
-    
-    func updatePassword(password: String) async throws{
-        
-        guard let user = Auth.auth().currentUser else{
-            throw URLError(.badServerResponse)
-        }
-        
-        try await user.updatePassword(to: password)
-    }
-    
-    func updateEmail(email: String) async throws{
-        
-        guard let user = Auth.auth().currentUser else{
-            throw URLError(.badServerResponse)
-        }
-        
-        try await user.updatePassword(to: email)
-    }
+   
     
     func signOut(){
         do {
@@ -104,10 +94,48 @@ final class AuthenticationManager{
         
     }
     
+    func updateDisplayName(displayName: String){
+        let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
+        changeRequest?.displayName = displayName
+        changeRequest?.commitChanges { error in
+          // ...
+        }
+    }
+    
+    func getDisplayName() -> String {
+        
+        return Auth.auth().currentUser?.displayName ?? "nil"
+    }
+    
+    func getUserID() -> String {
+        return Auth.auth().currentUser?.uid ?? "nil"
+    }
+    
+    func isDisplayNameNull() async -> Bool {
+        do {
+            // Get the current user's UID
+            guard let uid = Auth.auth().currentUser?.uid else {
+                // If the current user is not authenticated, return false
+                return false
+            }
+            
+            // Call the asynchronous function to check if the display name is nil or empty
+            let isNull = try await UserManager.shared.isDisplayNameNil(forUserID: uid)
+            
+            // Return true if the display name is nil or empty, otherwise return false
+            return isNull
+        } catch {
+            // Handle any errors that occur during the process
+            print("Error checking if display name is nil or empty: \(error)")
+            return false // Return false by default in case of errors
+        }
+    }
+
+
+    
     
     
     func delete() async throws{
-        
         guard let user = Auth.auth().currentUser else {
             throw URLError(.badURL)
         }
@@ -115,8 +143,6 @@ final class AuthenticationManager{
         try await user.delete()
          
     }
-    
-    
     
 }
 
@@ -138,10 +164,5 @@ extension AuthenticationManager{
         return AuthDataResultModel(user: authDataResult.user)
     }
     
-    
-
-    
- 
-    
-    
 }
+

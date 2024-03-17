@@ -15,14 +15,9 @@ final class QuoteManager{
     var secondQuote = ""
     var quotesArray: [String] = ["In the end, we will remember not the words of our enemies, but the silence of our friends. - Martin Luther King Jr.","The only way to do great work is to love what you do. - Steve Jobs"]
     
+    
     func addQuotes(quote: String){
         
-        /*
-        if (quotesArray.isEmpty){
-            quotesArray.append(firstQuote)
-            quotesArray.append(secondQuote)
-        }
-         */
         quotesArray.insert(quote, at: 0)
         removeLastQuote()
     }
@@ -40,4 +35,6 @@ final class QuoteManager{
         secondQuote = quotesArray[1]
         return secondQuote
     }
+
+    
 }

@@ -7,22 +7,20 @@
 
 import SwiftUI
 import WidgetKit
+import Combine
 
 @MainActor
 final class HomeViewModel: ObservableObject{
     
     @Published var authProviders: [AuthProviderOption] = []
+   // @Published private(set) var user: DBUser? = nil
     
-    func  loadAuthProviders() {
-        if let providers = try? AuthenticationManager.shared.getProviders(){
-            authProviders = providers
-        }
-    }
+
     
     func signOut() throws{
-        try AuthenticationManager.shared.signOut()
+        AuthenticationManager.shared.signOut()
     }
-    
+
 }
 
 
@@ -31,171 +29,191 @@ struct HomeView: View {
     @StateObject private var viewModel = HomeViewModel()
     @State private var settingsView = false
     @State private var menuView = false
-    @Binding var showSignInView: Bool
+
     @State private var showingQuote = false
     @AppStorage("myDefaultString") var myString = ""
     @ObservedObject var reloadViewHelper = ReloadViewHelper()
     
+    @State private var showSignInView = false
+    
     @State private var firstQuote = QuoteManager.shared.getFirstQuote()
     @State private var secondQuote = QuoteManager.shared.getSecondQuote()
     
+    @State var presentSideMenu = false
+    
+    @State var appeared: Double = 0
+
+    private let objectWillChange = PassthroughSubject<Void, Never>()
+    
+   
+    @State private var isTimerActive = true
+    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    
+    @State private var homeUsername = " "
+    @State private var animationAmount = 1.0
+    
     var body: some View {
-            
         
-        ZStack{
-                        
-            Color.washedBlack.ignoresSafeArea()
             
-            HStack{
-                
-                Spacer().frame(width: 25)
-                
-                VStack(alignment: .leading){
-                    NavigationLink(destination: SettingsView(showSignInView: $showSignInView)) {
-                        Button(action: {
-                            menuView.toggle()
-                        }, label: {
-                            Image("menuIcon")
-                                .font(.system(size: 40))
-                                .foregroundColor(.customTeal)
-                            
-
-                        })
-                        .sheet(isPresented: $menuView) {
-                            MenuView()
-                        }
-                    }
-                    Spacer().frame(height: 700)
-
-                }
-                
-                
-                HStack(){
-                    Spacer()
-                        .padding()
-                    VStack(alignment: .leading){
-                        Image("Logo")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 60, height: 60)
-                            
-                        Spacer().frame(height: 700)
-                    }
-                    
-                    
-                }
-                
-                VStack{
-                    HStack{
-                        
-                        Spacer()
-                        
-                        NavigationLink(destination: SettingsView(showSignInView: $showSignInView)) {
-                            
-                        Button(action: {
-                            settingsView.toggle()
-                        }, label: {
-                            Image(systemName: "person.crop.circle.dashed")
-                                .font(.system(size: 40))
-                                .foregroundColor(.customTeal)
-                        })
-                        .sheet(isPresented: $settingsView) {
-                            SettingsView(showSignInView: $showSignInView)
-                        }
-                                   }
-                    }
-                    
-                    Spacer().frame(height: 700)
-                }
-                Spacer().frame(width: 25)
-                
-                
-            }
+        ZStack {
+            Color.washedBlack.edgesIgnoringSafeArea(.all)
             
-            VStack{
+            RoundedRectangle(cornerRadius: 10)
+                    .stroke(Color.white.opacity(0.3), lineWidth: 2) // Semi-transparent stroke
+                    .blur(radius: 4) // Blur effect
+                    .offset(x: -2, y: -2) // Offset to create the glass effect
+                    .mask(RoundedRectangle(cornerRadius: 10)) // Mask to limit blur effect
+            
+            VStack {
                 
-                Spacer().frame(height: 75)
-                
+                Spacer().frame(height: UIScreen.main.bounds.height * 0.08)
                 
                 Button(action: {
                     showingQuote.toggle()
                     //reloadViewHelper.reloadView()
                 }, label: {
                   Text("+")
-                    .frame(width: 300 , height: 150)
-                    .font(.system(size: 60))
+                        .frame(width: UIScreen.main.bounds.width * 0.76 , height: UIScreen.main.bounds.height * 0.10)
+                        .font(.custom(
+                                "Futura-Medium",
+                                fixedSize: 60))
                     .foregroundColor(.white)
                     .cornerRadius(.infinity)
                     .padding()
                     .background(RoundedRectangle(cornerRadius: 10).stroke(.customTeal, lineWidth: 5))
                 })
-                .sheet(isPresented: $showingQuote) {
-                    sendQuoteView(firstQuote: $firstQuote, secondQuote: $secondQuote)
-                        }
+                .fullScreenCover(isPresented: $showingQuote, content: {
+                    NavigationStack{
+                        sendQuoteView(firstQuote: $firstQuote, secondQuote: $secondQuote)
+                    }
+                })
                 
-                Spacer().frame(height: 40)
+                Spacer().frame(height: UIScreen.main.bounds.height * 0.05)
                 
                 Button(action: {
                     myString = firstQuote
                     WidgetCenter.shared.reloadAllTimelines()
                 }, label: {
                     Text(firstQuote)
-                    .frame(width: 300 , height: 150)
-                    .font(.system(size: 16))
+                    .minimumScaleFactor(0.5)
+                    .frame(width: UIScreen.main.bounds.width * 0.76 , height: UIScreen.main.bounds.height * 0.18)
+                    .font(.custom(
+                            "Futura-Medium",
+                            fixedSize: 18))
                     .foregroundColor(.white)
                     .cornerRadius(.infinity)
+                    .lineLimit(4)
                     .padding()
                     .background(RoundedRectangle(cornerRadius: 10).stroke(.customTeal, lineWidth: 5))
                     
                     
                 })
                 
-                Spacer().frame(height: 40)
+                Spacer().frame(height: UIScreen.main.bounds.height * 0.05)
                 
-                Button(action: { 
+                Button(action: {
                     myString = secondQuote
                     WidgetCenter.shared.reloadAllTimelines()
                 }, label: {
                     Text(secondQuote)
-                    .frame(width: 300 , height: 150)
-                    .font(.system(size: 16))
+                    .minimumScaleFactor(0.5)
+                    .frame(width: UIScreen.main.bounds.width * 0.76 , height: UIScreen.main.bounds.height * 0.18)
+                    .font(.custom(
+                            "Futura-Medium",
+                            fixedSize: 18))
                     .foregroundColor(.white)
                     .cornerRadius(.infinity)
+                    .lineLimit(4)
                     .padding()
                     .background(RoundedRectangle(cornerRadius: 10).stroke(.customTeal, lineWidth: 5))
                 })
+                
+                
+                
+                
+                
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .overlay(
+                ZStack {
+                    VStack{
+                        Spacer().frame(height: UIScreen.main.bounds.height * 0.05)
+                        HStack {
+                            Spacer().frame(width: UIScreen.main.bounds.width * 0.25)
+
+                                Button {
+                                    presentSideMenu.toggle()
+                                } label: {
+                                    
+                                    Image("menuIcon")
+                                        .resizable()
+                                        .scaledToFill()
+                                        .frame(width: 40, height: 40)
+                                        .foregroundColor(.white)
+                                }
+                                .padding()
+                            HStack(alignment: .center){
+                                Text("Welcome " + homeUsername)
+                                    .font(.custom(
+                                            "Futura-Medium",
+                                            size: 25))
+                                    .foregroundStyle(Color.white)
+                                    .minimumScaleFactor(0.5)
+                                    .frame(width:200, height: 80)
+                                    .lineLimit(1)
+                                    .onReceive(timer) { _ in
+                                        
+                                        self.homeUsername = AuthenticationManager.shared.getDisplayName()
+                                    }
+                            }
+                            .frame(width: UIScreen.main.bounds.width * 0.5)
+                                .animation(.spring(duration: 1, bounce: 0.9), value: animationAmount)
+      
+                            
+                                NavigationStack{
+                                    Button(action: {
+                                        settingsView.toggle()
+                                    }, label: {
+                                        Image("profilepic")
+                                            .resizable()
+                                            .scaledToFill()
+                                            .frame(width: 40, height: 40)
+                                            .foregroundColor(.white)
+                                    })
+                                    .sheet(isPresented: $settingsView) {
+                                        SettingsView()
+                                    }
+                                }
+                                .padding()
+                            Spacer().frame(width: UIScreen.main.bounds.width * 0.25)
+
+                        }
+                    }
+                }
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 60)
+                    .background(Color.washedBlack)
+                    .zIndex(1)
+                    .shadow(radius: 0.3)
+                , alignment: .top)
+            .background(Color.washedBlack.opacity(0.8))
             
-            
+            SideMenu()
         }
         
-        /*
-            HStack{
-                
-
-                Spacer()
-                .safeAreaInset(edge: VerticalEdge.bottom, content: {
-                    Button(action: {
-                        
-                    }, label: {
-                        Image(systemName: "person.crop.circle.dashed")
-                            .font(.system(size: 50))
-                            .foregroundColor(.customTeal)
-                            .padding(.leading)
-
-                    })
-                })
-                .onAppear{
-                    viewModel.loadAuthProviders()
-                }
-                .navigationBarTitle("Homepage")
-                     //your view
-                            
-            }
-        */
+        .frame(maxWidth: .infinity)
         
     }
     
+    
+    @ViewBuilder
+    private func SideMenu() -> some View {
+        SideView(isShowing: $presentSideMenu, direction: .leading) {
+            SideMenuViewContents(presentSideMenu: $presentSideMenu)
+                .frame(width: UIScreen.main.bounds.width * 0.5)
+        }
+    }
+        
 }
 
 func helpMe (){
@@ -212,7 +230,9 @@ class ReloadViewHelper: ObservableObject {
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            HomeView(showSignInView: .constant(false))
+            HomeView()
+                .previewDevice("iphone 13")
         }
+        
     }
 }
