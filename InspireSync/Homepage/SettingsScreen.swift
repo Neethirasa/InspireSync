@@ -112,15 +112,37 @@ struct SettingsScreen: View {
                                 
         
                             }
-                            .padding(.bottom,6)
+                            .padding(.bottom,3)
                             
-                            
-							VStack(alignment: .leading, spacing: 0){
-							}
-							.frame(height: UIScreen.main.bounds.height * 0.001)
-							.frame(maxWidth: .infinity, alignment: .leading)
-							.background(Color(hex: "#696969"))
-							.padding(.bottom,6)
+						}
+						.padding(.vertical,10)
+						.padding(.horizontal,5)
+						.frame(height: UIScreen.main.bounds.height * 0.035)
+						.frame(maxWidth: .infinity, alignment: .leading)
+						.background(Color(hex: "#333333"))
+						.cornerRadius(5)
+						.padding(.bottom,44)
+						.padding(.horizontal,UIScreen.main.bounds.width * 0.1)
+                        
+                        HStack(spacing: 0){
+                            Image(systemName: "paintpalette")
+                                .foregroundColor(.white)
+                                
+                            Text(" Customize")
+                            .foregroundColor(Color(hex: "#FFFFFF"))
+                            .font(.custom(
+                                    "Futura-Medium",
+                                    fixedSize: 16))
+                            //.frame(maxWidth: .infinity)
+                            Spacer().frame(width: UIScreen.main.bounds.width * 0.535)
+                        }
+                        .frame(height: 18)
+                        .frame(maxWidth: .infinity)
+                        .padding(.bottom,11)
+                        .padding(.horizontal,5)
+                    }
+                    Group{
+                        VStack(alignment: .leading, spacing: 0){
                             HStack(spacing: 0){
                                 
                                 NavigationStack{
@@ -146,18 +168,19 @@ struct SettingsScreen: View {
                                     
                                 }
                             }
-							.frame(height: 15)
-							.frame(maxWidth: .infinity)
-                            
-						}
-						.padding(.vertical,10)
-						.padding(.horizontal,5)
-						.frame(height: UIScreen.main.bounds.height * 0.069)
-						.frame(maxWidth: .infinity, alignment: .leading)
-						.background(Color(hex: "#333333"))
-						.cornerRadius(5)
-						.padding(.bottom,44)
-						.padding(.horizontal,UIScreen.main.bounds.width * 0.1)
+                            .frame(height: 15)
+                            .frame(maxWidth: .infinity)
+                        }
+                        
+                        .padding(.vertical,7)
+                        .padding(.horizontal,5)
+                        .frame(height: UIScreen.main.bounds.height * 0.035)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .background(Color(hex: "#333333"))
+                        .cornerRadius(5)
+                        .padding(.bottom,44)
+                        .padding(.horizontal,UIScreen.main.bounds.width * 0.1)
+                        
 						HStack(spacing: 0){
 							Image("sendfeedback")
                                 
