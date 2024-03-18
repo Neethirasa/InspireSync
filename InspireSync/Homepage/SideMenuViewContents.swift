@@ -25,7 +25,7 @@ struct SideMenuViewContents: View {
                 List {
                     
                     HStack{
-                        Text("InspireSync")
+                        Text("Widget Wise")
                             .font(.custom(
                                 "Futura-Medium",
                                 fixedSize: 20))
