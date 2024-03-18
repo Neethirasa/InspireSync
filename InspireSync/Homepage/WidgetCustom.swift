@@ -102,6 +102,7 @@ struct WidgetCustom: View {
                 Spacer().frame(height: UIScreen.main.bounds.height * 0.05)
                 
                 TextField("Sample", text: $sampleText, axis: .vertical)
+                    .multilineTextAlignment(.center)
                     .font(.custom(viewModel.selectedFont, fixedSize: viewModel.selectedFontSize))
                     .frame(width: UIScreen.main.bounds.width * 0.76, height: UIScreen.main.bounds.height * 0.18)
                     .cornerRadius(10)
