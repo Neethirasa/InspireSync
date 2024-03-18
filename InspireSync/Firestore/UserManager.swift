@@ -62,6 +62,30 @@ final class UserManager{
         try await Firestore.firestore().collection("users").document(auth.uid).setData(userData, merge: false)
     }
     
+    func getDisplayName(forUserID userID: String) async throws -> String? {
+        // Attempt to get the user document from Firestore using the provided userID
+        let userRef = Firestore.firestore().collection("users").document(userID)
+        
+        do {
+            let documentSnapshot = try await userRef.getDocument()
+            
+            // Check if the document exists and has a displayName field
+            if let data = documentSnapshot.data(), let displayName = data["displayName"] as? String {
+                // Return the displayName if available
+                return displayName
+            } else {
+                // If the document does not exist or does not have a displayName, return nil
+                print("Document does not exist or does not have a displayName.")
+                return nil
+            }
+        } catch {
+            // If there's an error fetching the document, throw the error
+            print("Error fetching user document: \(error)")
+            throw error
+        }
+    }
+
+    
     func displayNameExists(displayName: String) async throws -> Bool {
         // Create a query to find users with the given displayName
         let query = Firestore.firestore().collection("users").whereField("displayName", isEqualTo: displayName)
