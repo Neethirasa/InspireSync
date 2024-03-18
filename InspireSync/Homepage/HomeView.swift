@@ -169,7 +169,7 @@ struct HomeView: View {
                             .frame(width: UIScreen.main.bounds.width * 0.5)
                                 .animation(.spring(duration: 1, bounce: 0.9), value: animationAmount)
       
-                            
+                            /*
                                 NavigationStack{
                                     Button(action: {
                                         settingsView.toggle()
@@ -185,7 +185,8 @@ struct HomeView: View {
                                     }
                                 }
                                 .padding()
-                            Spacer().frame(width: UIScreen.main.bounds.width * 0.25)
+                            */
+                            Spacer().frame(width: UIScreen.main.bounds.width * 0.46)
 
                         }
                     }

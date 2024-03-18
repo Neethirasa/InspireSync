@@ -68,11 +68,6 @@ struct DeleteUserView: View {
                     .frame(height: UIScreen.main.bounds.height * 0.055)
                     .frame(width: UIScreen.main.bounds.width * 0.85)
                     .offset(y:75)
-                    .fullScreenCover(isPresented: $deleteView, content: {
-                        NavigationStack{
-                            RootView()
-                        }
-                    })
                 }
                 .padding(5)
                 
@@ -121,6 +116,11 @@ struct DeleteUserView: View {
                 
                 try await viewModel.signInGoogleReauth()
                 await deleteUserAccount()
+                // Present the RootView
+                if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                    let window = windowScene.windows.first {
+                                window.rootViewController = UIHostingController(rootView: RootView())
+                            }
             } catch {
                 alertMessage = "The current user does not match the account owner. Account deletion has been cancelled."
                 showAlert = true
@@ -159,7 +159,7 @@ struct DeleteUserView: View {
     }
     
     private func isCorrectSignInMethod(method: AuthProviderOption) async throws -> Bool {
-        let currentProviders = try await AuthenticationManager.shared.getProviders()
+        let currentProviders = try AuthenticationManager.shared.getProviders()
         return currentProviders.contains(method)
     }
 }

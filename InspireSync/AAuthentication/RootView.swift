@@ -65,11 +65,8 @@ struct RootView: View {
     
     func loadNullUsername() async {
         do {
-            let isNull = try await AuthenticationManager.shared.isDisplayNameNull()
+            let isNull = await AuthenticationManager.shared.isDisplayNameNull()
             self.nullUsername = isNull
-        } catch {
-            // Handle the error here
-            print("Error checking if display name is null: \(error)")
         }
     }
 }

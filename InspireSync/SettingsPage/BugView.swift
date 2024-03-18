@@ -10,6 +10,12 @@ import Combine
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
+extension View {
+    func endEditing1() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
+}
+
 private enum Field: Int, Hashable {
   case yourTextField, yourOtherTextField
 }
@@ -65,7 +71,7 @@ struct BugView: View {
                 
                 TextField("Enter your suggestion", text: $message, axis: .vertical)// <1>, <2>
                     .multilineTextAlignment(.center)
-                    .lineLimit(4)
+                    .lineLimit(10)
                     .frame(width: UIScreen.main.bounds.width * 0.76 , height: UIScreen.main.bounds.height * 0.2)
                     .focused($focusedField, equals: .yourTextField)
                      .contentShape(RoundedRectangle(cornerRadius: 5))
@@ -75,6 +81,16 @@ struct BugView: View {
                     .foregroundColor(.white)
                     .cornerRadius(.infinity)
                     .background(RoundedRectangle(cornerRadius: 10).stroke(Color("customTeal"), lineWidth: 3))
+                    .onTapGesture {
+                        let keyWindow = UIApplication.shared.connectedScenes
+                            .filter({$0.activationState == .foregroundActive})
+                            .map({$0 as? UIWindowScene})
+                            .compactMap({$0})
+                            .first?.windows
+                            .filter({$0.isKeyWindow}).first
+                        keyWindow!.endEditing(true)
+                    }
+                    .onLongPressGesture(pressing: { isPressed in if isPressed { self.endEditing1() } }, perform: {})
                 Spacer().frame(height: UIScreen.main.bounds.height * 0.05)
                 
                     }

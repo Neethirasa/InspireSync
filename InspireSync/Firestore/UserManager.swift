@@ -85,10 +85,10 @@ final class UserManager{
             return
         }
         
-        var userName: [String:Any] = [
+        let userName: [String:Any] = [
             "displayName" : name
         ]
-        var uid = try AuthenticationManager.shared.getAuthenticatedUser().uid
+        let uid = try AuthenticationManager.shared.getAuthenticatedUser().uid
         let userRef = Firestore.firestore().collection("users").document(uid)
         
         userRef.updateData(userName) { error in
