@@ -140,6 +140,12 @@ struct DeleteUserView: View {
                 
                 try await viewModel.signInAppleReauth()
                 await deleteUserAccount()
+                
+                if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                    let window = windowScene.windows.first {
+                                window.rootViewController = UIHostingController(rootView: RootView())
+                            }
+                
             } catch {
                 alertMessage = "The current user does not match the account owner. Account deletion has been cancelled."
                 showAlert = true
