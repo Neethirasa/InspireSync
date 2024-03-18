@@ -15,5 +15,7 @@
 			</array>
 		</dict>
 	</array>
+	<key>LSMinimumSystemVersion</key>
+	<string>14.4</string>
 </dict>
 </plist>
