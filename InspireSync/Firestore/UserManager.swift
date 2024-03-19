@@ -185,16 +185,41 @@ final class UserManager{
             return users
         }
 
-    func sendFriendRequest(fromUserId: String, toUserId: String) async throws {
+    func sendFriendRequest(fromUserId: String, toUserId: String, fromUserDisplayName: String) async throws {
+        let friendRequestData: [String: Any] = [
+            "fromUserId": fromUserId,
+            "toUserId": toUserId,
+            "fromUserDisplayName": fromUserDisplayName,
+            "status": "pending",
+            "timestamp": FieldValue.serverTimestamp()
+        ]
+
         let friendRequestRef = Firestore.firestore()
             .collection("users")
             .document(toUserId)
             .collection("friendRequests")
             .document(fromUserId)
-        
-        try await friendRequestRef.setData(["fromUserId": fromUserId, "status": "pending"])
+
+        try await friendRequestRef.setData(friendRequestData)
     }
 
+
+
+    func fetchIncomingFriendRequests() async throws -> [FriendRequest] {
+            let currentUserId = try AuthenticationManager.shared.getAuthenticatedUser().uid
+            
+            let querySnapshot = try await Firestore.firestore()
+                .collection("users")
+                .document(currentUserId)
+                .collection("friendRequests")
+                .whereField("status", isEqualTo: "pending")
+                .getDocuments()
+
+            let friendRequests = querySnapshot.documents.compactMap { document -> FriendRequest? in
+                try? document.data(as: FriendRequest.self)
+            }
+            return friendRequests
+        }
 
     func acceptFriendRequest(fromUserId: String, toUserId: String) async throws {
         // Update friendRequests subcollection
@@ -235,6 +260,18 @@ final class UserManager{
 
         return try await getUser(userId: currentUserId)
     }
+    
+    // Declines a friend request
+    func declineFriendRequest(fromUserId: String, toUserId: String) async throws {
+        let friendRequestRef = Firestore.firestore()
+            .collection("users")
+            .document(toUserId)
+            .collection("friendRequests")
+            .document(fromUserId)
+        
+        try await friendRequestRef.delete()
+    }
+
 
 }
 

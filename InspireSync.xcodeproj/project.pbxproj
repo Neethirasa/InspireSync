@@ -19,6 +19,8 @@
 		1E1D9C0A2B8313D900778E0D /* InspireSyncWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 1E1D9BFB2B8313D700778E0D /* InspireSyncWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		1E2B19012B8D352700D675E4 /* SideMenuViewContents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E2B19002B8D352700D675E4 /* SideMenuViewContents.swift */; };
 		1E3440A12BA885A200F40C1A /* AddFriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E3440A02BA885A200F40C1A /* AddFriendsView.swift */; };
+		1E3440A32BA8E08900F40C1A /* ManageFriendRequestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E3440A22BA8E08900F40C1A /* ManageFriendRequestsView.swift */; };
+		1E3440A52BA9226500F40C1A /* FriendRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E3440A42BA9226500F40C1A /* FriendRequest.swift */; };
 		1E6145B62BA419BF00533A0C /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 1E6145B52BA419BF00533A0C /* KeychainSwift */; };
 		1E6145B82BA41A0300533A0C /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6145B72BA41A0300533A0C /* KeychainService.swift */; };
 		1E6145BA2BA42A2E00533A0C /* CustomGoogleSignInButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6145B92BA42A2E00533A0C /* CustomGoogleSignInButton.swift */; };
@@ -103,6 +105,8 @@
 		1E1D9C072B8313D900778E0D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1E2B19002B8D352700D675E4 /* SideMenuViewContents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuViewContents.swift; sourceTree = "<group>"; };
 		1E3440A02BA885A200F40C1A /* AddFriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendsView.swift; sourceTree = "<group>"; };
+		1E3440A22BA8E08900F40C1A /* ManageFriendRequestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageFriendRequestsView.swift; sourceTree = "<group>"; };
+		1E3440A42BA9226500F40C1A /* FriendRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRequest.swift; sourceTree = "<group>"; };
 		1E6145B72BA41A0300533A0C /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
 		1E6145B92BA42A2E00533A0C /* CustomGoogleSignInButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomGoogleSignInButton.swift; sourceTree = "<group>"; };
 		1E6145BB2BA4305900533A0C /* WidgetCustom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetCustom.swift; sourceTree = "<group>"; };
@@ -189,6 +193,8 @@
 			isa = PBXGroup;
 			children = (
 				1E3440A02BA885A200F40C1A /* AddFriendsView.swift */,
+				1E3440A22BA8E08900F40C1A /* ManageFriendRequestsView.swift */,
+				1E3440A42BA9226500F40C1A /* FriendRequest.swift */,
 			);
 			path = Friends;
 			sourceTree = "<group>";
@@ -464,6 +470,7 @@
 			files = (
 				1E94109F2B966C1D000B8A04 /* DeleteUserView.swift in Sources */,
 				1E6145BA2BA42A2E00533A0C /* CustomGoogleSignInButton.swift in Sources */,
+				1E3440A52BA9226500F40C1A /* FriendRequest.swift in Sources */,
 				1E7CAD462B9BB10400FCDD96 /* PrivacyView.swift in Sources */,
 				1E10DA3C2B9EA3FD00B30D2C /* UserManager.swift in Sources */,
 				1E91DFD62B544FDF00C72D29 /* SignInGoogleHelper.swift in Sources */,
@@ -479,6 +486,7 @@
 				1E91DFDA2B55A2F600C72D29 /* HomeView.swift in Sources */,
 				1E2B19012B8D352700D675E4 /* SideMenuViewContents.swift in Sources */,
 				1EE5A1C42B572D1F00A9171A /* MenuView.swift in Sources */,
+				1E3440A32BA8E08900F40C1A /* ManageFriendRequestsView.swift in Sources */,
 				1E3440A12BA885A200F40C1A /* AddFriendsView.swift in Sources */,
 				1E91DFC72B53A8D100C72D29 /* SignInAppleHelper.swift in Sources */,
 				1E9410992B927BC3000B8A04 /* SettingsScreen.swift in Sources */,

@@ -14,6 +14,7 @@ struct AddFriendsView: View {
     @State private var searchQuery = ""
     @State private var searchResults: [DBUser] = []
     @State private var currentUserDisplayName: String?
+    @State private var showManageRequests: Bool = false
     
     // Dummy data for contacts, replace with your actual data source
     let contacts = ["Rishi", "Dhanu", "Mom", "Dad"]
@@ -24,12 +25,14 @@ struct AddFriendsView: View {
         NavigationView {
             
             List {
+                
+                /*
                 Text("Add Friends")
                     .font(.custom("Futura-Medium", fixedSize: 20))
                     .frame(maxWidth: .infinity, alignment: .center)
                     .foregroundColor(.white)
                     .listRowBackground(Color.washedBlack)
-                
+                */
                 
                 TextField("Search by display name, case sensitive", text: $searchQuery, onCommit: {
                     Task {
@@ -134,23 +137,45 @@ struct AddFriendsView: View {
                         .toolbarColorScheme(.dark, for: .navigationBar)
                         .toolbarBackground(.visible, for: .navigationBar)
                         .navigationBarTitleDisplayMode(.inline)
+                        .toolbar { // <2>
+                                    ToolbarItem(placement: .principal) { // <3>
+                              
+                                            Text("Add Friends").font(.headline)
+                                    }
+                                }
                         .navigationBarItems(
                             leading: Button(action: {
                                 self.presentationMode.wrappedValue.dismiss()
                             }) {
                                 HStack {
                                     Image(systemName: "chevron.left")
-                                    Text("Back")
+                                    Text("Home")
                                         .font(.custom("Futura-Medium", size: 18))
                                 }
-                            },
-                            trailing: Button(action: {
-                                // Action to show friend requests
-                            }) {
-                                Text("Manage Requests")
-                                    .font(.custom("Futura-Medium", size: 18))
                             }
+                            
                         )
+                        .toolbar {
+                            ToolbarItem(placement: .topBarTrailing) {
+                                Button(action: { 
+                                    showManageRequests.toggle()
+                                }) {
+                                    VStack {
+                                        //Text("Requests")
+                                        Image(systemName: "ellipsis.circle")
+                                        
+                                    }
+                                }
+                                .fullScreenCover(isPresented: $showManageRequests, content: {
+                                    NavigationStack{
+                                        ManageFriendRequestsView()
+                                        
+                                    }
+                                })
+                            }
+                        }
+            
+            
                         .background(Color.washedBlack.edgesIgnoringSafeArea(.all))
                     }
                     .navigationViewStyle(StackNavigationViewStyle())
@@ -165,7 +190,7 @@ struct AddFriendButton: View {
             Task {
                 guard let currentUserId = Auth.auth().currentUser?.uid else { return }
                 do {
-                    try await UserManager.shared.sendFriendRequest(fromUserId: currentUserId, toUserId: user.userId)
+                    try await UserManager.shared.sendFriendRequest(fromUserId: currentUserId, toUserId: user.userId, fromUserDisplayName: AuthenticationManager.shared.getDisplayName())
                     print("Friend request sent to \(user.displayName)")
                 } catch {
                     print("Failed to send friend request: \(error)")
@@ -181,6 +206,7 @@ struct AddFriendButton: View {
         .buttonStyle(PlainButtonStyle()) // Use PlainButtonStyle to enhance tapability within List
     }
 }
+
 
 struct AddFriendsView_Previews: PreviewProvider {
     static var previews: some View {
