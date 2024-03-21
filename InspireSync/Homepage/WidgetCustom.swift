@@ -250,7 +250,6 @@ struct WidgetCustom: View {
                 
             }
         }
-        .scrollDisabled(true)
     }
 }
 

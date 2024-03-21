@@ -65,7 +65,7 @@ struct sendQuoteView: View {
                                 .font(.custom("Futura-Medium", fixedSize: 16))
                                 .foregroundColor(.white)
                             
-                            Spacer().frame(width: UIScreen.main.bounds.width * 0.45)
+                            Spacer().frame(width: UIScreen.main.bounds.width * 0.48)
                             
                             Image("arrowDown")
                                 .resizable()
@@ -90,7 +90,14 @@ struct sendQuoteView: View {
                                                     MenuButtons(buttonImage: quote, quote: $quote, isExpanded: $isExpanded)
                                                 }
                                             }
+                                            .frame(width: UIScreen.main.bounds.width * 0.82)
+                                            .background(Color.white)
+                                            .background(RoundedRectangle(cornerRadius: 10).stroke(.washedBlack, lineWidth: 2))
+                                            .cornerRadius(50)
+                                            //.contentShape(RoundedRectangle(cornerRadius: 5))
+                                         
                                         }
+                                        
                                     }
                                 }
                                 .onAppear {
@@ -109,7 +116,7 @@ struct sendQuoteView: View {
                     TextField("Enter your quote", text: $quote, axis: .vertical)
                         .multilineTextAlignment(.center)
                         .lineLimit(4)
-                        .frame(width: UIScreen.main.bounds.width * 0.76 , height: UIScreen.main.bounds.height * 0.2)
+                        .frame(width: UIScreen.main.bounds.width * 0.8  , height: UIScreen.main.bounds.height * 0.2)
                         .focused($focusedField, equals: .yourTextField)
                         .contentShape(RoundedRectangle(cornerRadius: 5))
                         .onTapGesture { focusedField = .yourTextField }
@@ -160,7 +167,7 @@ struct sendQuoteView: View {
                     if !quote.isEmpty && !quote.trimmingCharacters(in: .whitespaces).isEmpty{
                         Button(){
                             myString = quote
-                            WidgetCenter.shared.reloadAllTimelines()
+                            //WidgetCenter.shared.reloadAllTimelines()
                             
                             QuoteManager.shared.addQuotes(quote:quote)
                             //reloadViewHelper.reloadView()
@@ -168,7 +175,9 @@ struct sendQuoteView: View {
                             firstQuote = QuoteManager.shared.getFirstQuote()
                             secondQuote = QuoteManager.shared.getSecondQuote()
                             
+                            WidgetDataManager.shared.updateWidgetData()
                             dismiss()
+                            
                             
                         }label: {
                         Text("Add to Widget")

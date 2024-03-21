@@ -16,6 +16,9 @@ struct SideMenuViewContents: View {
     
     @StateObject private var viewModel = SettingsViewModel()
     
+    @Environment(\.horizontalSizeClass) var HsizeClass
+    @Environment(\.verticalSizeClass) private var VsizeClass
+    
     
     var body: some View {
         ZStack {
@@ -43,8 +46,9 @@ struct SideMenuViewContents: View {
                    // .frame(maxWidth: .infinity, alignment: .leading)
                     .background(Color(hex: "#696969"))
 
-                    Spacer().frame(height: UIScreen.main.bounds.height * 0.55)
+                    Spacer().frame(height: UIScreen.main.bounds.height * 0.52)
                         .listRowBackground(Color.washedBlack)
+                    
                     
                     VStack(alignment: .leading, spacing: 0){
                     }
@@ -66,6 +70,7 @@ struct SideMenuViewContents: View {
                         .fullScreenCover(isPresented: $settingsView, content: {
                             NavigationStack{
                                 SettingsScreen()
+                               // SettingsMenuView()
                             }
                         })
                     }
@@ -106,7 +111,7 @@ struct SideMenuViewContents: View {
                 
                 
             }
-            .scrollDisabled(true)
+            .scrollDisabled(false)
             .frame(maxWidth: .infinity)
             .background(Color.washedBlack)
             .scrollContentBackground(.hidden)

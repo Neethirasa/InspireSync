@@ -8,6 +8,7 @@
 import SwiftUI
 import WidgetKit
 import Combine
+import BackgroundTasks
 
 @MainActor
 final class HomeViewModel: ObservableObject{
@@ -24,6 +25,7 @@ final class HomeViewModel: ObservableObject{
 }
 
 
+
 struct HomeView: View {
     
     @StateObject private var viewModel = HomeViewModel()
@@ -38,6 +40,7 @@ struct HomeView: View {
     
     @State private var firstQuote = QuoteManager.shared.getFirstQuote()
     @State private var secondQuote = QuoteManager.shared.getSecondQuote()
+    @State private var thirdQuote = QuoteManager.shared.getThirdQuote()
     
     @State var presentSideMenu = false
     
@@ -51,6 +54,8 @@ struct HomeView: View {
     
     @State private var homeUsername = " "
     @State private var animationAmount = 1.0
+    
+    @State private var showingAlert = false
     
     var body: some View {
         
@@ -92,7 +97,9 @@ struct HomeView: View {
                 
                 Button(action: {
                     myString = firstQuote
-                    WidgetCenter.shared.reloadAllTimelines()
+                    WidgetDataManager.shared.updateWidgetData()
+                    //WidgetCenter.shared.reloadAllTimelines()
+                    showingAlert.toggle()
                 }, label: {
                     Text(firstQuote)
                     .minimumScaleFactor(0.5)
@@ -105,15 +112,18 @@ struct HomeView: View {
                     .lineLimit(4)
                     .padding()
                     .background(RoundedRectangle(cornerRadius: 10).stroke(.customTeal, lineWidth: 5))
-                    
-                    
                 })
+                .alert("Widget Updated", isPresented: $showingAlert) {
+                            Button("OK", role: .cancel) { }
+                        }
                 
                 Spacer().frame(height: UIScreen.main.bounds.height * 0.05)
                 
                 Button(action: {
                     myString = secondQuote
-                    WidgetCenter.shared.reloadAllTimelines()
+                    WidgetDataManager.shared.updateWidgetData()
+                    showingAlert.toggle()
+                    //WidgetCenter.shared.reloadAllTimelines()
                 }, label: {
                     Text(secondQuote)
                     .minimumScaleFactor(0.5)
@@ -127,10 +137,9 @@ struct HomeView: View {
                     .padding()
                     .background(RoundedRectangle(cornerRadius: 10).stroke(.customTeal, lineWidth: 5))
                 })
-                
-                
-                
-                
+                .alert("Widget Updated", isPresented: $showingAlert) {
+                            Button("OK", role: .cancel) { }
+                        }
                 
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -201,7 +210,7 @@ struct HomeView: View {
             
             SideMenu()
         }
-        
+        .scrollDisabled(false)
         .frame(maxWidth: .infinity)
         
     }
@@ -214,6 +223,7 @@ struct HomeView: View {
                 .frame(width: UIScreen.main.bounds.width * 0.5)
         }
     }
+    
         
 }
 

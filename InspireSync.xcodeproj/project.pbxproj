@@ -18,6 +18,8 @@
 		1E1D9C062B8313D900778E0D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1E1D9C052B8313D900778E0D /* Assets.xcassets */; };
 		1E1D9C0A2B8313D900778E0D /* InspireSyncWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 1E1D9BFB2B8313D700778E0D /* InspireSyncWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		1E2B19012B8D352700D675E4 /* SideMenuViewContents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E2B19002B8D352700D675E4 /* SideMenuViewContents.swift */; };
+		1E3440A72BAA2AC800F40C1A /* SettingsMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E3440A62BAA2AC800F40C1A /* SettingsMenuView.swift */; };
+		1E3440A92BAB8FBD00F40C1A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E3440A82BAB8FBD00F40C1A /* AppDelegate.swift */; };
 		1E6145B62BA419BF00533A0C /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 1E6145B52BA419BF00533A0C /* KeychainSwift */; };
 		1E6145B82BA41A0300533A0C /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6145B72BA41A0300533A0C /* KeychainService.swift */; };
 		1E6145BA2BA42A2E00533A0C /* CustomGoogleSignInButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6145B92BA42A2E00533A0C /* CustomGoogleSignInButton.swift */; };
@@ -101,6 +103,8 @@
 		1E1D9C052B8313D900778E0D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1E1D9C072B8313D900778E0D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1E2B19002B8D352700D675E4 /* SideMenuViewContents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuViewContents.swift; sourceTree = "<group>"; };
+		1E3440A62BAA2AC800F40C1A /* SettingsMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsMenuView.swift; sourceTree = "<group>"; };
+		1E3440A82BAB8FBD00F40C1A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1E6145B72BA41A0300533A0C /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
 		1E6145B92BA42A2E00533A0C /* CustomGoogleSignInButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomGoogleSignInButton.swift; sourceTree = "<group>"; };
 		1E6145BB2BA4305900533A0C /* WidgetCustom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetCustom.swift; sourceTree = "<group>"; };
@@ -289,6 +293,7 @@
 			isa = PBXGroup;
 			children = (
 				1EF29C9F2BA5307000CC2F43 /* Utilities.swift */,
+				1E3440A82BAB8FBD00F40C1A /* AppDelegate.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -307,6 +312,7 @@
 				1E2B19002B8D352700D675E4 /* SideMenuViewContents.swift */,
 				1E7CAD202B99768F00FCDD96 /* MenuButtons.swift */,
 				1E6145BB2BA4305900533A0C /* WidgetCustom.swift */,
+				1E3440A62BAA2AC800F40C1A /* SettingsMenuView.swift */,
 			);
 			path = Homepage;
 			sourceTree = "<group>";
@@ -459,6 +465,7 @@
 				1E7CAD492B9BB11100FCDD96 /* TermsServiceView.swift in Sources */,
 				1E91DFC42B50FE1000C72D29 /* SettingsView.swift in Sources */,
 				1EC006522B8BCABD001280F3 /* SideView.swift in Sources */,
+				1E3440A92BAB8FBD00F40C1A /* AppDelegate.swift in Sources */,
 				1E91DF732B50E6C300C72D29 /* ContentView.swift in Sources */,
 				1E91DF712B50E6C300C72D29 /* InspireSyncApp.swift in Sources */,
 				1E91DFDE2B55C7CD00C72D29 /* ProfileView.swift in Sources */,
@@ -466,6 +473,7 @@
 				1E91DFC22B50FB5800C72D29 /* RootView.swift in Sources */,
 				1E6145BC2BA4305900533A0C /* WidgetCustom.swift in Sources */,
 				1E91DFDA2B55A2F600C72D29 /* HomeView.swift in Sources */,
+				1E3440A72BAA2AC800F40C1A /* SettingsMenuView.swift in Sources */,
 				1E2B19012B8D352700D675E4 /* SideMenuViewContents.swift in Sources */,
 				1EE5A1C42B572D1F00A9171A /* MenuView.swift in Sources */,
 				1E91DFC72B53A8D100C72D29 /* SignInAppleHelper.swift in Sources */,
