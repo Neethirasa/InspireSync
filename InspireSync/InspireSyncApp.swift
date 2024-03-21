@@ -32,7 +32,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     print("Configured Firebase!")
       
       // Register for background tasks
-              BGTaskScheduler.shared.register(forTaskWithIdentifier: "group.Nivethikan-Neethirasa.InspireSync", using: nil) { task in
+              BGTaskScheduler.shared.register(forTaskWithIdentifier: "group.Nivethikan-Neethirasa.InspireSync.widget", using: nil) { task in
                   self.handleAppRefresh(task: task as! BGAppRefreshTask)
               }
       
@@ -52,7 +52,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         }
         
     func scheduleAppRefresh() {
-            let request = BGAppRefreshTaskRequest(identifier: "com.yourcompany.InspireSync.refresh")
+            let request = BGAppRefreshTaskRequest(identifier: "group.Nivethikan-Neethirasa.InspireSync.widget")
             request.earliestBeginDate = Date(timeIntervalSinceNow: 1 * 60) // Schedule to start at least 1 minute from now
             
             do {

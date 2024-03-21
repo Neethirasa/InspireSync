@@ -4,7 +4,7 @@
 <dict>
 	<key>BGTaskSchedulerPermittedIdentifiers</key>
 	<array>
-		<string>"group.Nivethikan-Neethirasa.InspireSync"</string>
+		<string>group.Nivethikan-Neethirasa.InspireSync.widget</string>
 	</array>
 	<key>CFBundleGetInfoString</key>
 	<string></string>
@@ -25,8 +25,8 @@
 	<string>14.4</string>
 	<key>UIBackgroundModes</key>
 	<array>
-		<string>backgroundProcessing</string>
 		<string>fetch</string>
+		<string>processing</string>
 	</array>
 </dict>
 </plist>
