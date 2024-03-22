@@ -148,7 +148,14 @@ struct HomeView: View {
                     VStack{
                         Spacer().frame(height: UIScreen.main.bounds.height * 0.05)
                         HStack {
-                            Spacer().frame(width: UIScreen.main.bounds.width * 0.25)
+                            
+                            if getDeviceType() == .iPad {
+                                Spacer().frame(width: UIScreen.main.bounds.width * 0.05)
+                                       } else if getDeviceType() == .iPhone {
+                                           Spacer().frame(width: UIScreen.main.bounds.width * 0.25)
+                                       }
+                            
+                            
 
                                 Button {
                                     presentSideMenu.toggle()
@@ -161,6 +168,11 @@ struct HomeView: View {
                                         .foregroundColor(.white)
                                 }
                                 .padding()
+                            
+                            if getDeviceType() == .iPad {
+                                Spacer().frame(width: UIScreen.main.bounds.width * 0.1)
+                                       }
+                            
                             HStack(alignment: .center){
                                 Text("Welcome " + homeUsername)
                                     .font(.custom(
@@ -178,7 +190,9 @@ struct HomeView: View {
                             .frame(width: UIScreen.main.bounds.width * 0.5)
                                 .animation(.spring(duration: 1, bounce: 0.9), value: animationAmount)
       
-                            
+                            if getDeviceType() == .iPad {
+                                Spacer().frame(width: UIScreen.main.bounds.width * 0.05)
+                                       }
                                 NavigationStack{
                                     Button(action: {
                                         settingsView.toggle()
@@ -195,8 +209,11 @@ struct HomeView: View {
                                 }
                                 .padding()
                             
-                            Spacer().frame(width: UIScreen.main.bounds.width * 0.25)
-
+                            if getDeviceType() == .iPad {
+                                Spacer().frame(width: UIScreen.main.bounds.width * 0.05)
+                                       } else if getDeviceType() == .iPhone {
+                                           Spacer().frame(width: UIScreen.main.bounds.width * 0.25)
+                                       }
                         }
                     }
                 }
@@ -219,8 +236,14 @@ struct HomeView: View {
     @ViewBuilder
     private func SideMenu() -> some View {
         SideView(isShowing: $presentSideMenu, direction: .leading) {
-            SideMenuViewContents(presentSideMenu: $presentSideMenu)
-                .frame(width: UIScreen.main.bounds.width * 0.5)
+            
+            if getDeviceType() == .iPad {
+                SideMenuViewContents(presentSideMenu: $presentSideMenu)
+                    .frame(width: UIScreen.main.bounds.width * 0.25)
+                       } else if getDeviceType() == .iPhone {
+                           SideMenuViewContents(presentSideMenu: $presentSideMenu)
+                               .frame(width: UIScreen.main.bounds.width * 0.5)
+                       }
         }
     }
     

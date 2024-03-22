@@ -6,7 +6,24 @@
 //
 
 import SwiftUI
+import UIKit
 
+enum DeviceType {
+    case iPhone
+    case iPad
+    case unknown
+}
+
+func getDeviceType() -> DeviceType {
+    switch UIDevice.current.userInterfaceIdiom {
+    case .phone:
+        return .iPhone
+    case .pad:
+        return .iPad
+    default:
+        return .unknown
+    }
+}
 
 
 struct SideMenuViewContents: View {
@@ -46,9 +63,14 @@ struct SideMenuViewContents: View {
                    // .frame(maxWidth: .infinity, alignment: .leading)
                     .background(Color(hex: "#696969"))
 
-                    Spacer().frame(height: UIScreen.main.bounds.height * 0.52)
-                        .listRowBackground(Color.washedBlack)
                     
+                    if getDeviceType() == .iPad {
+                                   Spacer().frame(height: UIScreen.main.bounds.height * 0.65)
+                                       .listRowBackground(Color.washedBlack)
+                               } else if getDeviceType() == .iPhone {
+                                   Spacer().frame(height: UIScreen.main.bounds.height * 0.55)
+                                       .listRowBackground(Color.washedBlack)
+                               }
                     
                     VStack(alignment: .leading, spacing: 0){
                     }

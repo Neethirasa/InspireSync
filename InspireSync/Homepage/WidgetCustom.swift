@@ -164,59 +164,7 @@ struct WidgetCustom: View {
                             .background(Color("WashedBlack"))
                         }
                         .listRowBackground(Color("WashedBlack")) // Individual row background
-                        /*
-                        Section() {
-                            Text("Font Size")
-                                .font(.custom(
-                                        "Futura-Medium",
-                                        fixedSize: 16))
-                                .foregroundColor(.white)
-                            Slider(value: $viewModel.selectedFontSize, in: 8...28, step: 1) {
-                            }
-                            Text("Current size: \(viewModel.selectedFontSize, specifier: "%.0f")")
-                                .font(.custom(
-                                        "Futura-Medium",
-                                        fixedSize: 16))
-                                .foregroundColor(.white)
-                            Text("Font Style")
-                                .font(.custom(
-                                        "Futura-Medium",
-                                        fixedSize: 16))
-                                .foregroundColor(.white)
-                                .listRowBackground(Color("WashedBlack"))
-                            Picker("Font", selection: $viewModel.selectedFont) {
-                                ForEach(fonts, id: \.self) { font in
-                                    Text(font).tag(font)
-                                        .foregroundColor(.white)
-                                }
-                            }
-                            .frame(height: UIScreen.main.bounds.height * 0.15)
-                            .pickerStyle(.wheel)
-                            .background(Color("WashedBlack"))
-                        }
-                        .listRowBackground(Color("WashedBlack"))
-                        */
-                        /*
-                        Section() {
-                            Text("Font Style")
-                                .font(.custom(
-                                        "Futura-Medium",
-                                        fixedSize: 18))
-                                .foregroundColor(.white)
-                                .listRowBackground(Color("WashedBlack"))
-                            Picker("Font", selection: $viewModel.selectedFont) {
-                                ForEach(fonts, id: \.self) { font in
-                                    Text(font).tag(font)
-                                        .foregroundColor(.white)
-                                }
-                            }
-                            .frame(height: UIScreen.main.bounds.height * 0.15)
-                            .pickerStyle(.wheel)
-                            .background(Color("WashedBlack"))
-                            
-                        }
-                        .listRowBackground(Color("WashedBlack")) // Individual row background
-                        */
+         
                     }
                     .onAppear {
                         UITableView.appearance().backgroundColor = UIColor.clear // Attempt to clear UITableView background
