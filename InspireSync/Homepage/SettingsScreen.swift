@@ -103,7 +103,7 @@ struct SettingsScreen: View {
                                 .frame(width: UIScreen.main.bounds.width * 0.80,alignment: .leading)
                                 //Spacer().frame(width: UIScreen.main.bounds.width * 0.51)
                                 .overlay(alignment: .trailing) {
-                                    Text("authUsername")//take quotes off
+                                    Text(authUsername)//take quotes off
                                         .foregroundColor(Color.gray)
                                         .font(.custom("Futura-Medium",fixedSize: 14))
                                         .italic()
