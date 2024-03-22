@@ -8,13 +8,22 @@
 import Foundation
 import FirebaseFirestore
 import FirebaseFirestoreSwift
+import FirebaseAuth
 
-struct DBUser{
-    let userId: String
-    let displayName: String
-    let email: String?
-    let dateCreated: Date?
+struct DBUser: Codable {
+    var userId: String
+    var displayName: String
+    var email: String?
+    var dateCreated: Date?
     
+    enum CodingKeys: String, CodingKey {
+        case userId = "user_id"
+        case displayName
+        case email
+        case dateCreated = "date_created"
+    }
+    
+    // Firestore's Codable support handles the encoding/decoding, so you don't need a custom init/from decoder method unless you're doing something special
 }
 
 
@@ -62,6 +71,30 @@ final class UserManager{
         try await Firestore.firestore().collection("users").document(auth.uid).setData(userData, merge: false)
     }
     
+    func getDisplayName(forUserID userID: String) async throws -> String? {
+        // Attempt to get the user document from Firestore using the provided userID
+        let userRef = Firestore.firestore().collection("users").document(userID)
+        
+        do {
+            let documentSnapshot = try await userRef.getDocument()
+            
+            // Check if the document exists and has a displayName field
+            if let data = documentSnapshot.data(), let displayName = data["displayName"] as? String {
+                // Return the displayName if available
+                return displayName
+            } else {
+                // If the document does not exist or does not have a displayName, return nil
+                print("Document does not exist or does not have a displayName.")
+                return nil
+            }
+        } catch {
+            // If there's an error fetching the document, throw the error
+            print("Error fetching user document: \(error)")
+            throw error
+        }
+    }
+
+    
     func displayNameExists(displayName: String) async throws -> Bool {
         // Create a query to find users with the given displayName
         let query = Firestore.firestore().collection("users").whereField("displayName", isEqualTo: displayName)
@@ -100,19 +133,18 @@ final class UserManager{
         }
     }
     
-    func getUser(userId: String) async throws -> DBUser{
-        let snapshot = try await Firestore.firestore().collection("users").document(userId).getDocument()
+    func getUser(userId: String) async throws -> DBUser {
+        let documentReference = Firestore.firestore().collection("users").document(userId)
+        let documentSnapshot = try await documentReference.getDocument()
         
-        guard let data = snapshot.data(), let userId = data["user_id"] as? String, let displayName = data["displayName"] as? String else {
-            throw URLError(.badServerResponse)
+        // Decode the documentSnapshot directly into a DBUser instance
+        guard let user = try? documentSnapshot.data(as: DBUser.self) else {
+            throw NSError(domain: "App", code: -1, userInfo: [NSLocalizedDescriptionKey: "Unable to decode DBUser"])
         }
         
-        let email = data["email"] as? String
-        let dateCreated = data["date_created"] as? Date
-        
-        return DBUser(userId: userId, displayName: displayName, email: email, dateCreated: dateCreated)
-        
+        return user
     }
+
     
     func isDisplayNameNil(forUserID userID: String) async throws -> Bool {
         // Check if the userID is "nil" or empty
@@ -139,8 +171,109 @@ final class UserManager{
             throw error
         }
     }
+    
+    // Search for users by displayName
+        func searchUsers(byDisplayName displayName: String) async throws -> [DBUser] {
+            let querySnapshot = try await Firestore.firestore()
+                .collection("users")
+                .whereField("displayName", isEqualTo: displayName)
+                .getDocuments()
+
+            let users = querySnapshot.documents.compactMap { document -> DBUser? in
+                try? document.data(as: DBUser.self)
+            }
+            return users
+        }
+
+    func sendFriendRequest(fromUserId: String, toUserId: String, fromUserDisplayName: String) async throws {
+        let friendRequestData: [String: Any] = [
+            "fromUserId": fromUserId,
+            "toUserId": toUserId,
+            "fromUserDisplayName": fromUserDisplayName,
+            "status": "pending",
+            "timestamp": FieldValue.serverTimestamp()
+        ]
+
+        let friendRequestRef = Firestore.firestore()
+            .collection("users")
+            .document(toUserId)
+            .collection("friendRequests")
+            .document(fromUserId)
+
+        try await friendRequestRef.setData(friendRequestData)
+    }
 
 
+
+    func fetchIncomingFriendRequests() async throws -> [FriendRequest] {
+            let currentUserId = try AuthenticationManager.shared.getAuthenticatedUser().uid
+            
+            let querySnapshot = try await Firestore.firestore()
+                .collection("users")
+                .document(currentUserId)
+                .collection("friendRequests")
+                .whereField("status", isEqualTo: "pending")
+                .getDocuments()
+
+            let friendRequests = querySnapshot.documents.compactMap { document -> FriendRequest? in
+                try? document.data(as: FriendRequest.self)
+            }
+            return friendRequests
+        }
+
+    func acceptFriendRequest(fromUserId: String, toUserId: String) async throws {
+        // Update friendRequests subcollection
+        let friendRequestRef = Firestore.firestore()
+            .collection("users")
+            .document(toUserId)
+            .collection("friendRequests")
+            .document(fromUserId)
+        
+        // Add the friend request document
+           try await friendRequestRef.setData([
+               "fromUserId": fromUserId,
+               "status": "pending",
+               "timestamp": Timestamp()
+           ])
+        
+        try await friendRequestRef.updateData(["status": "accepted"])
+        
+        // Add each other to friends subcollection
+        let toUserFriendsRef = Firestore.firestore()
+            .collection("users")
+            .document(toUserId)
+            .collection("friends")
+            .document(fromUserId)
+        try await toUserFriendsRef.setData(["friendUserId": fromUserId])
+        
+        let fromUserFriendsRef = Firestore.firestore()
+            .collection("users")
+            .document(fromUserId)
+            .collection("friends")
+            .document(toUserId)
+        try await fromUserFriendsRef.setData(["friendUserId": toUserId])
+    }
     
+    // This method retrieves the current user's display name.
+    func getCurrentUserData() async throws -> DBUser? {
+        guard let currentUserId = Auth.auth().currentUser?.uid else { return nil }
+
+        return try await getUser(userId: currentUserId)
+    }
     
+    // Declines a friend request
+    func declineFriendRequest(fromUserId: String, toUserId: String) async throws {
+        let friendRequestRef = Firestore.firestore()
+            .collection("users")
+            .document(toUserId)
+            .collection("friendRequests")
+            .document(fromUserId)
+        
+        try await friendRequestRef.delete()
+    }
+
+
 }
+
+
+
