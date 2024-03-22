@@ -23,7 +23,7 @@ struct MenuButtons: View {
               ZStack {
                   VStack{
                       Text(buttonImage)
-                          .foregroundColor(.white)
+                          .foregroundColor(.black)
                           .padding()
                           .font(.custom(
                                   "Futura-Medium",
@@ -35,7 +35,7 @@ struct MenuButtons: View {
                       .frame(height: 1)
                       .frame(width: UIScreen.main.bounds.width * 0.5)
                      // .frame(maxWidth: .infinity, alignment: .leading)
-                      .background(Color.white)
+                      .background(Color.black)
                   }
                   
               }

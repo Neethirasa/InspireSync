@@ -306,6 +306,7 @@
 			isa = PBXGroup;
 			children = (
 				1EF29C9F2BA5307000CC2F43 /* Utilities.swift */,
+				1E3440A82BAB8FBD00F40C1A /* AppDelegate.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -324,6 +325,7 @@
 				1E2B19002B8D352700D675E4 /* SideMenuViewContents.swift */,
 				1E7CAD202B99768F00FCDD96 /* MenuButtons.swift */,
 				1E6145BB2BA4305900533A0C /* WidgetCustom.swift */,
+				1E3440A62BAA2AC800F40C1A /* SettingsMenuView.swift */,
 			);
 			path = Homepage;
 			sourceTree = "<group>";
@@ -477,6 +479,7 @@
 				1E7CAD492B9BB11100FCDD96 /* TermsServiceView.swift in Sources */,
 				1E91DFC42B50FE1000C72D29 /* SettingsView.swift in Sources */,
 				1EC006522B8BCABD001280F3 /* SideView.swift in Sources */,
+				1E3440A92BAB8FBD00F40C1A /* AppDelegate.swift in Sources */,
 				1E91DF732B50E6C300C72D29 /* ContentView.swift in Sources */,
 				1E91DF712B50E6C300C72D29 /* InspireSyncApp.swift in Sources */,
 				1E91DFDE2B55C7CD00C72D29 /* ProfileView.swift in Sources */,
@@ -484,6 +487,7 @@
 				1E91DFC22B50FB5800C72D29 /* RootView.swift in Sources */,
 				1E6145BC2BA4305900533A0C /* WidgetCustom.swift in Sources */,
 				1E91DFDA2B55A2F600C72D29 /* HomeView.swift in Sources */,
+				1E3440A72BAA2AC800F40C1A /* SettingsMenuView.swift in Sources */,
 				1E2B19012B8D352700D675E4 /* SideMenuViewContents.swift in Sources */,
 				1EE5A1C42B572D1F00A9171A /* MenuView.swift in Sources */,
 				1E3440A32BA8E08900F40C1A /* ManageFriendRequestsView.swift in Sources */,
@@ -522,7 +526,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = InspireSyncWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = 43PS7T66LA;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = InspireSyncWidget/Info.plist;
@@ -550,7 +554,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = InspireSyncWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = 43PS7T66LA;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = InspireSyncWidget/Info.plist;
@@ -623,7 +627,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -680,7 +684,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -698,7 +702,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = InspireSync/InspireSync.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_ASSET_PATHS = "\"InspireSync/Preview Content\"";
 				DEVELOPMENT_TEAM = 43PS7T66LA;
 				ENABLE_PREVIEWS = YES;
@@ -738,7 +742,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = InspireSync/InspireSync.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_ASSET_PATHS = "\"InspireSync/Preview Content\"";
 				DEVELOPMENT_TEAM = 43PS7T66LA;
 				ENABLE_PREVIEWS = YES;

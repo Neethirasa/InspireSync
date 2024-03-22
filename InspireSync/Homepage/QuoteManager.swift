@@ -13,6 +13,7 @@ final class QuoteManager{
     static let shared = QuoteManager()
     var firstQuote = ""
     var secondQuote = ""
+    var thirdQuote = ""
     var quotesArray: [String] = ["In the end, we will remember not the words of our enemies, but the silence of our friends. - Martin Luther King Jr.","The only way to do great work is to love what you do. - Steve Jobs"]
     
     
@@ -35,6 +36,21 @@ final class QuoteManager{
         secondQuote = quotesArray[1]
         return secondQuote
     }
-
+    
+    func getThirdQuote() -> String{
+        thirdQuote = "nil"
+        if quotesArray.count >= 3 {
+            thirdQuote = quotesArray[2]
+        }
+        return thirdQuote
+    }
+    
+    func getQuotesSize() -> Int{
+        return quotesArray.count
+    }
+    
+    func getQuote(count: Int) -> String {
+        return quotesArray[count]
+    }
     
 }

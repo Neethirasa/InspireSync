@@ -5,6 +5,7 @@ import SwiftUI
 struct SettingsScreen: View {
     
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.horizontalSizeClass) var sizeClass
     @State private var settingsView = false
     @State private var showSignInView = false
     @State private var showDeleteView = false
@@ -99,16 +100,14 @@ struct SettingsScreen: View {
                                 .font(.custom(
                                         "Futura-Medium",
                                         fixedSize: 14))
-                                .frame(maxWidth: .infinity)
-                                Spacer().frame(width: UIScreen.main.bounds.width * 0.61)
-                                    .overlay(alignment: .trailing) {
-                                                    Text(authUsername)//take quotes off
-                                            .foregroundColor(Color.gray)
-                                            .font(.custom(
-                                                    "Futura-Medium",
-                                                    fixedSize: 14))
-                                            .italic()
-                                                }
+                                .frame(width: UIScreen.main.bounds.width * 0.80,alignment: .leading)
+                                //Spacer().frame(width: UIScreen.main.bounds.width * 0.51)
+                                .overlay(alignment: .trailing) {
+                                    Text(authUsername)//take quotes off
+                                        .foregroundColor(Color.gray)
+                                        .font(.custom("Futura-Medium",fixedSize: 14))
+                                        .italic()
+                                    }
                                 
         
                             }
@@ -154,9 +153,9 @@ struct SettingsScreen: View {
                                         .font(.custom(
                                                 "Futura-Medium",
                                                 fixedSize: 14))
-                                        .frame(maxWidth: UIScreen.main.bounds.width * 0.9)
+                                        .frame(width: UIScreen.main.bounds.width * 0.71,alignment: .leading)
                                         //.padding(.trailing,4)
-                                        Spacer().frame(width: UIScreen.main.bounds.width * 0.3439)
+                                        //Spacer().frame(width: UIScreen.main.bounds.width * 0.3439)
                                         Image("arrow")
                                             .resizable()
                                             .frame(width: UIScreen.main.bounds.width * 0.05, height: UIScreen.main.bounds.height * 0.018, alignment: .leading)
@@ -211,8 +210,8 @@ struct SettingsScreen: View {
                                         .font(.custom(
                                                 "Futura-Medium",
                                                 fixedSize: 14))
-                                        .frame(maxWidth: UIScreen.main.bounds.width * 0.9)
-                                        Spacer().frame(width: UIScreen.main.bounds.width * 0.47)
+                                     .frame(width: UIScreen.main.bounds.width * 0.71,alignment: .leading)
+                                       // Spacer().frame(width: UIScreen.main.bounds.width * 0.47)
                                         Image("arrow")
                                             .resizable()
                                             .frame(width: UIScreen.main.bounds.width * 0.05, height: UIScreen.main.bounds.height * 0.018, alignment: .leading)
@@ -246,9 +245,9 @@ struct SettingsScreen: View {
                                         .font(.custom(
                                                 "Futura-Medium",
                                                 fixedSize: 14))
-                                        .frame(maxWidth: UIScreen.main.bounds.width * 0.9)
+                                        .frame(width: UIScreen.main.bounds.width * 0.71,alignment: .leading)
                                         .padding(.trailing,4)
-                                        Spacer().frame(width: UIScreen.main.bounds.width * 0.4)
+                                        //Spacer().frame(width: UIScreen.main.bounds.width * 0.4)
                                         Image("arrow")
                                             .resizable()
                                             .frame(width: UIScreen.main.bounds.width * 0.05, height: UIScreen.main.bounds.height * 0.018, alignment: .leading)
@@ -300,9 +299,9 @@ struct SettingsScreen: View {
                                         .font(.custom(
                                                 "Futura-Medium",
                                                 fixedSize: 14))
-                                        .frame(maxWidth: UIScreen.main.bounds.width * 0.9)
+                                        .frame(width: UIScreen.main.bounds.width * 0.71,alignment: .leading)
                                         .padding(.trailing,4)
-                                        Spacer().frame(width: UIScreen.main.bounds.width * 0.49)
+                                        //Spacer().frame(width: UIScreen.main.bounds.width * 0.49)
                                         Image("arrow")
                                             .resizable()
                                             .frame(width: UIScreen.main.bounds.width * 0.05, height: UIScreen.main.bounds.height * 0.018, alignment: .leading)
@@ -334,8 +333,8 @@ struct SettingsScreen: View {
                                         .font(.custom(
                                                 "Futura-Medium",
                                                 fixedSize: 14))
-                                        .frame(maxWidth: UIScreen.main.bounds.width * 0.9)
-                                        Spacer().frame(width: UIScreen.main.bounds.width * 0.4598)
+                                        .frame(width: UIScreen.main.bounds.width * 0.71,alignment: .leading)
+                                       // Spacer().frame(width: UIScreen.main.bounds.width * 0.4598)
                                         Image("arrow")
                                             .resizable()
                                             .frame(width: UIScreen.main.bounds.width * 0.05, height: UIScreen.main.bounds.height * 0.018, alignment: .leading)
@@ -364,7 +363,14 @@ struct SettingsScreen: View {
                         .padding(.bottom,44)
                         
                     }
-                    Spacer().frame(height: UIScreen.main.bounds.height * 0.15)
+                    
+                    if sizeClass == .compact {
+                        Spacer().frame(height: UIScreen.main.bounds.height * 0.01)
+                        } else {
+                            Spacer().frame(height: UIScreen.main.bounds.height * 0.1)
+                                .listRowBackground(Color.washedBlack)
+                        }
+                    
                     HStack(spacing: 0){
                         
                         Spacer().frame(width: UIScreen.main.bounds.width * 0.35)
@@ -401,7 +407,6 @@ struct SettingsScreen: View {
             
             
 		}
-        .scrollDisabled(true)
 		.padding(.top,0.1)
 		.padding(.bottom,0.1)
 		.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
