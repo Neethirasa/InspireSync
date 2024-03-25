@@ -21,7 +21,7 @@ struct RootView: View {
                         NavigationStack{
                             //SettingsView(showSignInView: $showSignInView)
                             //HomeView()
-                            HomeView()
+                            TempHomeView()
                         }
                     }
                     .onAppear{

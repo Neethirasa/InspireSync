@@ -14,7 +14,7 @@ final class QuoteManager{
     var firstQuote = ""
     var secondQuote = ""
     var thirdQuote = ""
-    var quotesArray: [String] = ["In the end, we will remember not the words of our enemies, but the silence of our friends. - Martin Luther King Jr.","The only way to do great work is to love what you do. - Steve Jobs"]
+    var quotesArray: [String] = ["'In the end, we will remember not the words of our enemies, but the silence of our friends.' - Martin Luther King Jr.","'The only way to do great work is to love what you do.' - Steve Jobs","'Hard work beats talent when talent doesn't work hard.' - Tim Notke"]
     
     
     func addQuotes(quote: String){
@@ -38,10 +38,7 @@ final class QuoteManager{
     }
     
     func getThirdQuote() -> String{
-        thirdQuote = "nil"
-        if quotesArray.count >= 3 {
-            thirdQuote = quotesArray[2]
-        }
+        thirdQuote = quotesArray[1]
         return thirdQuote
     }
     

@@ -1,6 +1,9 @@
 // Install URLImage: https://github.com/dmytro-anokhin/url-image
 import MessageUI
 import SwiftUI
+import FirebaseFirestore
+import FirebaseFirestoreSwift
+import FirebaseAuth
 
 struct SettingsScreen: View {
     
@@ -18,6 +21,7 @@ struct SettingsScreen: View {
     @State var isShowingPrivacyView = false
     @State var isShowingTermsService = false
     @State var isCustomWidget = false
+    
     
     @State private var navigationActive = false // Track the activation state
     
@@ -825,16 +829,18 @@ struct SettingsScreen: View {
                                            Button(role: .destructive) {
                                                Task {
                                                    // This block doesn't throw any errors
+                                                   await deleteUserAccount()
+                                                   // Present the RootView
+                                                   if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                                                       let window = windowScene.windows.first {
+                                                                   window.rootViewController = UIHostingController(rootView: RootView())
+                                                               }
+                                                   
                                                    showDeleteView.toggle()
                                                }
                                            } label: {
                                                Text("Delete Account")
                                                    .font(.custom("Futura-Medium", fixedSize: 18))
-                                           }
-                                       }
-                                       .fullScreenCover(isPresented: $showDeleteView) {
-                                           NavigationStack {
-                                               DeleteUserView(showDeleteView: $showDeleteView)
                                            }
                                        }
 
@@ -859,6 +865,18 @@ struct SettingsScreen: View {
                        .background(Color(hex: "#FFFFFF"))
                    }
 		
+    }
+    
+    private func deleteUserAccount() async {
+        do {
+            // Delete user data from Firestore
+            try await Firestore.firestore().collection("users").document(AuthenticationManager.shared.getAuthenticatedUser().uid).delete()
+            try await AuthenticationManager.shared.delete()
+            dismiss()
+        }
+        catch{
+            print("error")
+        }
     }
 }
 
