@@ -126,6 +126,7 @@ struct sendQuoteView: View {
                         .border(.secondary)
                         .font(.custom("Futura-Medium", fixedSize: 16))
                         .foregroundColor(.white)
+                        .padding()
                         .cornerRadius(.infinity)
                         .background(RoundedRectangle(cornerRadius: 10).stroke(.customTeal, lineWidth: 5))
                         .onReceive(Just($quote)) { _ in limitText(textLimit) }

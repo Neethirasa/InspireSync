@@ -109,6 +109,7 @@ struct TempHomeView: View {
             showingAlert = true
         }) {
             Text(title)
+                .padding()
                 .frame(maxWidth: .infinity, minHeight: 175)
                 .background(RoundedRectangle(cornerRadius: 10).stroke(Color.customTeal, lineWidth: 5))
                 .font(.custom("Futura-Medium", size: title == "+" ? 60 : 18))
@@ -157,8 +158,8 @@ struct TempHomeView: View {
             .padding()
  
         }
-        .padding(.top,10)
-        .padding(.horizontal,5)
+        .padding(.top,40)
+        .padding(.horizontal,20)
         .frame(height: 60)
         .background(Color.washedBlack)
     }
