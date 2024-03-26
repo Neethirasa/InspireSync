@@ -84,7 +84,7 @@ struct tempSettingsScreen: View {
             .cornerRadius(5)
         }
         .padding()
-        .background(RoundedRectangle(cornerRadius: 10).fill(Color("WashedBlack")))
+        .background(RoundedRectangle(cornerRadius: 10).fill(Color("DarkGray")))
     }
     
     var customizationSection: some View {
@@ -111,7 +111,7 @@ struct tempSettingsScreen: View {
                                 .contrast(10)
                             }
                     }
-                    .fullScreenCover(isPresented: $isCustomWidget, content: {
+                    .sheet(isPresented: $isCustomWidget, content: {
                         WidgetCustom()
                     })
 
@@ -128,7 +128,7 @@ struct tempSettingsScreen: View {
             .cornerRadius(5)
         }
         .padding()
-        .background(RoundedRectangle(cornerRadius: 10).fill(Color("WashedBlack")))
+        .background(RoundedRectangle(cornerRadius: 10).fill(Color("DarkGray")))
     }
     
     var feedbackSection: some View {
@@ -144,7 +144,7 @@ struct tempSettingsScreen: View {
             }
         }
         .padding()
-        .background(RoundedRectangle(cornerRadius: 10).fill(Color("WashedBlack")))
+        .background(RoundedRectangle(cornerRadius: 10).fill(Color("DarkGray")))
     }
     
     var helpSection: some View {
@@ -163,7 +163,7 @@ struct tempSettingsScreen: View {
             }
         }
         .padding()
-        .background(RoundedRectangle(cornerRadius: 10).fill(Color("WashedBlack")))
+        .background(RoundedRectangle(cornerRadius: 10).fill(Color("DarkGray")))
     }
     
     var deleteAccountButton: some View {

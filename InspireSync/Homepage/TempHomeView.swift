@@ -152,6 +152,8 @@ struct TempHomeView: View {
             }
             .padding()
         }
+        .padding(.top,10)
+        .padding(.horizontal,5)
         .frame(height: 60)
         .background(Color.washedBlack)
     }

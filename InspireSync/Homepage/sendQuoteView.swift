@@ -91,12 +91,15 @@ struct sendQuoteView: View {
                                                 }
                                             }
                                             .frame(width: UIScreen.main.bounds.width * 0.82)
-                                            .background(Color.white)
-                                            .background(RoundedRectangle(cornerRadius: 10).stroke(.washedBlack, lineWidth: 2))
+                                            .background(Color(hex: "#333333"))
+                                            //.background(RoundedRectangle(cornerRadius: 10).stroke(.black, lineWidth: 100))
                                             .cornerRadius(50)
                                             //.contentShape(RoundedRectangle(cornerRadius: 5))
                                          
                                         }
+                                        .background(RoundedRectangle(cornerRadius: 50).stroke(.black, lineWidth: 3))
+                                        .scrollIndicators(ScrollIndicatorVisibility.hidden)
+                                        
                                         
                                     }
                                 }
