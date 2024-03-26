@@ -91,8 +91,7 @@ struct SideMenuViewContents: View {
                         })
                         .fullScreenCover(isPresented: $settingsView, content: {
                             NavigationStack{
-                                //SettingsScreen()
-                                tempSettingsScreen()
+                                SettingsScreen()
                                // SettingsMenuView()
                             }
                         })

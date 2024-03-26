@@ -104,7 +104,7 @@ struct WidgetCustom: View {
                 TextField("Sample", text: $sampleText, axis: .vertical)
                     .multilineTextAlignment(.center)
                     .font(.custom(viewModel.selectedFont, fixedSize: viewModel.selectedFontSize))
-                    .frame(width: UIScreen.main.bounds.width * 0.7, height: UIScreen.main.bounds.height * 0.1)
+                    .frame(width: UIScreen.main.bounds.width * 0.76, height: UIScreen.main.bounds.height * 0.18)
                     .cornerRadius(10)
                     .padding()
                     .background(viewModel.textFieldColor) // Apply background color

@@ -21,7 +21,9 @@
 		1E3440A12BA885A200F40C1A /* AddFriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E3440A02BA885A200F40C1A /* AddFriendsView.swift */; };
 		1E3440A32BA8E08900F40C1A /* ManageFriendRequestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E3440A22BA8E08900F40C1A /* ManageFriendRequestsView.swift */; };
 		1E3440A52BA9226500F40C1A /* FriendRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E3440A42BA9226500F40C1A /* FriendRequest.swift */; };
+		1E4594CB2BB27F4800E2F687 /* tempSettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4594CA2BB27F4800E2F687 /* tempSettingsScreen.swift */; };
 		1E4C06C32BB203E600C806B9 /* TempHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4C06C22BB203E600C806B9 /* TempHomeView.swift */; };
+		1E4C06C52BB21BBB00C806B9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1E4C06C42BB21BBB00C806B9 /* GoogleService-Info.plist */; };
 		1E6145B62BA419BF00533A0C /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 1E6145B52BA419BF00533A0C /* KeychainSwift */; };
 		1E6145B82BA41A0300533A0C /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6145B72BA41A0300533A0C /* KeychainService.swift */; };
 		1E6145BA2BA42A2E00533A0C /* CustomGoogleSignInButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6145B92BA42A2E00533A0C /* CustomGoogleSignInButton.swift */; };
@@ -49,7 +51,6 @@
 		1E91DFC72B53A8D100C72D29 /* SignInAppleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E91DFC62B53A8D100C72D29 /* SignInAppleHelper.swift */; };
 		1E91DFCA2B53B37700C72D29 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 1E91DFC92B53B37700C72D29 /* GoogleSignIn */; };
 		1E91DFCC2B53B37700C72D29 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 1E91DFCB2B53B37700C72D29 /* GoogleSignInSwift */; };
-		1E91DFD12B53B4DB00C72D29 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1E91DFD02B53B4DB00C72D29 /* GoogleService-Info.plist */; };
 		1E91DFD62B544FDF00C72D29 /* SignInGoogleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E91DFD52B544FDF00C72D29 /* SignInGoogleHelper.swift */; };
 		1E91DFDA2B55A2F600C72D29 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E91DFD92B55A2F600C72D29 /* HomeView.swift */; };
 		1E91DFDE2B55C7CD00C72D29 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E91DFDD2B55C7CD00C72D29 /* ProfileView.swift */; };
@@ -108,7 +109,9 @@
 		1E3440A02BA885A200F40C1A /* AddFriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendsView.swift; sourceTree = "<group>"; };
 		1E3440A22BA8E08900F40C1A /* ManageFriendRequestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageFriendRequestsView.swift; sourceTree = "<group>"; };
 		1E3440A42BA9226500F40C1A /* FriendRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRequest.swift; sourceTree = "<group>"; };
+		1E4594CA2BB27F4800E2F687 /* tempSettingsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tempSettingsScreen.swift; sourceTree = "<group>"; };
 		1E4C06C22BB203E600C806B9 /* TempHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempHomeView.swift; sourceTree = "<group>"; };
+		1E4C06C42BB21BBB00C806B9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1E6145B72BA41A0300533A0C /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
 		1E6145B92BA42A2E00533A0C /* CustomGoogleSignInButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomGoogleSignInButton.swift; sourceTree = "<group>"; };
 		1E6145BB2BA4305900533A0C /* WidgetCustom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetCustom.swift; sourceTree = "<group>"; };
@@ -130,7 +133,6 @@
 		1E91DFC52B53993300C72D29 /* InspireSync.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = InspireSync.entitlements; sourceTree = "<group>"; };
 		1E91DFC62B53A8D100C72D29 /* SignInAppleHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInAppleHelper.swift; sourceTree = "<group>"; };
 		1E91DFCD2B53B3CF00C72D29 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		1E91DFD02B53B4DB00C72D29 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Users/nivethikanneethirasa/Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1E91DFD52B544FDF00C72D29 /* SignInGoogleHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInGoogleHelper.swift; sourceTree = "<group>"; };
 		1E91DFD92B55A2F600C72D29 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		1E91DFDD2B55C7CD00C72D29 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
@@ -263,7 +265,7 @@
 				1E91DFD82B55A2DB00C72D29 /* Homepage */,
 				1E91DFD22B544DB600C72D29 /* Utilities */,
 				1E91DFBA2B50F02200C72D29 /* AAuthentication */,
-				1E91DFD02B53B4DB00C72D29 /* GoogleService-Info.plist */,
+				1E4C06C42BB21BBB00C806B9 /* GoogleService-Info.plist */,
 				1E91DF742B50E6C400C72D29 /* Assets.xcassets */,
 				1E91DF762B50E6C400C72D29 /* Preview Content */,
 				1EE5A1C12B572B8B00A9171A /* Launch Screen.storyboard */,
@@ -327,6 +329,7 @@
 				1E7CAD202B99768F00FCDD96 /* MenuButtons.swift */,
 				1E6145BB2BA4305900533A0C /* WidgetCustom.swift */,
 				1E4C06C22BB203E600C806B9 /* TempHomeView.swift */,
+				1E4594CA2BB27F4800E2F687 /* tempSettingsScreen.swift */,
 			);
 			path = Homepage;
 			sourceTree = "<group>";
@@ -446,7 +449,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1E91DF782B50E6C400C72D29 /* Preview Assets.xcassets in Resources */,
-				1E91DFD12B53B4DB00C72D29 /* GoogleService-Info.plist in Resources */,
+				1E4C06C52BB21BBB00C806B9 /* GoogleService-Info.plist in Resources */,
 				1EE5A1C22B572B8B00A9171A /* Launch Screen.storyboard in Resources */,
 				1E91DF752B50E6C400C72D29 /* Assets.xcassets in Resources */,
 			);
@@ -479,6 +482,7 @@
 				1E10DA3C2B9EA3FD00B30D2C /* UserManager.swift in Sources */,
 				1E91DFD62B544FDF00C72D29 /* SignInGoogleHelper.swift in Sources */,
 				1E7CAD492B9BB11100FCDD96 /* TermsServiceView.swift in Sources */,
+				1E4594CB2BB27F4800E2F687 /* tempSettingsScreen.swift in Sources */,
 				1E91DFC42B50FE1000C72D29 /* SettingsView.swift in Sources */,
 				1EC006522B8BCABD001280F3 /* SideView.swift in Sources */,
 				1E91DF732B50E6C300C72D29 /* ContentView.swift in Sources */,
@@ -701,6 +705,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = InspireSync/InspireSync.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_ASSET_PATHS = "\"InspireSync/Preview Content\"";
@@ -724,6 +729,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "Nivethikan-Neethirasa.InspireSync";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -741,6 +747,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = InspireSync/InspireSync.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_ASSET_PATHS = "\"InspireSync/Preview Content\"";
@@ -764,6 +771,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "Nivethikan-Neethirasa.InspireSync";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;

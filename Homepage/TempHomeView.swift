@@ -27,7 +27,6 @@ struct TempHomeView: View {
     @State private var firstQuote = QuoteManager.shared.getFirstQuote()
     @State private var secondQuote = QuoteManager.shared.getSecondQuote()
     @State private var thirdQuote = QuoteManager.shared.getThirdQuote()
-    @State private var fourthQuote = QuoteManager.shared.getFourthQuote()
     @State private var presentSideMenu = false
     @State private var showingAlert = false
     @State private var homeUsername = " "
@@ -37,23 +36,21 @@ struct TempHomeView: View {
     var body: some View {
         ZStack {
             Color.washedBlack.edgesIgnoringSafeArea(.all)
-         
+            
+            ScrollView{
                 VStack {
-                                        
-                    ScrollView{
-                        addContent
-                        
-                        mainContent
-                        .background(Color.washedBlack.opacity(0.8))
-                    }
-                    .overlay(topBar, alignment: .top)
+                    addContent
+                        .overlay(topBar, alignment: .top)
+                    
+                    mainContent
+                    .background(Color.washedBlack.opacity(0.8))
                 }
                 .fullScreenCover(isPresented: $showingQuote, content: {
                     NavigationStack{
                         sendQuoteView(firstQuote: $firstQuote, secondQuote: $secondQuote)
                     }
                 })
-            
+            }
             
             
             
@@ -65,15 +62,13 @@ struct TempHomeView: View {
     private var mainContent: some View {
         VStack(spacing: 20) {
             quoteButton(firstQuote, quote: $firstQuote)
-                .padding(.vertical,10)
+                .padding(.vertical,5)
             quoteButton(secondQuote, quote: $secondQuote)
-                .padding(.vertical,10)
+                .padding(.vertical,5)
             quoteButton(thirdQuote, quote: $thirdQuote)
-                .padding(.vertical,10)
-            quoteButton(fourthQuote, quote: $fourthQuote)
-                .padding(.vertical,10)
+                .padding(.vertical,5)
         }
-        .padding(.horizontal,40)
+        .padding(.horizontal,20)
     }
     
     private var addContent: some View {
@@ -81,8 +76,8 @@ struct TempHomeView: View {
             addButton("+", quote: $firstQuote)
                 .padding(.vertical,20)
         }
-        .padding(.horizontal,40)
-        .padding(.top, 100)
+        .padding(.horizontal,20)
+        .padding(.top, 60)
 
     }
 
@@ -93,7 +88,7 @@ struct TempHomeView: View {
             showingQuote.toggle()
         }) {
             Text(add)
-                .frame(maxWidth: .infinity, minHeight: 100)
+                .frame(maxWidth: .infinity, minHeight: 125)
                 .background(RoundedRectangle(cornerRadius: 10).stroke(Color.customTeal, lineWidth: 5))
                 .font(.custom("Futura-Medium", size: add == "+" ? 60 : 18))
                 .foregroundColor(.white)
@@ -109,7 +104,7 @@ struct TempHomeView: View {
             showingAlert = true
         }) {
             Text(title)
-                .frame(maxWidth: .infinity, minHeight: 175)
+                .frame(maxWidth: .infinity, minHeight: 200)
                 .background(RoundedRectangle(cornerRadius: 10).stroke(Color.customTeal, lineWidth: 5))
                 .font(.custom("Futura-Medium", size: title == "+" ? 60 : 18))
                 .foregroundColor(.white)
