@@ -22,6 +22,11 @@ final class SettingsViewModel: ObservableObject{
     func signOut() throws{
         AuthenticationManager.shared.signOut()
         
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+            let window = windowScene.windows.first {
+                        window.rootViewController = UIHostingController(rootView: RootView())
+                    }
+        
     }
     
     func deleteAccount() async throws{

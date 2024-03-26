@@ -62,38 +62,43 @@ struct BugView: View {
                     }
             
             
-            VStack{
-                Text("Enter your suggestion below")
-                    .foregroundColor(.white)
-                    .font(.custom(
-                            "Futura-Medium",
-                            fixedSize: 18))
+            VStack {
+                VStack{
+                    Text("Enter your suggestion below")
+                        .foregroundColor(.white)
+                        .font(.custom(
+                                "Futura-Medium",
+                                fixedSize: 18))
+                    
+                    TextField("Describe", text: $message, axis: .vertical)// <1>, <2>
+                    
+                        .multilineTextAlignment(.center)
+                        .lineLimit(10)
+                        .frame(width: UIScreen.main.bounds.width * 0.76 , height: UIScreen.main.bounds.height * 0.2)
+                        .focused($focusedField, equals: .yourTextField)
+                         .contentShape(RoundedRectangle(cornerRadius: 5))
+                         .onTapGesture { focusedField = .yourTextField }
+                        .border(.secondary)
+                        .font(.system(size: 16))
+                        .foregroundColor(.white)
+                        .cornerRadius(.infinity)
+                        .background(RoundedRectangle(cornerRadius: 10).stroke(Color("customTeal"), lineWidth: 3))
+                        }
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom) // Ensure constant height
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    let keyWindow = UIApplication.shared.connectedScenes
+                        .filter({$0.activationState == .foregroundActive})
+                        .map({$0 as? UIWindowScene})
+                        .compactMap({$0})
+                        .first?.windows
+                        .filter({$0.isKeyWindow}).first
+                    keyWindow!.endEditing(true)
+                }
+            .onLongPressGesture(pressing: { isPressed in if isPressed { self.endEditing1() } }, perform: {})
                 
-                TextField("Enter your suggestion", text: $message, axis: .vertical)// <1>, <2>
-                    .multilineTextAlignment(.center)
-                    .lineLimit(10)
-                    .frame(width: UIScreen.main.bounds.width * 0.76 , height: UIScreen.main.bounds.height * 0.2)
-                    .focused($focusedField, equals: .yourTextField)
-                     .contentShape(RoundedRectangle(cornerRadius: 5))
-                     .onTapGesture { focusedField = .yourTextField }
-                    .border(.secondary)
-                    .font(.system(size: 16))
-                    .foregroundColor(.white)
-                    .cornerRadius(.infinity)
-                    .background(RoundedRectangle(cornerRadius: 10).stroke(Color("customTeal"), lineWidth: 3))
-                    .onTapGesture {
-                        let keyWindow = UIApplication.shared.connectedScenes
-                            .filter({$0.activationState == .foregroundActive})
-                            .map({$0 as? UIWindowScene})
-                            .compactMap({$0})
-                            .first?.windows
-                            .filter({$0.isKeyWindow}).first
-                        keyWindow!.endEditing(true)
-                    }
-                    .onLongPressGesture(pressing: { isPressed in if isPressed { self.endEditing1() } }, perform: {})
-                Spacer().frame(height: UIScreen.main.bounds.height * 0.05)
-                
-                    }
+                Spacer().frame(height: UIScreen.main.bounds.height * 0.3)
+            }
             
             VStack{
                 

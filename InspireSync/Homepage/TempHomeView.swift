@@ -144,13 +144,18 @@ struct TempHomeView: View {
             Spacer()
 
             Button(action: { /* navigate to settings or profile */ }) {
+                Text("         ")
+                /*
                 Image("profilepic")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 40, height: 40)
                     .foregroundColor(.white)
+                 */
+
             }
             .padding()
+ 
         }
         .padding(.top,10)
         .padding(.horizontal,5)

@@ -107,14 +107,14 @@ struct SideMenuViewContents: View {
                                     //settingsView.toggle()
                                     showSignInView = true
                                     try viewModel.signOut()
-                                    
+                                    /*
                                     // Present the RootView
                                     if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
                                         let window = windowScene.windows.first {
                                                     window.rootViewController = UIHostingController(rootView: RootView())
                                                 }
                                     
-                                    
+                                    */
                                 }catch{
                                     print(error)
                                 }

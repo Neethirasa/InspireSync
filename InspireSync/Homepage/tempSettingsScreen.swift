@@ -19,6 +19,7 @@ struct tempSettingsScreen: View {
     @State private var isShowingPrivacyView = false
     @State private var isShowingTermsService = false
     let authUsername = AuthenticationManager.shared.getDisplayName()
+    @StateObject private var viewModel = SettingsViewModel()
     
     private var isPad: Bool {
         UIDevice.current.userInterfaceIdiom == .pad
@@ -32,9 +33,15 @@ struct tempSettingsScreen: View {
                     customizationSection
                     feedbackSection
                     helpSection
+                }
+                .padding(.horizontal,20)
+                .frame(maxWidth: .infinity)
+                
+                VStack(alignment: .leading, spacing: 0) {
                     deleteAccountButton
                 }
-                .padding()
+                .padding(.horizontal,50)
+                .padding(.top,50)
                 .frame(maxWidth: .infinity)
             }
             .toolbarColorScheme(.dark, for: .navigationBar)
@@ -76,14 +83,16 @@ struct tempSettingsScreen: View {
                 }
                 
             }
-            .padding(.vertical,10)
+            .padding(.vertical,7)
             .padding(.horizontal,5)
             .frame(minHeight: 20)
             .frame(maxWidth: .infinity)
             .background(Color(hex: "#333333"))
             .cornerRadius(5)
         }
-        .padding()
+        .padding(.bottom,5)
+        .padding(.top,5)
+        .padding(.horizontal,15)
         .background(RoundedRectangle(cornerRadius: 10).fill(Color("WashedBlack")))
     }
     
@@ -107,7 +116,7 @@ struct tempSettingsScreen: View {
                             Image("arrow")
                                 .resizable()
                                 .scaledToFill()
-                                .frame(width: 25, height: 25)
+                                .frame(width: 20, height: 20)
                                 .contrast(10)
                             }
                     }
@@ -120,61 +129,201 @@ struct tempSettingsScreen: View {
                 }
                 
             }
-            .padding(.vertical,10)
+            .padding(.vertical,6)
             .padding(.horizontal,5)
             .frame(minHeight: 20)
             .frame(maxWidth: .infinity)
             .background(Color(hex: "#333333"))
             .cornerRadius(5)
         }
-        .padding()
+        .padding(.bottom,5)
+        .padding(.top,10)
+        .padding(.horizontal,15)
         .background(RoundedRectangle(cornerRadius: 10).fill(Color("WashedBlack")))
     }
     
     var feedbackSection: some View {
         Section(header: Text("Send Feedback").foregroundColor(.white).font(.headline)) {
-            Button("I spotted a bug") {
-                isShowingBugView.toggle()
+            VStack(alignment: .leading, spacing: 0){
+                HStack(spacing: 0){
+                    Button {
+                        isShowingBugView.toggle()
+                    } label: {
+                        Text("I spotted a bug")
+                        .foregroundColor(Color(hex: "#FFFFFF"))
+                        .font(.custom(
+                                "Futura-Medium",
+                                fixedSize: 14))
+                        .frame(maxWidth: .infinity,alignment: .leading)
+                        //Spacer().frame(width: UIScreen.main.bounds.width * 0.51)
+                        .overlay(alignment: .trailing) {
+                            Image("arrow")
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 20, height: 20)
+                                .contrast(10)
+                            }
+                    }
+                    .sheet(isPresented: $isShowingBugView ) {
+                        BugView()
+                            }
+                }
+                .padding(.bottom,7)
+                
+                VStack(alignment: .leading, spacing: 0){
+                }
+                .frame(height: 1)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(Color(hex: "#696969"))
+                .padding(.bottom,5)
+                
+                HStack(spacing: 0){
+                    Button {
+                        isShowingBugView.toggle()
+                    } label: {
+                        Text("I have a suggestion")
+                        .foregroundColor(Color(hex: "#FFFFFF"))
+                        .font(.custom(
+                                "Futura-Medium",
+                                fixedSize: 14))
+                        .frame(maxWidth: .infinity,alignment: .leading)
+                        //Spacer().frame(width: UIScreen.main.bounds.width * 0.51)
+                        .overlay(alignment: .trailing) {
+                            Image("arrow")
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 20, height: 20)
+                                .contrast(10)
+                            }
+                    }
+                    .sheet(isPresented: $isShowingBugView ) {
+                        BugView()
+                            }
+                }
+                
+                
+                
+                
             }
-            .sheet(isPresented: $isShowingBugView) {
-                BugView()
-            }
-            Button("I have a suggestion") {
-                // Action
-            }
+            .padding(.vertical,7)
+            .padding(.horizontal,5)
+            .frame(minHeight: 20)
+            .frame(maxWidth: .infinity)
+            .background(Color(hex: "#333333"))
+            .cornerRadius(5)
         }
-        .padding()
+        .padding(.bottom,5)
+        .padding(.top,10)
+        .padding(.horizontal,15)
         .background(RoundedRectangle(cornerRadius: 10).fill(Color("WashedBlack")))
     }
     
     var helpSection: some View {
         Section(header: Text("Help").foregroundColor(.white).font(.headline)) {
-            Button("Privacy Policy") {
-                isShowingPrivacyView.toggle()
+            VStack(alignment: .leading, spacing: 0){
+                HStack(spacing: 0){
+                    Button {
+                        isShowingPrivacyView.toggle()
+                    } label: {
+                        Text("Privacy Policy")
+                        .foregroundColor(Color(hex: "#FFFFFF"))
+                        .font(.custom(
+                                "Futura-Medium",
+                                fixedSize: 14))
+                        .frame(maxWidth: .infinity,alignment: .leading)
+                        //Spacer().frame(width: UIScreen.main.bounds.width * 0.51)
+                        .overlay(alignment: .trailing) {
+                            Image("arrow")
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 20, height: 20)
+                                .contrast(10)
+                            }
+                    }
+                    .sheet(isPresented: $isShowingPrivacyView) {
+                        PrivacyView(url: URL(string: "https://docs.google.com/document/d/e/2PACX-1vQCfVq7kFa2DR49OehK2p44ZXCaB2VSwJHqiiBVMoveY3eEm_yPB512pJHC4iONCd01f33O-g_-HiaD/pub")!)
+                            }
+                }
+                .padding(.bottom,7)
+                
+                VStack(alignment: .leading, spacing: 0){
+                }
+                .frame(height: 1)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(Color(hex: "#696969"))
+                .padding(.bottom,5)
+                
+                HStack(spacing: 0){
+                    Button {
+                        isShowingTermsService.toggle()
+                    } label: {
+                        Text("Terms of Service")
+                        .foregroundColor(Color(hex: "#FFFFFF"))
+                        .font(.custom(
+                                "Futura-Medium",
+                                fixedSize: 14))
+                        .frame(maxWidth: .infinity,alignment: .leading)
+                        //Spacer().frame(width: UIScreen.main.bounds.width * 0.51)
+                        .overlay(alignment: .trailing) {
+                            Image("arrow")
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 20, height: 20)
+                                .contrast(10)
+                            }
+                    }
+                    .sheet(isPresented: $isShowingTermsService) {
+                        TermsServiceView(url: URL(string: "https://docs.google.com/document/d/e/2PACX-1vQCfVq7kFa2DR49OehK2p44ZXCaB2VSwJHqiiBVMoveY3eEm_yPB512pJHC4iONCd01f33O-g_-HiaD/pub")!)
+                            .background(Color.washedBlack)
+                            }
+                }
+                
+                
+                
+                
             }
-            .sheet(isPresented: $isShowingPrivacyView) {
-                // PrivacyView
-            }
-            Button("Terms of Service") {
-                isShowingTermsService.toggle()
-            }
-            .sheet(isPresented: $isShowingTermsService) {
-                // TermsServiceView
-            }
+            .padding(.vertical,7)
+            .padding(.horizontal,5)
+            .frame(minHeight: 20)
+            .frame(maxWidth: .infinity)
+            .background(Color(hex: "#333333"))
+            .cornerRadius(5)
         }
-        .padding()
+        .padding(.bottom,5)
+        .padding(.top,10)
+        .padding(.horizontal,15)
         .background(RoundedRectangle(cornerRadius: 10).fill(Color("WashedBlack")))
     }
     
     var deleteAccountButton: some View {
         Button("Delete Account", role: .destructive) {
             // Delete account action
+            Task {
+                await deleteUserAccount()
+                try viewModel.signOut()
+            }
         }
+        .font(.custom(
+                "Futura-Medium",
+                fixedSize: 14))
         .padding()
+        .padding(.horizontal,20)
         .frame(maxWidth: .infinity)
         .background(Color.red)
         .foregroundColor(.white)
         .cornerRadius(10)
+    }
+    
+    private func deleteUserAccount() async {
+        do {
+            // Delete user data from Firestore
+            try await Firestore.firestore().collection("users").document(AuthenticationManager.shared.getAuthenticatedUser().uid).delete()
+            try await AuthenticationManager.shared.delete()
+            dismiss()
+        }
+        catch{
+            print("error")
+        }
     }
     
     var backButton: some View {

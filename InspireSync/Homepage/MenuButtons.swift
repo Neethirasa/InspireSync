@@ -32,7 +32,7 @@ struct MenuButtons: View {
                       
                       VStack(alignment: .leading, spacing: 0){
                       }
-                      .frame(height: 1)
+                      .frame(height: 0.5)
                       .frame(width: UIScreen.main.bounds.width * 0.5)
                      // .frame(maxWidth: .infinity, alignment: .leading)
                       .background(Color.black)

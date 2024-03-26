@@ -198,7 +198,6 @@ struct sendQuoteView: View {
             
             
         }
-        
         .background(.washedBlack)
         .scrollContentBackground(.hidden)
    
