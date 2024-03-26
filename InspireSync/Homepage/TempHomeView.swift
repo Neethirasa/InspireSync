@@ -32,6 +32,7 @@ struct TempHomeView: View {
     @State private var showingAlert = false
     @State private var homeUsername = " "
     @State private var isTimerActive = true
+    @State private var settingsView = false
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
     var body: some View {
@@ -144,7 +145,7 @@ struct TempHomeView: View {
 
             Spacer()
 
-            Button(action: { /* navigate to settings or profile */ }) {
+            Button(action: { settingsView.toggle()}) {
                 Text("         ")
                 /*
                 Image("profilepic")
@@ -155,6 +156,9 @@ struct TempHomeView: View {
                  */
 
             }
+            .fullScreenCover(isPresented: $settingsView, content: {
+                AddFriendsView()
+            })
             .padding()
  
         }

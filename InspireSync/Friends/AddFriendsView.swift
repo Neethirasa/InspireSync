@@ -140,7 +140,9 @@ struct AddFriendsView: View {
                         .toolbar { // <2>
                                     ToolbarItem(placement: .principal) { // <3>
                               
-                                            Text("Add Friends").font(.headline)
+                                            Text("Add Friends").font(.custom(
+                                                "Futura-Medium",
+                                                fixedSize: 18))
                                     }
                                 }
                         .navigationBarItems(

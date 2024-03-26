@@ -93,11 +93,11 @@ struct sendQuoteView: View {
                                             .frame(width: UIScreen.main.bounds.width * 0.82)
                                             .background(Color(hex: "#333333"))
                                             //.background(RoundedRectangle(cornerRadius: 10).stroke(.black, lineWidth: 100))
-                                            .cornerRadius(50)
+                                            .cornerRadius(30)
                                             //.contentShape(RoundedRectangle(cornerRadius: 5))
                                          
                                         }
-                                        .background(RoundedRectangle(cornerRadius: 50).stroke(.black, lineWidth: 3))
+                                        //.background(RoundedRectangle(cornerRadius: 50).stroke(.black, lineWidth: 3))
                                         .scrollIndicators(ScrollIndicatorVisibility.hidden)
                                         
                                         
@@ -126,7 +126,6 @@ struct sendQuoteView: View {
                         .border(.secondary)
                         .font(.custom("Futura-Medium", fixedSize: 16))
                         .foregroundColor(.white)
-                        .padding()
                         .cornerRadius(.infinity)
                         .background(RoundedRectangle(cornerRadius: 10).stroke(.customTeal, lineWidth: 5))
                         .onReceive(Just($quote)) { _ in limitText(textLimit) }

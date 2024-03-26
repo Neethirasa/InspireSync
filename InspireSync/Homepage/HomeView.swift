@@ -236,14 +236,8 @@ struct HomeView: View {
     @ViewBuilder
     private func SideMenu() -> some View {
         SideView(isShowing: $presentSideMenu, direction: .leading) {
-            
-            if getDeviceType() == .iPad {
-                SideMenuViewContents(presentSideMenu: $presentSideMenu)
-                    .frame(width: UIScreen.main.bounds.width * 0.25)
-                       } else if getDeviceType() == .iPhone {
-                           SideMenuViewContents(presentSideMenu: $presentSideMenu)
-                               .frame(width: UIScreen.main.bounds.width * 0.5)
-                       }
+            SideMenuViewContents(presentSideMenu: $presentSideMenu)
+                .frame(width: UIScreen.main.bounds.width * 0.15)
         }
     }
     

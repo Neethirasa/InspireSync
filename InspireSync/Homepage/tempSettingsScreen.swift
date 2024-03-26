@@ -50,7 +50,9 @@ struct tempSettingsScreen: View {
             .toolbar { // <2>
                         ToolbarItem(placement: .principal) { // <3>
                   
-                                Text("Settings").font(.headline)
+                                Text("Settings").font(.custom(
+                                    "Futura-Medium",
+                                    fixedSize: 18))
                         }
                     }
             .navigationBarItems(leading: backButton)
@@ -60,7 +62,9 @@ struct tempSettingsScreen: View {
     }
     
     var accountSection: some View {
-        Section(header: Text("My Account").foregroundColor(.white).font(.headline)) {
+        Section(header: Text("My Account").foregroundColor(.white).font(.custom(
+            "Futura-Medium",
+            fixedSize: 16))) {
             VStack(alignment: .leading, spacing: 0){
                 
                 
@@ -97,7 +101,9 @@ struct tempSettingsScreen: View {
     }
     
     var customizationSection: some View {
-        Section(header: Text("Customize").foregroundColor(.white).font(.headline)) {
+        Section(header: Text("Customize").foregroundColor(.white).font(.custom(
+            "Futura-Medium",
+            fixedSize: 16))) {
             VStack(alignment: .leading, spacing: 0){
                 
                 
@@ -121,7 +127,7 @@ struct tempSettingsScreen: View {
                             }
                     }
                     .fullScreenCover(isPresented: $isCustomWidget, content: {
-                        WidgetCustom()
+                        tempWidgetCustom()
                     })
 
                     
@@ -143,7 +149,9 @@ struct tempSettingsScreen: View {
     }
     
     var feedbackSection: some View {
-        Section(header: Text("Send Feedback").foregroundColor(.white).font(.headline)) {
+        Section(header: Text("Send Feedback").foregroundColor(.white).font(.custom(
+            "Futura-Medium",
+            fixedSize: 16))) {
             VStack(alignment: .leading, spacing: 0){
                 HStack(spacing: 0){
                     Button {
@@ -219,7 +227,9 @@ struct tempSettingsScreen: View {
     }
     
     var helpSection: some View {
-        Section(header: Text("Help").foregroundColor(.white).font(.headline)) {
+        Section(header: Text("Help").foregroundColor(.white).font(.custom(
+            "Futura-Medium",
+            fixedSize: 16))){
             VStack(alignment: .leading, spacing: 0){
                 HStack(spacing: 0){
                     Button {

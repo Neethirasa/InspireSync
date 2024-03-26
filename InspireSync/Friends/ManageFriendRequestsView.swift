@@ -37,7 +37,14 @@ struct ManageFriendRequestsView: View {
         .toolbarColorScheme(.dark, for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
         .navigationBarTitleDisplayMode(.inline)
-        .navigationTitle("Friend Requests")
+        .toolbar { // <2>
+                    ToolbarItem(placement: .principal) { // <3>
+              
+                            Text("Friend Requests").font(.custom(
+                                "Futura-Medium",
+                                fixedSize: 18))
+                    }
+                }
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarItems(
             leading: Button(action: {
