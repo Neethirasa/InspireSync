@@ -183,6 +183,24 @@ final class UserManager{
             }
             return users
         }
+    
+    // Search for users by displayName and return the first userId found
+    func searchUsersReturnUid(byDisplayName normalizedDisplayName: String) async throws -> String? {
+        let querySnapshot = try await Firestore.firestore()
+            .collection("users")
+            .whereField("normalizedDisplayName", isEqualTo: normalizedDisplayName)
+            .getDocuments()
+
+        // Attempt to find the first document that matches the query and return its userId
+        let firstUserId = querySnapshot.documents.compactMap { document -> String? in
+            guard let user = try? document.data(as: DBUser.self) else {
+                return nil
+            }
+            return user.userId
+        }.first
+        
+        return firstUserId
+    }
 
     func sendFriendRequest(fromUserId: String, toUserId: String, fromUserDisplayName: String) async throws {
         let friendRequestData: [String: Any] = [
@@ -200,7 +218,24 @@ final class UserManager{
         let senderRequestRef = Firestore.firestore().collection("users").document(fromUserId).collection("sentFriendRequests").document(toUserId)
         try await senderRequestRef.setData(["status": "pending", "timestamp": FieldValue.serverTimestamp()])
     }
+    
+    // Checks if there's a pending friend request from `fromUserId` to `toUserId`
+        func isFriendRequestPending(fromUserId: String, toUserId: String) async throws -> Bool {
+            // Access the collection where friend requests are stored
+            let sentRequestRef = Firestore.firestore().collection("users").document(fromUserId).collection("sentFriendRequests").document(toUserId)
 
+            // Attempt to get the document for the friend request
+            let documentSnapshot = try await sentRequestRef.getDocument()
+
+            // Check if the document exists and if the status is "pending"
+            if let data = documentSnapshot.data(), let status = data["status"] as? String, status == "pending" {
+                // If the document exists and status is pending, return true
+                return true
+            } else {
+                // If no document exists or status is not pending, return false
+                return false
+            }
+        }
 
 
     func fetchIncomingFriendRequests() async throws -> [FriendRequest] {
@@ -209,7 +244,7 @@ final class UserManager{
             let querySnapshot = try await Firestore.firestore()
                 .collection("users")
                 .document(currentUserId)
-                .collection("friendRequests")
+                .collection("receivedFriendRequests")
                 .whereField("status", isEqualTo: "pending")
                 .getDocuments()
 
@@ -224,7 +259,7 @@ final class UserManager{
         let friendRequestRef = Firestore.firestore()
             .collection("users")
             .document(toUserId)
-            .collection("friendRequests")
+            .collection("receivedFriendRequests")
             .document(fromUserId)
         
         // Add the friend request document
@@ -272,7 +307,7 @@ final class UserManager{
         let friendRequestRef = Firestore.firestore()
             .collection("users")
             .document(toUserId)
-            .collection("friendRequests")
+            .collection("receivedFriendRequests")
             .document(fromUserId)
         
         try await friendRequestRef.delete()

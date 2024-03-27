@@ -15,6 +15,8 @@ struct AddFriendsView: View {
     @State private var searchResults: [DBUser] = []
     @State private var currentUserDisplayName: String?
     @State private var showManageRequests: Bool = false
+    @State private var alreadyPending = false
+    @State private var pendingUserId = "nil"
     
     // Dummy data for contacts, replace with your actual data source
     let contacts = ["Rishi", "Dhanu", "Mom", "Dad"]
@@ -41,14 +43,18 @@ struct AddFriendsView: View {
                             guard let currentUserData = try await UserManager.shared.getCurrentUserData() else { return }
                             
                             // Check if the search query matches the current user's display name
-                            if searchQuery == currentUserData.normalizedDisplayName {
+                            if searchQuery == currentUserData.normalizedDisplayName || searchQuery == currentUserData.displayName{
                                 print("Cannot search for your own display name.")
                                 self.searchResults = []
                                 return
                             }
                             
+                            pendingUserId = try await UserManager.shared.searchUsersReturnUid(byDisplayName: searchQuery.lowercased()) ?? "nil"
                             // Perform the search
                             self.searchResults = try await UserManager.shared.searchUsers(byDisplayName: searchQuery.lowercased())
+                            if pendingUserId != "nil"{
+                                self.alreadyPending = try await UserManager.shared.isFriendRequestPending(fromUserId: currentUserData.userId, toUserId: pendingUserId)
+                            }
                         } catch {
                             print("An error occurred: \(error)")
                         }
@@ -56,6 +62,7 @@ struct AddFriendsView: View {
                 })
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .listRowBackground(Color.washedBlack)
+                .padding(.top,20)
 
                 List(searchResults, id: \.userId) { user in
                     HStack {
@@ -66,8 +73,18 @@ struct AddFriendsView: View {
                             .frame(maxWidth: .infinity, alignment: .leading)
 
                         
-                        // Make the button a separate view to enhance tapability
-                        AddFriendButton(user: user)
+                        if alreadyPending == false {
+                            // Make the button a separate view to enhance tapability
+                            AddFriendButton(user: user)
+                        }
+                        else if alreadyPending == true {
+                            Text("Pending")
+                                .padding(.horizontal, 10)
+                                .background(Color.blue)
+                                .foregroundColor(.white)
+                                .cornerRadius(8)
+                        }
+                        
                         
                         /*
                         Button("Add Friend") {
