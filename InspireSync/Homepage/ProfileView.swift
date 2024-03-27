@@ -85,19 +85,7 @@ struct ProfileView: View {
                         Spacer().frame(height: 30)
                         VStack{
                             Button {
-                                // Check if the username is not empty and display name doesn't exist
-                                if !username.isEmpty && !username.trimmingCharacters(in: .whitespaces).isEmpty && !displayNameExists {
-                                    nullUsername = false
-                                    AuthenticationManager.shared.updateDisplayName(displayName: username)
-                                    do {
-                                        // Call the throwing function here
-                                        try UserManager.shared.addUsername(name: username)
-                                        // Return your view content
-                                    } catch {
-                                        // Handle the error here
-                                        print("Error signing out: %@", error)
-                                    }
-                                }
+                                createOrUpdateUsername()
                             } label: {
                                 Text("Create Account")
                                     .font(.custom("Futura-Medium", fixedSize: 20))
@@ -107,7 +95,7 @@ struct ProfileView: View {
                             .background(.customTeal)
                             .background(RoundedRectangle(cornerRadius: 10).stroke(.customTeal, lineWidth: 2))
                             .cornerRadius(10)
-                            .disabled(displayNameExists) // Disable the button if display name exists
+                            .disabled(displayNameExists || username.isEmpty || username.trimmingCharacters(in: .whitespaces).isEmpty) // Disable the button if display name exists
                         }
                         
                     }
@@ -130,6 +118,24 @@ struct ProfileView: View {
         func limitText(_ upper: Int) {
             if username.count > upper {
                 username = String(username.prefix(upper))
+            }
+        }
+    
+    private func createOrUpdateUsername() {
+            Task {
+                do {
+                    let exists = try await UserManager.shared.displayNameExists(displayName: username)
+                    if !exists {
+                        try await UserManager.shared.addUsername(name: username)
+                        nullUsername = false
+                        AuthenticationManager.shared.updateDisplayName(displayName: username)
+                        // Navigate away or show success message...
+                    } else {
+                        displayNameExists = true
+                    }
+                } catch {
+                    print("Failed to update username:", error)
+                }
             }
         }
     

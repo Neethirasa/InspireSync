@@ -34,21 +34,21 @@ struct AddFriendsView: View {
                     .listRowBackground(Color.washedBlack)
                 */
                 
-                TextField("Search by display name, case sensitive", text: $searchQuery, onCommit: {
+                TextField("Search by display name", text: $searchQuery, onCommit: {
                     Task {
                         do {
                             // Get the current user's data to exclude from search results
                             guard let currentUserData = try await UserManager.shared.getCurrentUserData() else { return }
                             
                             // Check if the search query matches the current user's display name
-                            if searchQuery == currentUserData.displayName {
+                            if searchQuery == currentUserData.normalizedDisplayName {
                                 print("Cannot search for your own display name.")
                                 self.searchResults = []
                                 return
                             }
                             
                             // Perform the search
-                            self.searchResults = try await UserManager.shared.searchUsers(byDisplayName: searchQuery)
+                            self.searchResults = try await UserManager.shared.searchUsers(byDisplayName: searchQuery.lowercased())
                         } catch {
                             print("An error occurred: \(error)")
                         }

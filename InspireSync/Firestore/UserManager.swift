@@ -13,12 +13,15 @@ import FirebaseAuth
 struct DBUser: Codable {
     var userId: String
     var displayName: String
+    var normalizedDisplayName: String
     var email: String?
     var dateCreated: Date?
+    
     
     enum CodingKeys: String, CodingKey {
         case userId = "user_id"
         case displayName
+        case normalizedDisplayName
         case email
         case dateCreated = "date_created"
     }
@@ -57,6 +60,7 @@ final class UserManager{
         var userData: [String:Any] = [
             "user_id" : auth.uid,
             "date_created" : Timestamp(),
+            "normalizedDisplayName" : temp as Any,
             "displayName" : temp as Any
         ]
         
@@ -96,8 +100,8 @@ final class UserManager{
 
     
     func displayNameExists(displayName: String) async throws -> Bool {
-        // Create a query to find users with the given displayName
-        let query = Firestore.firestore().collection("users").whereField("displayName", isEqualTo: displayName)
+        let normalizedDisplayName = displayName.lowercased()
+        let query = Firestore.firestore().collection("users").whereField("normalizedDisplayName", isEqualTo: normalizedDisplayName)
         
         do {
             // Fetch the documents matching the query
@@ -112,25 +116,20 @@ final class UserManager{
     }
 
     
-    func addUsername(name: String) throws {
+    func addUsername(name: String) async throws {
         guard !name.isEmpty else {
             print("Username is empty. Not updating data.")
             return
         }
-        
+        let normalizedDisplayName = name.lowercased()
         let userName: [String:Any] = [
-            "displayName" : name
+            "displayName" : name,
+            "normalizedDisplayName": normalizedDisplayName
         ]
         let uid = try AuthenticationManager.shared.getAuthenticatedUser().uid
         let userRef = Firestore.firestore().collection("users").document(uid)
         
-        userRef.updateData(userName) { error in
-            if let error = error {
-                print("Failed to update data: \(error.localizedDescription)")
-            } else {
-                print("Data updated successfully!")
-            }
-        }
+        try await userRef.updateData(userName)
     }
     
     func getUser(userId: String) async throws -> DBUser {
@@ -173,10 +172,10 @@ final class UserManager{
     }
     
     // Search for users by displayName
-        func searchUsers(byDisplayName displayName: String) async throws -> [DBUser] {
+        func searchUsers(byDisplayName normalizedDisplayName: String) async throws -> [DBUser] {
             let querySnapshot = try await Firestore.firestore()
                 .collection("users")
-                .whereField("displayName", isEqualTo: displayName)
+                .whereField("normalizedDisplayName", isEqualTo: normalizedDisplayName)
                 .getDocuments()
 
             let users = querySnapshot.documents.compactMap { document -> DBUser? in
@@ -194,13 +193,12 @@ final class UserManager{
             "timestamp": FieldValue.serverTimestamp()
         ]
 
-        let friendRequestRef = Firestore.firestore()
-            .collection("users")
-            .document(toUserId)
-            .collection("friendRequests")
-            .document(fromUserId)
-
-        try await friendRequestRef.setData(friendRequestData)
+        // Set data for the receiver's friend requests collection
+        let receiverRequestRef = Firestore.firestore().collection("users").document(toUserId).collection("receivedFriendRequests").document(fromUserId)
+        try await receiverRequestRef.setData(friendRequestData)
+                // Optionally, track the sent request in the sender's subcollection as well
+        let senderRequestRef = Firestore.firestore().collection("users").document(fromUserId).collection("sentFriendRequests").document(toUserId)
+        try await senderRequestRef.setData(["status": "pending", "timestamp": FieldValue.serverTimestamp()])
     }
 
 
@@ -253,6 +251,14 @@ final class UserManager{
             .document(toUserId)
         try await fromUserFriendsRef.setData(["friendUserId": toUserId])
     }
+    
+    // Function to check the status of a friend request
+        func checkFriendRequestStatus(fromUserId: String, toUserId: String) async throws -> String {
+            let requestRef = Firestore.firestore().collection("users").document(toUserId).collection("receivedFriendRequests").document(fromUserId)
+            let snapshot = try await requestRef.getDocument()
+            return snapshot.data()?["status"] as? String ?? "none"
+        }
+    
     
     // This method retrieves the current user's display name.
     func getCurrentUserData() async throws -> DBUser? {

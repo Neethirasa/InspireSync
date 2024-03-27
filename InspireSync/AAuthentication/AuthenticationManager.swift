@@ -15,6 +15,7 @@ struct AuthDataResultModel {
     let email: String?
     let photoUrl: String?
     let displayName: String?
+    let normalizedDisplayName: String?
     
     init(user: User) {
         self.uid = user.uid
@@ -22,6 +23,7 @@ struct AuthDataResultModel {
         self.photoUrl = user.photoURL?.absoluteString
         //self.username = ""
         self.displayName = nil //change to nil for username view
+        self.normalizedDisplayName = nil
     }
 }
 

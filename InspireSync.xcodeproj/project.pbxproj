@@ -23,6 +23,7 @@
 		1E3440A52BA9226500F40C1A /* FriendRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E3440A42BA9226500F40C1A /* FriendRequest.swift */; };
 		1E4594CB2BB27F4800E2F687 /* tempSettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4594CA2BB27F4800E2F687 /* tempSettingsScreen.swift */; };
 		1E4594CF2BB360D200E2F687 /* tempWidgetCustom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4594CE2BB360D200E2F687 /* tempWidgetCustom.swift */; };
+		1E4594D12BB3D12A00E2F687 /* FriendRequestStatusButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4594D02BB3D12A00E2F687 /* FriendRequestStatusButton.swift */; };
 		1E4C06C32BB203E600C806B9 /* TempHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4C06C22BB203E600C806B9 /* TempHomeView.swift */; };
 		1E4C06C52BB21BBB00C806B9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1E4C06C42BB21BBB00C806B9 /* GoogleService-Info.plist */; };
 		1E6145B62BA419BF00533A0C /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 1E6145B52BA419BF00533A0C /* KeychainSwift */; };
@@ -112,6 +113,7 @@
 		1E3440A42BA9226500F40C1A /* FriendRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRequest.swift; sourceTree = "<group>"; };
 		1E4594CA2BB27F4800E2F687 /* tempSettingsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tempSettingsScreen.swift; sourceTree = "<group>"; };
 		1E4594CE2BB360D200E2F687 /* tempWidgetCustom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tempWidgetCustom.swift; sourceTree = "<group>"; };
+		1E4594D02BB3D12A00E2F687 /* FriendRequestStatusButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRequestStatusButton.swift; sourceTree = "<group>"; };
 		1E4C06C22BB203E600C806B9 /* TempHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempHomeView.swift; sourceTree = "<group>"; };
 		1E4C06C42BB21BBB00C806B9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1E6145B72BA41A0300533A0C /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
@@ -201,6 +203,7 @@
 				1E3440A02BA885A200F40C1A /* AddFriendsView.swift */,
 				1E3440A22BA8E08900F40C1A /* ManageFriendRequestsView.swift */,
 				1E3440A42BA9226500F40C1A /* FriendRequest.swift */,
+				1E4594D02BB3D12A00E2F687 /* FriendRequestStatusButton.swift */,
 			);
 			path = Friends;
 			sourceTree = "<group>";
@@ -496,6 +499,7 @@
 				1E6145BC2BA4305900533A0C /* WidgetCustom.swift in Sources */,
 				1E91DFDA2B55A2F600C72D29 /* HomeView.swift in Sources */,
 				1E2B19012B8D352700D675E4 /* SideMenuViewContents.swift in Sources */,
+				1E4594D12BB3D12A00E2F687 /* FriendRequestStatusButton.swift in Sources */,
 				1EE5A1C42B572D1F00A9171A /* MenuView.swift in Sources */,
 				1E3440A32BA8E08900F40C1A /* ManageFriendRequestsView.swift in Sources */,
 				1E3440A12BA885A200F40C1A /* AddFriendsView.swift in Sources */,

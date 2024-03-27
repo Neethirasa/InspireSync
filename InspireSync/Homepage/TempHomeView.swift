@@ -146,14 +146,14 @@ struct TempHomeView: View {
             Spacer()
 
             Button(action: { settingsView.toggle()}) {
-                Text("         ")
-                /*
+               // Text("         ")
+              
                 Image("profilepic")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 40, height: 40)
                     .foregroundColor(.white)
-                 */
+                 
 
             }
             .fullScreenCover(isPresented: $settingsView, content: {
