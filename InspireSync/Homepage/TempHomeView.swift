@@ -136,7 +136,7 @@ struct TempHomeView: View {
             Spacer()
 
             Text("Welcome \(homeUsername)")
-                .font(.custom("Futura-Medium", size: 25))
+                .font(.custom("Futura-Medium", size: 18))
                 .foregroundColor(.white)
                 .onReceive(timer) { _ in
                     
@@ -160,6 +160,7 @@ struct TempHomeView: View {
                 AddFriendsView()
             })
             .padding()
+            .padding(.horizontal,-5)
  
         }
         .padding(.top,40)
