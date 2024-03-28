@@ -40,15 +40,16 @@ struct TempHomeView: View {
             Color.washedBlack.edgesIgnoringSafeArea(.all)
          
                 VStack {
-                                        
+                    topBar
+                        .padding(.bottom,30)
                     ScrollView{
                         addContent
                         
                         mainContent
                         .background(Color.washedBlack.opacity(0.8))
                     }
-                    .overlay(topBar, alignment: .top)
-                }
+                    //.overlay(topBar, alignment: .top)
+                                    }
                 .fullScreenCover(isPresented: $showingQuote, content: {
                     NavigationStack{
                         sendQuoteView(firstQuote: $firstQuote, secondQuote: $secondQuote)
@@ -83,7 +84,7 @@ struct TempHomeView: View {
                 .padding(.vertical,20)
         }
         .padding(.horizontal,40)
-        .padding(.top, 100)
+        .padding(.top, 20)
 
     }
 

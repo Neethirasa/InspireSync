@@ -18,6 +18,7 @@ struct AddFriendsView: View {
     @State private var alreadyPending = false
     @State private var pendingUserId = "nil"
     
+    
     // Dummy data for contacts, replace with your actual data source
     let contacts = ["Rishi", "Dhanu", "Mom", "Dad"]
     
@@ -72,41 +73,27 @@ struct AddFriendsView: View {
                             .padding(.vertical, 5)
                             .frame(maxWidth: .infinity, alignment: .leading)
 
+                        //AddFriendButton(user: user)
                         
                         if alreadyPending == false {
                             // Make the button a separate view to enhance tapability
                             AddFriendButton(user: user)
+                                
                         }
                         else if alreadyPending == true {
-                            Text("Pending")
-                                .padding(.horizontal, 10)
-                                .background(Color.blue)
-                                .foregroundColor(.white)
-                                .cornerRadius(8)
-                        }
-                        
-                        
-                        /*
-                        Button("Add Friend") {
-                            Task {
-                                guard let currentUserId = Auth.auth().currentUser?.uid else { return }
-                                do {
-                                    try await UserManager.shared.sendFriendRequest(fromUserId: currentUserId, toUserId: user.userId)
-                                    // Handle success (e.g., show a confirmation message)
-                                } catch {
-                                    // Handle failure (e.g., show an error message)
-                                }
+                            Button(action: {
                                 
-                                print(currentUserId)
-                                print(user.userId)
+                            }) {
+                                Text("Pending")
+                                    .padding(.horizontal, 10)
+                                    .background(Color.blue)
+                                    .foregroundColor(.white)
+                                    .cornerRadius(8)
                             }
-                         
+                            .disabled(true)
+                            .buttonStyle(PlainButtonStyle())
                         }
-                        .padding(.horizontal, 10)
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(8)
-                        */
+                         
                     }
                     .listRowBackground(Color.washedBlack)
                 }
@@ -203,25 +190,31 @@ struct AddFriendsView: View {
 
 struct AddFriendButton: View {
     var user: DBUser
+    @State private var pendingText = "Add Friend"
+    @State private var buttonDisable = false
     
     var body: some View {
+        
         Button(action: {
             Task {
                 guard let currentUserId = Auth.auth().currentUser?.uid else { return }
                 do {
                     try await UserManager.shared.sendFriendRequest(fromUserId: currentUserId, toUserId: user.userId, fromUserDisplayName: AuthenticationManager.shared.getDisplayName())
                     print("Friend request sent to \(user.displayName)")
+                    self.pendingText = "Pending"
+                    buttonDisable = true
                 } catch {
                     print("Failed to send friend request: \(error)")
                 }
             }
         }) {
-            Text("Add Friend")
+            Text(pendingText)
                 .padding(.horizontal, 10)
                 .background(Color.blue)
                 .foregroundColor(.white)
                 .cornerRadius(8)
         }
+        .disabled(buttonDisable)
         .buttonStyle(PlainButtonStyle()) // Use PlainButtonStyle to enhance tapability within List
     }
 }

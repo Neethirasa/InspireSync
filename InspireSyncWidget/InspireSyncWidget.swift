@@ -145,10 +145,11 @@ extension View {
         }
     }
 }
-
-#Preview(as: .systemSmall) {
-    InspireSyncWidget()
-} timeline: {
-    SimpleEntry(date: .now, myString: "Hello")
-    SimpleEntry(date: .now, myString: "Hi")
-}
+/*
+ #Preview(as: .systemSmall) {
+ InspireSyncWidget()
+ } timeline: {
+ SimpleEntry(date: .now, myString: "Hello")
+ SimpleEntry(date: .now, myString: "Hi")
+ }
+ */
