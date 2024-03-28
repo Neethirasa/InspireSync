@@ -19,6 +19,9 @@ struct ManageFriendRequestsView: View {
             // Check if friend requests are empty to show a message
             if friendRequests.isEmpty {
                 Text("You have no friend requests.")
+                    .font(.custom(
+                        "Futura-Medium",
+                        fixedSize: 18))
                     .foregroundColor(.gray)
                     .padding()
             } else {
@@ -28,8 +31,9 @@ struct ManageFriendRequestsView: View {
                         ForEach(friendRequests) { request in
                             friendRequestRow(for: request)
                                 .padding(.horizontal)
-                                .padding(.vertical, 5)
+                                .padding(.vertical, 2)
                         }
+                        .padding(.top,10)
                     }
                 }
             }
@@ -52,8 +56,8 @@ struct ManageFriendRequestsView: View {
             }) {
                 HStack {
                     Image(systemName: "chevron.left")
-                    Text("Back")
-                        .font(.custom("Futura-Medium", size: 18))
+                    //Text("Back")
+                       // .font(.custom("Futura-Medium", size: 18))
                 }
             },
             trailing: Button(action: { Task { await refreshFriendRequests() } }) {
@@ -69,43 +73,63 @@ struct ManageFriendRequestsView: View {
     }
 
     private func friendRequestRow(for request: FriendRequest) -> some View {
-        VStack(alignment: .leading) {
-            Text(request.fromUserDisplayName ?? "Unknown User")
-                .foregroundColor(.white) // Adjust text color for visibility
+        
+        VStack(alignment: .leading, spacing: 0){
             
             HStack {
-                Button("Accept") {
-                    Task {
-                        do {
-                            try await UserManager.shared.acceptFriendRequest(fromUserId: request.fromUserId, toUserId: Auth.auth().currentUser?.uid ?? "")
-                            await refreshFriendRequests()
-                        } catch {
-                            print("Error accepting friend request: \(error)")
+                Text(request.fromUserDisplayName ?? "Unknown User")
+                    .font(.custom(
+                        "Futura-Medium",
+                        fixedSize: 16))
+                    .foregroundColor(.white) // Adjust text color for visibility
+                    .padding(.horizontal,5)
+                    .bold()
+                Spacer()
+                HStack {
+                    Button(action: {
+                        Task {
+                            do {
+                                try await UserManager.shared.acceptFriendRequest(fromUserId: request.fromUserId, toUserId: Auth.auth().currentUser?.uid ?? "")
+                                await refreshFriendRequests()
+                            } catch {
+                                print("Error accepting friend request: \(error)")
+                            }
                         }
-                    }
+                    }, label: {
+                        Image(systemName: "checkmark.circle")
+                    })
+                    .foregroundColor(.green)
+                   
                 }
-                .foregroundColor(.green)
+                .padding(.horizontal,10)
                 
-                Button("Decline") {
-                    Task {
-                        do {
-                            try await UserManager.shared.declineFriendRequest(fromUserId: request.fromUserId, toUserId: Auth.auth().currentUser?.uid ?? "")
-                            await refreshFriendRequests()
-                        } catch {
-                            print("Failed to decline friend request: \(error)")
+                HStack {
+                    Button(action: {
+                        Task {
+                            do {
+                                try await UserManager.shared.declineFriendRequest(fromUserId: request.fromUserId, toUserId: Auth.auth().currentUser?.uid ?? "")
+                                await refreshFriendRequests()
+                            } catch {
+                                print("Failed to decline friend request: \(error)")
+                            }
                         }
-                    }
+                    }, label: {
+                        Image(systemName: "xmark.circle")
+                    })
+                    .foregroundColor(.red)
                 }
-                .foregroundColor(.red)
-                
-                Spacer().frame(width: UIScreen.main.bounds.width * 0.5 )
+                .padding(.horizontal,4)
             }
-            
-            
+                
         }
-        .padding()
-        .background(Color("WashedBlack")) // Ensure each row has the correct background
-        .cornerRadius(10)
+        .padding(.vertical,7)
+        .padding(.horizontal,5)
+        .frame(minHeight: 20)
+        .frame(maxWidth: .infinity)
+        .background(Color(hex: "#333333"))
+        .cornerRadius(5)
+        
+        //end of vstack
     }
 
     private func refreshFriendRequests() async {

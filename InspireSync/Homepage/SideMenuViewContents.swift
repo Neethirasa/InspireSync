@@ -63,12 +63,25 @@ struct SideMenuViewContents: View {
                    // .frame(maxWidth: .infinity, alignment: .leading)
                     .background(Color(hex: "#696969"))
 
+                    Button(action: {
+                 
+                    }) {
+                        Text("Friends")
+                            .font(.custom(
+                                "Futura-Medium",
+                                fixedSize: 20))
+                            .padding(.horizontal, 2)
+                            .background(Color.washedBlack)
+                            .foregroundColor(.white)
+                            .cornerRadius(8)
+                    }
+                    .listRowBackground(Color.washedBlack)
                     
                     if getDeviceType() == .iPad {
-                                   Spacer().frame(height: UIScreen.main.bounds.height * 0.65)
+                                   Spacer().frame(height: UIScreen.main.bounds.height * 0.6)
                                        .listRowBackground(Color.washedBlack)
                                } else if getDeviceType() == .iPhone {
-                                   Spacer().frame(height: UIScreen.main.bounds.height * 0.55)
+                                   Spacer().frame(height: UIScreen.main.bounds.height * 0.5)
                                        .listRowBackground(Color.washedBlack)
                                }
                     
@@ -155,7 +168,7 @@ struct SideMenuViewContents: View {
 struct SideMenuViewContents_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            HomeView()
+            TempHomeView()
         }
     }
 }

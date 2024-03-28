@@ -340,7 +340,7 @@ struct tempSettingsScreen: View {
         Button(action: { dismiss() }) {
             HStack {
                 Image(systemName: "chevron.left")
-                Text("Back")
+                //Text("Back")
             }
             .foregroundColor(.white)
         }

@@ -174,7 +174,7 @@ struct TempHomeView: View {
     private func SideMenu() -> some View {
         SideView(isShowing: $presentSideMenu, direction: .leading) {
             SideMenuViewContents(presentSideMenu: $presentSideMenu)
-                .frame(width: 250)
+                .frame(width: 200)
         }
     }
 }

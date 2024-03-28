@@ -302,16 +302,41 @@ final class UserManager{
         return try await getUser(userId: currentUserId)
     }
     
-    // Declines a friend request
+    // Declines a friend request and removes it from both users' collections
     func declineFriendRequest(fromUserId: String, toUserId: String) async throws {
-        let friendRequestRef = Firestore.firestore()
+        // Reference to the receiver's 'receivedFriendRequests' document for this friend request
+        let receiverRequestRef = Firestore.firestore()
             .collection("users")
             .document(toUserId)
             .collection("receivedFriendRequests")
             .document(fromUserId)
         
-        try await friendRequestRef.delete()
+        // Reference to the sender's 'sentFriendRequests' document for this friend request
+        let senderRequestRef = Firestore.firestore()
+            .collection("users")
+            .document(fromUserId)
+            .collection("sentFriendRequests")
+            .document(toUserId)
+        
+        do {
+            // Create a write batch to perform both operations atomically
+            let batch = Firestore.firestore().batch()
+            
+            // Delete the request from the receiver's 'receivedFriendRequests' collection
+            batch.deleteDocument(receiverRequestRef)
+            
+            // Delete the request from the sender's 'sentFriendRequests' collection
+            batch.deleteDocument(senderRequestRef)
+            
+            // Commit the batch
+            try await batch.commit()
+        } catch let error {
+            // Handle any errors that occur during the batch commit
+            print("Error declining friend request: \(error)")
+            throw error
+        }
     }
+
 
 
 }

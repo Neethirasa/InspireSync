@@ -17,6 +17,10 @@ struct AddFriendsView: View {
     @State private var showManageRequests: Bool = false
     @State private var alreadyPending = false
     @State private var pendingUserId = "nil"
+    @State private var hasPendingRequests = false
+    @State private var pendingRequests = 0
+    @State private var isTimerActive = true
+    let timer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
     
     
     // Dummy data for contacts, replace with your actual data source
@@ -37,7 +41,7 @@ struct AddFriendsView: View {
                     .listRowBackground(Color.washedBlack)
                 */
                 
-                TextField("Search by display name", text: $searchQuery, onCommit: {
+                TextField("Search by username", text: $searchQuery, onCommit: {
                     Task {
                         do {
                             // Get the current user's data to exclude from search results
@@ -163,30 +167,62 @@ struct AddFriendsView: View {
                         )
                         .toolbar {
                             ToolbarItem(placement: .topBarTrailing) {
-                                Button(action: { 
+                                Button(action: {
                                     showManageRequests.toggle()
                                 }) {
                                     VStack {
-                                        //Text("Requests")
                                         Image(systemName: "ellipsis.circle")
-                                        
+                                            .overlay {
+                                                if pendingRequests > 0 {
+                                                    ZStack {
+                                                        Circle()
+                                                            .fill(Color.red)
+                                                            .frame(width: 15, height: 15) // Adjust size as needed
+                                                        Text("\(pendingRequests)")
+                                                            .foregroundColor(.white)
+                                                            .font(.system(size: 12)) // Adjust font size as needed
+                                                    }
+                                                    .offset(x: 15, y: -15) // Adjust offset as needed
+                                                }
+                                            }
                                     }
                                 }
                                 .fullScreenCover(isPresented: $showManageRequests, content: {
                                     NavigationStack{
                                         ManageFriendRequestsView()
-                                        
                                     }
                                 })
                             }
                         }
+
             
             
                         .background(Color.washedBlack.edgesIgnoringSafeArea(.all))
                     }
+                .onReceive(timer) { _ in
+                            Task {
+                                    await checkForPendingFriendRequests()
+                                }
+                        }
+                    .onAppear {
+                            Task {
+                                await checkForPendingFriendRequests()
+                                    }
+                            }
                     .navigationViewStyle(StackNavigationViewStyle())
                 }
+    
+    func checkForPendingFriendRequests() async {
+        do {
+            let requests = try await UserManager.shared.fetchIncomingFriendRequests()
+            pendingRequests = requests.count
+            hasPendingRequests = !requests.isEmpty
+        } catch {
+            print("Error checking for friend requests: \(error)")
+        }
+    }
 }
+
 
 struct AddFriendButton: View {
     var user: DBUser
